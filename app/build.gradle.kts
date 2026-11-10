@@ -1,10 +1,26 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
-
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
 }
+
+val localProperties = Properties().apply {
+    val localFile = rootProject.file("local.properties")
+    if (localFile.exists()) {
+        localFile.inputStream().use(::load)
+    }
+}
+
+fun requireLocalProperty(name: String): String =
+    localProperties.getProperty(name)?.takeIf { it.isNotBlank() }
+        ?: error(
+            "Missing `$name` in local.properties. " +
+                "Required for release signing: RELEASE_KEYSTORE, RELEASE_KEYSTORE_PASSWORD, " +
+                "RELEASE_KEY_ALIAS, RELEASE_KEY_PASSWORD.",
+        )
 
 android {
     namespace = "com.aungthiha.topup"
@@ -22,8 +38,23 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            val keystorePath = requireLocalProperty("RELEASE_KEYSTORE")
+            val keystoreFile = rootProject.file(keystorePath)
+            check(keystoreFile.isFile) {
+                "Release keystore not found at: ${keystoreFile.absolutePath}"
+            }
+            storeFile = keystoreFile
+            storePassword = requireLocalProperty("RELEASE_KEYSTORE_PASSWORD")
+            keyAlias = requireLocalProperty("RELEASE_KEY_ALIAS")
+            keyPassword = requireLocalProperty("RELEASE_KEY_PASSWORD")
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             optimization {
                 enable = true
                 packageScope = setOf("androidx.**", "kotlin.**", "kotlinx.**")
