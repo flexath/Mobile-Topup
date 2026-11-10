@@ -31,3 +31,7 @@ include(":app")
 include(":core:common")
 include(":core:designsystem")
 include(":core:datastore")
+
+// Feature Modules
+include(":feature:topup")
+include(":feature:transactionhistory")
