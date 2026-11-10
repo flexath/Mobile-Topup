@@ -1,0 +1,80 @@
+---
+description: Clean Architecture layer rules for native Android (presentation / domain / data) inside feature and shared modules
+alwaysApply: true
+---
+
+# Native Android Clean Architecture
+
+Defines **presentation / domain / data** layering inside `feature/*` and `shared/*`. Module placement: `app` / `feature` / `shared` / `core`.
+
+> Native Android only. Prefer existing project result type, DI (Hilt/Koin), and UI toolkit.
+
+## Dependency direction
+
+```
+app → feature → shared → core
+Presentation → Domain ← Data
+```
+
+| Layer | May depend on | Must not depend on |
+|-------|---------------|--------------------|
+| **Presentation** | Use cases, domain models, UI libs | Data APIs, DAOs, Retrofit/Ktor, `*RepositoryImpl`, `*Service` |
+| **Domain** | Domain models/interfaces, `core` types | Android UI, Retrofit, Room, DTOs, Compose/ViewModels |
+| **Data** | Domain interfaces + models, networking/DB/`core` | Presentation (ViewModels, screens, UiState) |
+
+```
+Screen → ViewModel → *UseCase → *Repository → *RepositoryImpl → *Service / *Api + *Cache
+```
+
+## Module placement
+
+| Module | Owns | Must NOT contain |
+|--------|------|------------------|
+| `:core:*` | DataResult, network/DB primitives, design system, utils | Business rules, ViewModels, screens |
+| `:shared:*` | Reusable domain + data | Compose UI, ViewModels, Activities |
+| `:feature:*` | Presentation + optional feature-local domain/data | Cross-feature logic, deps on other features |
+| `:app` | Application, MainActivity, NavHost, DI root | Feature screens, repository impl details |
+
+- UI → `:feature:*` only
+- Reused by 2+ features → `:shared:*`
+- Single-feature logic may stay inside that feature
+
+## Package layout
+
+### Feature
+
+```
+...feature.<name>/
+  di/
+  domain/   # model, repository (interfaces), usecase
+  data/     # remote, local, mapper, repository impl
+  presentation/  # screens, viewmodels, states, components, navigation
+```
+
+### Shared (no presentation)
+
+```
+...shared.<name>/
+  di/
+  domain/   # model, repository, usecase (+ service/cache if needed)
+  data/     # remote, local, mapper, repository impl
+```
+
+## Layer rules
+
+- Use cases → repository **interfaces** only; `operator fun invoke()` for single-purpose use cases
+- Prefer project result type (`DataResult` / existing wrapper) — do not introduce a second one
+- Use `*Cache` / `*CacheImpl` — not `*LocalDataSource`
+- DTOs, entities, DAOs, service impls stay `internal` in data
+- ViewModels → use cases only; expose `StateFlow` / `UiState`
+- Domain models: pure Kotlin — no `@Entity`, no network DTOs
+
+## Anti-patterns
+
+| ❌ Wrong | ✅ Correct |
+|----------|-----------|
+| ViewModel → Repository / Service / Dao | ViewModel → UseCase |
+| UseCase → Retrofit Api / Room Dao | UseCase → Repository interface |
+| `@Composable` in `:shared:*` | Presentation only in `:feature:*` |
+| feature → feature dependency | Extract to `:shared:*` |
+| Business logic in `:app` | shared or feature module |
