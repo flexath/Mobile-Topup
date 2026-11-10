@@ -6,23 +6,25 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.aungthiha.topup.ui.theme.TopUpTheme
+import com.aungthiha.topup.core.designsystem.theme.AppTheme
+import com.aungthiha.topup.core.designsystem.theme.appTypography
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TopUpTheme {
+            AppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
                         name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
                     )
                 }
             }
@@ -34,14 +36,16 @@ class MainActivity : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
-        modifier = modifier
+        modifier = modifier,
+        style = MaterialTheme.appTypography.bodyLarge,
+        color = MaterialTheme.colorScheme.onBackground,
     )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    TopUpTheme {
+    AppTheme {
         Greeting("Android")
     }
 }

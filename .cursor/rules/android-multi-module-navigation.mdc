@@ -1,0 +1,114 @@
+---
+description: Native Android multi-module Navigation Compose rules (typed routes, feature NavCallbacks, app-owned AppNavGraph)
+alwaysApply: true
+---
+
+# Native Android Multi-Module Navigation
+
+Canonical pattern: `:app` root graph, `feature/*/presentation/navigation/`, `core/common/navigation/AppRoutes.kt`.
+
+> Native Android only. Library: `androidx.navigation:navigation-compose`.
+
+## Ownership
+
+| Layer | Owns navigation |
+|-------|-----------------|
+| `:app` | Single `NavHostController`, root `AppNavGraph`, top-level tabs, deep-link entry |
+| `:feature/*` | Routes, NavCallbacks, nested graph, screen registrations |
+| `:core:common` | `AppRoutes` marker only — no NavHost, no feature imports |
+| `:core:designsystem` | Bottom bar / rail UI — not routing logic |
+| `:shared/*` | **No navigation** — business domain only |
+
+**Golden rule:** Only `:app` creates `NavHostController` and maps callbacks across features.
+
+```
+app → feature → shared → core
+```
+
+- Features **never** depend on other features for navigation
+- Cross-feature targets resolve only in `app/.../AppNavGraph.kt`
+- Do not register `NavHostController` in Hilt/Koin — keep it in composable scope
+
+## Three files per feature graph
+
+```
+feature/<name>/presentation/navigation/
+├── {Feature}Routes.kt       # @Serializable typed destinations
+├── {Feature}NavCallbacks.kt # sealed navigation intents (not serializable)
+└── {Feature}NavGraph.kt     # NavGraphBuilder.{feature}NavGraph()
+```
+
+```kotlin
+fun NavGraphBuilder.homeScreen(
+    modifier: Modifier,
+    onNavRoute: (HomeNavCallbacks) -> Unit,
+) {
+    composable<HomeRoutes.HomeScreen> {
+        // UI emits onNavRoute(...) — never navController.navigate()
+    }
+}
+```
+
+## Typed routes
+
+- All destinations extend `AppRoutes` and use `@Serializable`
+- Register with `composable<Route>()` / `navigation<GraphRoute>()`
+- Read args: `backStackEntry.toRoute<Route>()`
+- Serialization plugin required on modules that define routes
+
+```kotlin
+sealed class HomeRoutes : AppRoutes {
+    @Serializable data object GraphRoute : HomeRoutes()
+    @Serializable data object HomeScreen : HomeRoutes()
+}
+```
+
+## Callback → navigate pattern
+
+Features emit intents; `:app` performs navigation:
+
+```kotlin
+// feature — intent only
+sealed interface HomeNavCallbacks {
+    data object NavigateUp : HomeNavCallbacks
+    sealed interface HomeScreen : HomeNavCallbacks {
+        data object ToShop : HomeScreen
+    }
+}
+
+// app/AppNavGraph.kt — single cross-feature router
+homeNavGraph(onNavRoute = {
+    when (it) {
+        HomeNavCallbacks.NavigateUp -> navController.navigateUp()
+        HomeNavCallbacks.HomeScreen.ToShop ->
+            navController.navigateToTopLevel(TopLevelDestination.Shop)
+    }
+})
+```
+
+## Top-level tabs & flows
+
+- Define `TopLevelDestination` in `:app` referencing feature `GraphRoute` / root screen
+- Hide chrome on non-tab flows via `showsAppNavigation()`
+- Exit multi-step flows with inclusive `popBackStack(route, inclusive = true)`
+- Parse deep links in `MainActivity` / `:app` only — not ViewModels or `:shared/*`
+
+## Anti-patterns
+
+| ❌ Wrong | ✅ Correct |
+|----------|-----------|
+| `NavController` in ViewModel or feature | Callbacks from UI; navigate in `:app` |
+| String-based routes | `@Serializable` typed routes |
+| Feature → feature Gradle dep for nav | Route types imported by `:app` only |
+| NavHost / AppNavGraph in `:shared/*` | Routing only in `:app` |
+| Second NavHost outside app shell | One NavHost in `:app` |
+| Auto-navigate on foreground push | Update UI in place; tap → deep link |
+
+## Adding navigation checklist
+
+1. Add `@Serializable` route(s) in `{Feature}Routes.kt`
+2. Add intent(s) in `{Feature}NavCallbacks.kt`
+3. Register screen in `NavGraphBuilder.{name}Screen()` extension
+4. Wire graph in `{Feature}NavGraph.kt`
+5. Register graph + `when` handler in `app/.../AppNavGraph.kt`
+6. Cross-feature? Callback in source; target route in target feature — no feature-to-feature import

@@ -22,5 +22,12 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "TopUp"
 include(":app")
+
+// Core Modules
+include(":core:common")
+include(":core:designsystem")
+include(":core:datastore")

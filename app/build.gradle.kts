@@ -1,7 +1,26 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
 }
+
+val localProperties = Properties().apply {
+    val localFile = rootProject.file("local.properties")
+    if (localFile.exists()) {
+        localFile.inputStream().use(::load)
+    }
+}
+
+fun requireLocalProperty(name: String): String =
+    localProperties.getProperty(name)?.takeIf { it.isNotBlank() }
+        ?: error(
+            "Missing `$name` in local.properties. " +
+                "Required for release signing: RELEASE_KEYSTORE, RELEASE_KEYSTORE_PASSWORD, " +
+                "RELEASE_KEY_ALIAS, RELEASE_KEY_PASSWORD.",
+        )
 
 android {
     namespace = "com.aungthiha.topup"
@@ -19,8 +38,23 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            val keystorePath = requireLocalProperty("RELEASE_KEYSTORE")
+            val keystoreFile = rootProject.file(keystorePath)
+            check(keystoreFile.isFile) {
+                "Release keystore not found at: ${keystoreFile.absolutePath}"
+            }
+            storeFile = keystoreFile
+            storePassword = requireLocalProperty("RELEASE_KEYSTORE_PASSWORD")
+            keyAlias = requireLocalProperty("RELEASE_KEY_ALIAS")
+            keyPassword = requireLocalProperty("RELEASE_KEY_PASSWORD")
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             optimization {
                 enable = true
                 packageScope = setOf("androidx.**", "kotlin.**", "kotlinx.**")
@@ -28,8 +62,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_18
+        targetCompatibility = JavaVersion.VERSION_18
     }
     buildFeatures {
         compose = true
@@ -37,6 +71,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.designsystem)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
@@ -52,4 +88,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 }
