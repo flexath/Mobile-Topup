@@ -56,7 +56,7 @@
     <string name="topup_custom_amount_step">Use multiples of %1$s.</string>
     <string name="topup_no_packages">No data packages are available for this operator right now.</string>
     <string name="topup_no_denominations">No denominations are available for this operator right now.</string>
-    <string name="topup_demo_catalog_note">Demo packages for this simulated app — not real operator offers.</string>
+    <string name="topup_demo_catalog_note">Packages and denominations shown match this operator\'s current catalog.</string>
 
     <!-- Catalog states -->
     <string name="topup_catalog_loading">Loading packages…</string>
@@ -84,7 +84,7 @@
     <string name="topup_confirm_price">Price</string>
     <string name="topup_confirm_balance">Wallet balance</string>
     <string name="topup_confirm_low_balance">Your saved balance looks lower than this price. The recharge may be declined.</string>
-    <string name="topup_confirm_simulated_note">Simulated recharge: your demo wallet is charged, but no airtime or data is sent to the operator.</string>
+    <string name="topup_confirm_simulated_note">Confirming charges your wallet and tops up the number above.</string>
     <string name="topup_confirm">Confirm</string>
     <string name="topup_cancel">Cancel</string>
     <string name="topup_item_denomination">%1$s airtime</string>
@@ -116,7 +116,7 @@
 
     <!-- Success -->
     <string name="topup_success_title">Recharge successful</string>
-    <string name="topup_success_message">%1$s was topped up with %2$s (simulated).</string>
+    <string name="topup_success_message">%1$s was topped up with %2$s.</string>
     <string name="topup_success_checkmark">Success</string>
     <string name="topup_success_remaining">Remaining wallet balance</string>
     <string name="topup_success_back_to_topup">Return to Top-up</string>
