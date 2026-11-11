@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -75,7 +76,9 @@ fun AppOperatorLogo(
                 contentScale = ContentScale.Fit,
                 onSuccess = { showFallback = false },
                 onError = { showFallback = true },
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(MaterialTheme.appSpacing.extraSmall),
             )
         }
     }
