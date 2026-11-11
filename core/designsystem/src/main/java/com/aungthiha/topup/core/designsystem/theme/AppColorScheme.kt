@@ -118,21 +118,21 @@ data class AppColorScheme(
     val onInfoContainer: Color,
 )
 
-/** Light palette — Aura Blue / Purple / Gold. */
+/** Light palette — Topup Blue / Purple / Gold. */
 val AppLightColorScheme = AppColorScheme(
-    // Primary - Aura Blue
+    // Primary - Topup Blue
     primary = Color(0xFF2970FF),
     onPrimary = Color(0xFFFFFFFF),
     primaryContainer = Color(0xFFECEFF4),
     onPrimaryContainer = Color(0xFF2970FF),
 
-    // Secondary - Aura Purple
+    // Secondary - Topup Purple
     secondary = Color(0xFF9C6BFF),
     onSecondary = Color(0xFFFFFFFF),
     secondaryContainer = Color(0xFFF2F2F7),
     onSecondaryContainer = Color(0xFF9C6BFF),
 
-    // Complementary - Aura Rating Gold
+    // Complementary - Topup Rating Gold
     complementary = Color(0xFFFFD600),
     onComplementary = Color(0xFF0A0A0A),
     complementaryContainer = Color(0xFFF0F2F8),
@@ -164,7 +164,7 @@ val AppLightColorScheme = AppColorScheme(
     successContainer = Color(0xFFECEFF4),
     onSuccessContainer = Color(0xFF2ECC71),
 
-    // Warning - Aura Growth Indicator
+    // Warning - Topup Growth Indicator
     warning = Color(0xFFFF9800),
     onWarning = Color(0xFFFFFFFF),
     warningContainer = Color(0xFFF0F2F8),
@@ -176,28 +176,28 @@ val AppLightColorScheme = AppColorScheme(
     errorContainer = Color(0xFFF2F2F7),
     onErrorContainer = Color(0xFFE74C3C),
 
-    // Info - Aura Blue
+    // Info - Topup Blue
     info = Color(0xFF2970FF),
     onInfo = Color(0xFFFFFFFF),
     infoContainer = Color(0xFFECEFF4),
     onInfoContainer = Color(0xFF2970FF),
 )
 
-/** Dark palette — Aura Blue / Purple / Gold. */
+/** Dark palette — Topup Blue / Purple / Gold. */
 val AppDarkColorScheme = AppColorScheme(
-    // Primary - Aura Blue
+    // Primary - Topup Blue
     primary = Color(0xFF2970FF),
     onPrimary = Color(0xFFFFFFFF),
     primaryContainer = Color(0xFF1A1F29),
     onPrimaryContainer = Color(0xFF2970FF),
 
-    // Secondary - Aura Purple
+    // Secondary - Topup Purple
     secondary = Color(0xFFB68CFF),
     onSecondary = Color(0xFFFFFFFF),
     secondaryContainer = Color(0xFF2C2C2E),
     onSecondaryContainer = Color(0xFFB68CFF),
 
-    // Complementary - Aura Rating Gold
+    // Complementary - Topup Rating Gold
     complementary = Color(0xFFFFD600),
     onComplementary = Color(0xFF0E1117),
     complementaryContainer = Color(0xFF1F2633),
@@ -229,7 +229,7 @@ val AppDarkColorScheme = AppColorScheme(
     successContainer = Color(0xFF1A1F29),
     onSuccessContainer = Color(0xFF27AE60),
 
-    // Warning - Aura Growth Indicator
+    // Warning - Topup Growth Indicator
     warning = Color(0xFFFF9800),
     onWarning = Color(0xFFFFFFFF),
     warningContainer = Color(0xFF1F2633),
@@ -241,7 +241,7 @@ val AppDarkColorScheme = AppColorScheme(
     errorContainer = Color(0xFF2C2C2E),
     onErrorContainer = Color(0xFFC0392B),
 
-    // Info - Aura Blue
+    // Info - Topup Blue
     info = Color(0xFF2970FF),
     onInfo = Color(0xFFFFFFFF),
     infoContainer = Color(0xFF1A1F29),
