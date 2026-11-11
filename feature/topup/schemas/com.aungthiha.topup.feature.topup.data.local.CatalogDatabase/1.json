@@ -1,0 +1,188 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "91857d5e5bcae07b8a3d64cac3220215",
+    "entities": [
+      {
+        "tableName": "operators",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`code` TEXT NOT NULL, `display_name` TEXT NOT NULL, `full_name` TEXT NOT NULL, `logo_url` TEXT, `custom_amount_min_mmk` INTEGER NOT NULL, `custom_amount_max_mmk` INTEGER NOT NULL, `custom_amount_step_mmk` INTEGER NOT NULL, `sort_order` INTEGER NOT NULL, PRIMARY KEY(`code`))",
+        "fields": [
+          {
+            "fieldPath": "code",
+            "columnName": "code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "displayName",
+            "columnName": "display_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fullName",
+            "columnName": "full_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "logoUrl",
+            "columnName": "logo_url",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "customAmountMinMmk",
+            "columnName": "custom_amount_min_mmk",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "customAmountMaxMmk",
+            "columnName": "custom_amount_max_mmk",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "customAmountStepMmk",
+            "columnName": "custom_amount_step_mmk",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sortOrder",
+            "columnName": "sort_order",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "code"
+          ]
+        }
+      },
+      {
+        "tableName": "catalog_products",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `sku` TEXT NOT NULL, `operator_code` TEXT NOT NULL, `product_type` TEXT NOT NULL, `name` TEXT NOT NULL, `price_mmk` INTEGER NOT NULL, `data_allowance_mb` INTEGER, `call_minutes` INTEGER, `services` TEXT NOT NULL, `validity_days` INTEGER, `is_demo` INTEGER NOT NULL, `sort_order` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`operator_code`) REFERENCES `operators`(`code`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sku",
+            "columnName": "sku",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "operatorCode",
+            "columnName": "operator_code",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "productType",
+            "columnName": "product_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "priceMmk",
+            "columnName": "price_mmk",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataAllowanceMb",
+            "columnName": "data_allowance_mb",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "callMinutes",
+            "columnName": "call_minutes",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "services",
+            "columnName": "services",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "validityDays",
+            "columnName": "validity_days",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isDemo",
+            "columnName": "is_demo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sortOrder",
+            "columnName": "sort_order",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_catalog_products_operator_code_product_type_sort_order",
+            "unique": false,
+            "columnNames": [
+              "operator_code",
+              "product_type",
+              "sort_order"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_catalog_products_operator_code_product_type_sort_order` ON `${TABLE_NAME}` (`operator_code`, `product_type`, `sort_order`)"
+          },
+          {
+            "name": "index_catalog_products_sku",
+            "unique": true,
+            "columnNames": [
+              "sku"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_catalog_products_sku` ON `${TABLE_NAME}` (`sku`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "operators",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "operator_code"
+            ],
+            "referencedColumns": [
+              "code"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '91857d5e5bcae07b8a3d64cac3220215')"
+    ]
+  }
+}

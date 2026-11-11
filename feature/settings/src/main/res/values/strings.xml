@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Settings</string>
+    <string name="settings_back">Back</string>
+
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_appearance_system">System default</string>
+    <string name="settings_appearance_system_description">Follow the device theme</string>
+    <string name="settings_appearance_light">Light</string>
+    <string name="settings_appearance_dark">Dark</string>
+
+    <string name="settings_account">Account</string>
+    <string name="settings_signed_in_as">Signed in as</string>
+    <string name="settings_email_unknown">Unknown email</string>
+    <string name="settings_logout">Log out</string>
+    <string name="settings_logout_confirm_title">Log out?</string>
+    <string name="settings_logout_confirm_message">Your wallet balance and history saved on this device will be cleared. You can sign in again anytime.</string>
+    <string name="settings_logout_confirm">Log out</string>
+    <string name="settings_logout_cancel">Cancel</string>
+
+    <string name="settings_about">App information</string>
+    <string name="settings_app_name">TopUp</string>
+    <string name="settings_version">Version %1$s</string>
+</resources>

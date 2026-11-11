@@ -9,4 +9,7 @@ sealed class TransactionHistoryRoutes : AppRoutes {
 
     @Serializable
     data object TransactionHistoryScreen : TransactionHistoryRoutes()
+
+    @Serializable
+    data class TransactionDetailScreen(val transactionId: String) : TransactionHistoryRoutes()
 }

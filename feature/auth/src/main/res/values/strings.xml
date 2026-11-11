@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="auth_brand_name">TopUp</string>
+    <string name="auth_login_title">Welcome back</string>
+    <string name="auth_login_subtitle">Sign in to top up mobile numbers from your wallet.</string>
+    <string name="auth_register_title">Create your account</string>
+    <string name="auth_register_subtitle">Register with your email to get a demo wallet.</string>
+
+    <string name="auth_email_label">Email</string>
+    <string name="auth_email_placeholder">you@example.com</string>
+    <string name="auth_password_label">Password</string>
+    <string name="auth_confirm_password_label">Confirm password</string>
+    <string name="auth_show_password">Show password</string>
+    <string name="auth_hide_password">Hide password</string>
+
+    <string name="auth_sign_in">Sign in</string>
+    <string name="auth_create_account">Create account</string>
+    <string name="auth_no_account">Don\'t have an account?</string>
+    <string name="auth_register_link">Register</string>
+    <string name="auth_have_account">Already have an account?</string>
+    <string name="auth_sign_in_link">Sign in</string>
+    <string name="auth_back">Back</string>
+
+    <string name="auth_error_email_empty">Enter your email address.</string>
+    <string name="auth_error_email_invalid">Enter a valid email address.</string>
+    <string name="auth_error_password_empty">Enter your password.</string>
+    <string name="auth_error_password_short">Use at least %1$d characters.</string>
+    <string name="auth_error_confirm_empty">Re-enter your password.</string>
+    <string name="auth_error_confirm_mismatch">Passwords do not match.</string>
+
+    <string name="auth_error_invalid_credentials">Incorrect email or password.</string>
+    <string name="auth_error_email_not_confirmed">Confirm your email address from the link we sent, then sign in.</string>
+    <string name="auth_error_email_registered">An account with this email already exists. Sign in instead.</string>
+    <string name="auth_error_weak_password">Choose a stronger password.</string>
+    <string name="auth_error_invalid_email">This email address can\'t be used.</string>
+    <string name="auth_error_signup_disabled">New registrations are currently disabled.</string>
+    <string name="auth_error_rate_limited">Too many attempts. Please wait a moment and try again.</string>
+    <string name="auth_error_no_connection">You\'re offline. Check your connection and try again.</string>
+    <string name="auth_error_unknown">Something went wrong. Please try again.</string>
+
+    <string name="auth_confirmation_title">Check your inbox</string>
+    <string name="auth_confirmation_message">We sent a confirmation link to %1$s. Open it, then sign in with your new account.</string>
+    <string name="auth_go_to_sign_in">Go to sign in</string>
+</resources>

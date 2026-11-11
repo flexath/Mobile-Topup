@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="history_title">History</string>
+    <string name="history_back">Back</string>
+    <string name="history_search_label">Search</string>
+    <string name="history_search_placeholder">Phone number or transaction ID</string>
+    <string name="history_clear_search">Clear search</string>
+    <string name="history_filter_date">Date</string>
+    <string name="history_filter_date_range">%1$s – %2$s</string>
+    <string name="history_sort_newest">Newest first</string>
+    <string name="history_sort_oldest">Oldest first</string>
+    <string name="history_clear_filters">Clear filters</string>
+    <string name="history_date_picker_title">Select date range</string>
+    <string name="history_date_picker_apply">Apply</string>
+    <string name="history_date_picker_cancel">Cancel</string>
+    <string name="history_date_picker_clear">Clear</string>
+
+    <string name="history_syncing">Syncing history…</string>
+    <string name="history_offline">You\'re offline. Showing saved transactions.</string>
+    <string name="history_sync_failed">Couldn\'t sync history. Showing saved transactions.</string>
+    <string name="history_load_more">Load more</string>
+
+    <string name="history_empty_title">No transactions yet</string>
+    <string name="history_empty_message">Successful top-ups will appear here.</string>
+    <string name="history_empty_action">Make a top-up</string>
+    <string name="history_no_results_title">No matching transactions</string>
+    <string name="history_no_results_message">Try a different phone number, transaction ID, date range or operator.</string>
+
+    <string name="history_status_success">Success</string>
+    <string name="history_item_denomination">%1$s airtime</string>
+    <string name="history_item_custom">Custom amount</string>
+
+    <string name="history_detail_title">Transaction details</string>
+    <string name="history_detail_share">Share receipt</string>
+    <string name="history_detail_balance_after">Wallet balance after transaction</string>
+    <string name="history_detail_not_found_title">Transaction not found</string>
+    <string name="history_detail_not_found_message">This transaction isn\'t available on this device.</string>
+    <string name="history_share_chooser">Share receipt</string>
+</resources>

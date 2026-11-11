@@ -4,4 +4,6 @@ plugins {
 
 dependencies {
     implementation(libs.androidx.compose.material3.adaptive)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.ktor3)
 }

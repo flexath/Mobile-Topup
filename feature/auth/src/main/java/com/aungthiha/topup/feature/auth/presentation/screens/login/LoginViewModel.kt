@@ -1,0 +1,78 @@
+package com.aungthiha.topup.feature.auth.presentation.screens.login
+
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.aungthiha.topup.core.common.result.DataResult
+import com.aungthiha.topup.shared.auth.domain.model.AuthError
+import com.aungthiha.topup.shared.auth.domain.model.CredentialsValidator
+import com.aungthiha.topup.shared.auth.domain.model.EmailValidation
+import com.aungthiha.topup.shared.auth.domain.model.PasswordValidation
+import com.aungthiha.topup.shared.auth.domain.usecase.SignInUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+
+data class LoginUiState(
+    val email: String = "",
+    val password: String = "",
+    val isPasswordVisible: Boolean = false,
+    val showValidation: Boolean = false,
+    val isSubmitting: Boolean = false,
+    val error: AuthError? = null,
+) {
+    val emailValidation: EmailValidation get() = CredentialsValidator.validateEmail(email)
+    val passwordValidation: PasswordValidation
+        get() = if (password.isEmpty()) PasswordValidation.EMPTY else PasswordValidation.VALID
+}
+
+/**
+ * On success nothing is emitted: the session change moves the app to the authenticated shell.
+ * The password is kept in memory only (never in [SavedStateHandle]).
+ */
+class LoginViewModel(
+    private val savedStateHandle: SavedStateHandle,
+    private val signIn: SignInUseCase,
+) : ViewModel() {
+
+    private val _uiState = MutableStateFlow(LoginUiState(email = savedStateHandle[KEY_EMAIL] ?: ""))
+    val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
+
+    fun onEmailChange(value: String) {
+        savedStateHandle[KEY_EMAIL] = value
+        _uiState.update { it.copy(email = value, error = null) }
+    }
+
+    fun onPasswordChange(value: String) {
+        _uiState.update { it.copy(password = value, error = null) }
+    }
+
+    fun onTogglePasswordVisibility() {
+        _uiState.update { it.copy(isPasswordVisible = !it.isPasswordVisible) }
+    }
+
+    fun onSubmit() {
+        val state = _uiState.value
+        if (state.isSubmitting) return
+        if (state.emailValidation != EmailValidation.VALID || state.passwordValidation != PasswordValidation.VALID) {
+            _uiState.update { it.copy(showValidation = true) }
+            return
+        }
+        _uiState.update { it.copy(isSubmitting = true, showValidation = true, error = null) }
+        viewModelScope.launch {
+            val result = signIn(state.email, state.password)
+            _uiState.update {
+                it.copy(
+                    isSubmitting = false,
+                    error = (result as? DataResult.Error)?.error,
+                )
+            }
+        }
+    }
+
+    private companion object {
+        const val KEY_EMAIL = "login_email"
+    }
+}

@@ -27,12 +27,33 @@ app → feature → shared → core
 ## Entry chain
 
 ```
-MainActivity
-  → AppTheme
-  → TopUpAppShell          // rememberNavController()
-  → AppNavGraph            // only cross-feature router
+MainActivity               // system splash held until session + theme are known
+  → AppTheme(darkTheme from Settings)
+  → TopUpAppShell(authState)
+      → Unauthenticated → AppNavGraph(start = AuthRoutes.GraphRoute)   // no chrome
+      → Authenticated   → AppNavGraph(start = TopupRoutes.GraphRoute)  // tabs + chrome
   → feature *NavGraph()
 ```
+
+The shell crossfades between one navigation state per session (`signed-out` or the user id).
+Signing in or out swaps the whole graph, so authenticated destinations are unreachable without a
+session and a new account never inherits the previous account's back stack. Features never
+navigate on sign-in/sign-out; they only change the session.
+
+### Graphs registered in `AppNavGraph`
+
+| Graph | Destinations | Chrome |
+|-------|--------------|--------|
+| `AuthRoutes` | Login, Register | Hidden |
+| `TopupRoutes` | TopupScreen (tab root), RechargeProcessing(args), RechargeSuccess(transactionId) | Root only |
+| `TransactionHistoryRoutes` | TransactionHistoryScreen (tab root), TransactionDetailScreen(transactionId) | Root only |
+| `SettingsRoutes` | SettingsScreen (opened from the Top-up app bar, not a tab) | Hidden |
+
+Recharge flow: `ToProcessing(route)` pushes processing; `ToSuccess` replaces it
+(`popUpTo<RechargeProcessing> { inclusive = true }`); `BackToTopup` pops to `TopupScreen`;
+`SuccessScreen.ToHistory` pops the finished flow first, then switches tabs so the Top-up tab
+restores to its root. Leaving the processing screen clears its ViewModel, which cancels the
+in-flight request (best effort — the backend idempotency key makes retries safe).
 
 | File | Role |
 |------|------|
@@ -154,7 +175,7 @@ Modules that define routes or `NavGraphBuilder` extensions need:
 - `androidx.navigation:navigation-compose`
 - Kotlin Serialization plugin + `kotlinx-serialization-json`
 
-`:app` depends on every feature whose graph it composes. Features depend on `:core:common` and `:core:designsystem` — never on each other.
+`:app` depends on every feature whose graph it composes. Features depend on `:core:*` and `:shared:*` modules — never on each other.
 
 ---
 

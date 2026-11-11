@@ -32,7 +32,14 @@ include(":app")
 include(":core:common")
 include(":core:designsystem")
 include(":core:datastore")
+include(":core:network")
+
+// Shared Modules
+include(":shared:auth")
+include(":shared:transaction")
 
 // Feature Modules
+include(":feature:auth")
 include(":feature:topup")
 include(":feature:transactionhistory")
+include(":feature:settings")
