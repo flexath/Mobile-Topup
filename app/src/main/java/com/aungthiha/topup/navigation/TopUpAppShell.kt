@@ -1,4 +1,4 @@
-package com.aungthiha.topup
+package com.aungthiha.topup.navigation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
@@ -32,11 +32,6 @@ import com.aungthiha.topup.core.designsystem.theme.deviceType
 import com.aungthiha.topup.core.designsystem.utils.DeviceWidthClass
 import com.aungthiha.topup.feature.auth.presentation.navigation.AuthRoutes
 import com.aungthiha.topup.feature.topup.presentation.navigation.TopupRoutes
-import com.aungthiha.topup.navigation.AppNavGraph
-import com.aungthiha.topup.navigation.TopLevelDestination
-import com.aungthiha.topup.navigation.navigateToTopLevel
-import com.aungthiha.topup.navigation.showsAppNavigation
-import com.aungthiha.topup.navigation.toTopLevelDestination
 import com.aungthiha.topup.feature.settings.domain.model.AuthState
 
 private const val SIGNED_OUT_KEY = "signed-out"

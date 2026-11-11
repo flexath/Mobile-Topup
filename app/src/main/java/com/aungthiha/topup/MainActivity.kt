@@ -13,6 +13,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.aungthiha.topup.core.datastore.model.AppearanceMode
 import com.aungthiha.topup.core.designsystem.theme.AppTheme
+import com.aungthiha.topup.navigation.TopUpAppShell
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
