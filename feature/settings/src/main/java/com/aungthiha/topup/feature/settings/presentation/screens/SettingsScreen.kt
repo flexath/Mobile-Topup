@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraphBuilder
@@ -158,29 +159,37 @@ fun SettingsScreen(
                 )
             }
 
-            SettingsSection(title = R.string.settings_about) {
-                Text(
-                    text = stringResource(R.string.settings_app_name),
-                    style = MaterialTheme.appTypography.titleMedium,
-                    color = MaterialTheme.appColorScheme.contentPrimary,
-                )
-                Text(
-                    text = stringResource(R.string.settings_version, appVersion),
-                    style = MaterialTheme.appTypography.bodyMedium,
-                    color = MaterialTheme.appColorScheme.contentSecondary,
-                )
-            }
+            Text(
+                text = stringResource(R.string.settings_version, appVersion),
+                style = MaterialTheme.appTypography.bodyMedium,
+                color = MaterialTheme.appColorScheme.contentSecondary,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(),
+            )
         }
     }
 
     if (state.isLogoutConfirmationVisible) {
         AlertDialog(
             onDismissRequest = onDismissLogout,
-            title = { Text(stringResource(R.string.settings_logout_confirm_title), style = MaterialTheme.appTypography.titleLarge) },
-            text = { Text(stringResource(R.string.settings_logout_confirm_message), style = MaterialTheme.appTypography.bodyMedium) },
+            title = {
+                Text(
+                    stringResource(R.string.settings_logout_confirm_title),
+                    style = MaterialTheme.appTypography.titleLarge
+                )
+            },
+            text = {
+                Text(
+                    stringResource(R.string.settings_logout_confirm_message),
+                    style = MaterialTheme.appTypography.bodyMedium
+                )
+            },
             confirmButton = {
                 TextButton(onClick = onConfirmLogout) {
-                    Text(stringResource(R.string.settings_logout_confirm), color = MaterialTheme.appColorScheme.error)
+                    Text(
+                        stringResource(R.string.settings_logout_confirm),
+                        color = MaterialTheme.appColorScheme.error
+                    )
                 }
             },
             dismissButton = {
@@ -223,14 +232,17 @@ private fun AppearanceOption(
         RadioButton(
             selected = selected,
             onClick = null,
-            colors = RadioButtonDefaults.colors(selectedColor = colors.primary, unselectedColor = colors.outline),
+            colors = RadioButtonDefaults.colors(
+                selectedColor = colors.primary,
+                unselectedColor = colors.outline
+            ),
         )
-        Column(modifier = Modifier.padding(start = MaterialTheme.appSpacing.medium)) {
-            Text(text = stringResource(label), style = MaterialTheme.appTypography.bodyLarge, color = colors.contentPrimary)
-            description?.let {
-                Text(text = stringResource(it), style = MaterialTheme.appTypography.bodySmall, color = colors.contentSecondary)
-            }
-        }
+        Text(
+            text = stringResource(label),
+            style = MaterialTheme.appTypography.bodyLarge,
+            color = colors.contentPrimary,
+            modifier = Modifier.padding(start = MaterialTheme.appSpacing.medium)
+        )
     }
 }
 
