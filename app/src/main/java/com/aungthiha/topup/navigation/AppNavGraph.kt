@@ -1,17 +1,8 @@
 package com.aungthiha.topup.navigation
 
-import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.EnterTransition
-import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.aungthiha.topup.BuildConfig
@@ -29,9 +20,6 @@ import com.aungthiha.topup.feature.transactionhistory.presentation.navigation.Tr
 import com.aungthiha.topup.feature.transactionhistory.presentation.navigation.TransactionHistoryRoutes
 import com.aungthiha.topup.feature.transactionhistory.presentation.navigation.transactionHistoryNavGraph
 
-private const val TRANSITION_MILLIS = 260
-private const val SLIDE_FRACTION = 8
-
 /** The only cross-feature router: features emit callbacks, this maps them to navigation. */
 @Composable
 fun AppNavGraph(
@@ -44,10 +32,10 @@ fun AppNavGraph(
         modifier = modifier,
         navController = navController,
         startDestination = startDestination,
-        enterTransition = { if (isTabSwitch()) fadeIn(tween(TRANSITION_MILLIS)) else pushEnter() },
-        exitTransition = { fadeOut(tween(TRANSITION_MILLIS)) },
-        popEnterTransition = { fadeIn(tween(TRANSITION_MILLIS)) },
-        popExitTransition = { if (isTabSwitch()) fadeOut(tween(TRANSITION_MILLIS)) else popExit() },
+        enterTransition = { appEnterTransition() },
+        exitTransition = { appExitTransition() },
+        popEnterTransition = { appPopEnterTransition() },
+        popExitTransition = { appPopExitTransition() },
     ) {
         authNavGraph(
             modifier = Modifier.fillMaxSize(),
@@ -127,16 +115,3 @@ fun AppNavGraph(
         )
     }
 }
-
-private fun AnimatedContentTransitionScope<NavBackStackEntry>.isTabSwitch(): Boolean {
-    val from = initialState.destination.toTopLevelDestination()
-    val to = targetState.destination.toTopLevelDestination()
-    return from != null && to != null && from != to &&
-        initialState.destination.showsAppNavigation() && targetState.destination.showsAppNavigation()
-}
-
-private fun pushEnter(): EnterTransition =
-    fadeIn(tween(TRANSITION_MILLIS)) + slideInHorizontally(tween(TRANSITION_MILLIS)) { it / SLIDE_FRACTION }
-
-private fun popExit(): ExitTransition =
-    fadeOut(tween(TRANSITION_MILLIS)) + slideOutHorizontally(tween(TRANSITION_MILLIS)) { it / SLIDE_FRACTION }
