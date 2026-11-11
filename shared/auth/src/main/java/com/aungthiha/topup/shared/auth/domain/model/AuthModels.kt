@@ -16,13 +16,6 @@ sealed interface AuthState {
     data object Unauthenticated : AuthState
 }
 
-sealed interface SignUpResult {
-    data object SignedIn : SignUpResult
-
-    /** The project requires email confirmation before the first sign-in. */
-    data class ConfirmationRequired(val email: String) : SignUpResult
-}
-
 enum class AuthError : DataError {
     INVALID_CREDENTIALS,
     EMAIL_NOT_CONFIRMED,

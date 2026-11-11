@@ -9,7 +9,6 @@ import com.aungthiha.topup.shared.auth.domain.model.CredentialsValidator
 import com.aungthiha.topup.shared.auth.domain.model.EmailValidation
 import com.aungthiha.topup.shared.auth.domain.model.PasswordConfirmationValidation
 import com.aungthiha.topup.shared.auth.domain.model.PasswordValidation
-import com.aungthiha.topup.shared.auth.domain.model.SignUpResult
 import com.aungthiha.topup.shared.auth.domain.usecase.SignUpUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,8 +24,6 @@ data class RegisterUiState(
     val showValidation: Boolean = false,
     val isSubmitting: Boolean = false,
     val error: AuthError? = null,
-    /** Set when Supabase requires email confirmation before the first sign-in. */
-    val confirmationSentTo: String? = null,
 ) {
     val emailValidation: EmailValidation get() = CredentialsValidator.validateEmail(email)
     val passwordValidation: PasswordValidation get() = CredentialsValidator.validatePassword(password)
@@ -38,16 +35,17 @@ data class RegisterUiState(
             confirmationValidation == PasswordConfirmationValidation.VALID
 }
 
+/**
+ * On success nothing is emitted: the session change moves the app to the authenticated shell.
+ * The password is kept in memory only (never in [SavedStateHandle]).
+ */
 class RegisterViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val signUp: SignUpUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(
-        RegisterUiState(
-            email = savedStateHandle[KEY_EMAIL] ?: "",
-            confirmationSentTo = savedStateHandle[KEY_CONFIRMATION_EMAIL],
-        ),
+        RegisterUiState(email = savedStateHandle[KEY_EMAIL] ?: ""),
     )
     val uiState: StateFlow<RegisterUiState> = _uiState.asStateFlow()
 
@@ -77,22 +75,17 @@ class RegisterViewModel(
         }
         _uiState.update { it.copy(isSubmitting = true, showValidation = true, error = null) }
         viewModelScope.launch {
-            when (val result = signUp(state.email, state.password)) {
-                is DataResult.Success -> {
-                    val confirmation = (result.data as? SignUpResult.ConfirmationRequired)?.email
-                    savedStateHandle[KEY_CONFIRMATION_EMAIL] = confirmation
-                    _uiState.update {
-                        it.copy(isSubmitting = false, confirmationSentTo = confirmation, password = "", confirmPassword = "")
-                    }
-                }
-                is DataResult.Error -> _uiState.update { it.copy(isSubmitting = false, error = result.error) }
-                else -> _uiState.update { it.copy(isSubmitting = false) }
+            val result = signUp(state.email, state.password)
+            _uiState.update {
+                it.copy(
+                    isSubmitting = false,
+                    error = (result as? DataResult.Error)?.error,
+                )
             }
         }
     }
 
     private companion object {
         const val KEY_EMAIL = "register_email"
-        const val KEY_CONFIRMATION_EMAIL = "register_confirmation_email"
     }
 }

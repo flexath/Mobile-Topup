@@ -77,30 +77,6 @@ private fun AuthBrandHeader(@StringRes title: Int, @StringRes subtitle: Int) {
     val colors = MaterialTheme.appColorScheme
     val spacing = MaterialTheme.appSpacing
     Column(verticalArrangement = Arrangement.spacedBy(spacing.small)) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(spacing.medium),
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(spacing.button)
-                    .clip(MaterialTheme.appShapes.large)
-                    .background(colors.primary),
-                contentAlignment = Alignment.Center,
-            ) {
-                Icon(
-                    painter = painterResource(AppIcons.Topup),
-                    contentDescription = null,
-                    tint = colors.onPrimary,
-                    modifier = Modifier.size(spacing.hero),
-                )
-            }
-            Text(
-                text = stringResource(R.string.auth_brand_name),
-                style = MaterialTheme.appTypography.titleLarge,
-                color = colors.contentPrimary,
-            )
-        }
         Text(
             text = stringResource(title),
             style = MaterialTheme.appTypography.headlineSmall,

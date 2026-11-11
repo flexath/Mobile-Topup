@@ -3,7 +3,7 @@
 #
 # Required environment:
 #   SUPABASE_URL, SUPABASE_ANON_KEY          project URL + client (anon / publishable) key
-#   E2E_EMAIL_A, E2E_EMAIL_B, E2E_PASSWORD   two confirmed test users that start at 500,000 MMK
+#   E2E_EMAIL_A, E2E_EMAIL_B, E2E_PASSWORD   two test users that start at 500,000 MMK
 #
 # The script spends user A's wallet. Use throwaway accounts only.
 set -euo pipefail

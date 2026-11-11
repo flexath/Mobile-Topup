@@ -58,7 +58,7 @@ Schemas are exported to each module's `schemas/` directory.
 | Flow | Behaviour |
 |------|-----------|
 | Launch | System splash stays until the stored Supabase session and theme are read; then Login or Top-up. Session persists across restarts (supabase-kt session storage). Offline launch with a stored session stays signed in and shows cached data. |
-| Register | Email + password (min 6). This project has **email confirmation enabled**, so registration shows "Check your inbox" and the user signs in after confirming. Wallet + profile are provisioned by a database trigger. |
+| Register | Email + password (min 6). Email confirmation is disabled, so signup creates a session immediately and the app opens the authenticated shell. Wallet + profile are provisioned by a database trigger. |
 | Catalog | One unified request (`operators` + embedded `catalog_products`) once per cold launch in an app-scoped coroutine; Room is the UI source of truth; only the newest request may write; failures keep the cache (subtle warning); Retry only when no cache exists. |
 | Wallet | Cached per user in DataStore and shown immediately; refreshed from `wallets` (RLS) when Top-up becomes visible (10 s throttle avoids rotation refetches); replaced only by backend-confirmed values. |
 | Detection | Local PRD prefix table, longest prefix wins, `09` + 9 digits, normalises spaces/dashes, `+959…`, and Myanmar digits. No manual operator selection. |
@@ -89,7 +89,7 @@ Custom amounts: demo rule **1,000–50,000 MMK in steps of 100**, stored on `ope
 by `process_recharge`; the app reads the same values from the catalog for client-side validation.
 
 Verification scripts: `supabase/tests/database/rls_and_recharge_test.sql` (rolls itself back) and
-`supabase/tests/e2e/process_recharge_e2e.sh` (needs two confirmed throwaway accounts).
+`supabase/tests/e2e/process_recharge_e2e.sh` (needs two throwaway accounts).
 
 ---
 
@@ -114,4 +114,4 @@ platform-provided `SUPABASE_SECRET_KEYS` (falling back to `SUPABASE_SERVICE_ROLE
   The prefix list is the PRD's initial dataset, not an authoritative numbering plan.
 - The catalog is requested once per cold launch; if that request fails (e.g. offline start) the
   saved catalog is used with a warning until the next launch (Retry exists only when no cache).
-- Registration requires email confirmation while "Confirm email" is enabled in Supabase Auth.
+- Email confirmation is disabled in Supabase Auth (`enable_confirmations = false` / `mailer_autoconfirm`); signup signs the user in immediately.

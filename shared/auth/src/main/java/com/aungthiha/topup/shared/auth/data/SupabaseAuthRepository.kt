@@ -6,7 +6,6 @@ import com.aungthiha.topup.core.network.toNetworkError
 import com.aungthiha.topup.shared.auth.domain.model.AuthError
 import com.aungthiha.topup.shared.auth.domain.model.AuthState
 import com.aungthiha.topup.shared.auth.domain.model.AuthUser
-import com.aungthiha.topup.shared.auth.domain.model.SignUpResult
 import com.aungthiha.topup.shared.auth.domain.repository.AuthRepository
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.auth.auth
@@ -46,18 +45,18 @@ internal class SupabaseAuthRepository(
             }
         }
 
-    override suspend fun signUp(email: String, password: String): DataResult<SignUpResult, AuthError> =
+    override suspend fun signUp(email: String, password: String): DataResult<Unit, AuthError> =
         runAuthCall {
             val user = supabase.auth.signUpWith(Email) {
                 this.email = email
                 this.password = password
             }
             when {
-                supabase.auth.currentSessionOrNull() != null -> SignUpResult.SignedIn
+                supabase.auth.currentSessionOrNull() != null -> Unit
                 // With email-enumeration protection Supabase answers an existing address with an
                 // obfuscated user that has no identities instead of an error.
                 user?.identities?.isEmpty() == true -> return DataResult.Error(AuthError.EMAIL_ALREADY_REGISTERED)
-                else -> SignUpResult.ConfirmationRequired(email)
+                else -> return DataResult.Error(AuthError.UNKNOWN)
             }
         }
 

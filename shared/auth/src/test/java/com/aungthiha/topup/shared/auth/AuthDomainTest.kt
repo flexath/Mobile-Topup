@@ -8,7 +8,6 @@ import com.aungthiha.topup.shared.auth.domain.model.CredentialsValidator
 import com.aungthiha.topup.shared.auth.domain.model.EmailValidation
 import com.aungthiha.topup.shared.auth.domain.model.PasswordConfirmationValidation
 import com.aungthiha.topup.shared.auth.domain.model.PasswordValidation
-import com.aungthiha.topup.shared.auth.domain.model.SignUpResult
 import com.aungthiha.topup.shared.auth.domain.repository.AuthRepository
 import com.aungthiha.topup.shared.auth.domain.usecase.SignInUseCase
 import com.aungthiha.topup.shared.auth.domain.usecase.SignOutUseCase
@@ -48,9 +47,10 @@ class AuthDomainTest {
     fun `sign up enforces the minimum password length`() = runTest {
         assertEquals(DataResult.Error(AuthError.WEAK_PASSWORD), SignUpUseCase(repository)("aung@example.com", "123"))
         assertEquals(
-            DataResult.Success(SignUpResult.ConfirmationRequired("aung@example.com")),
+            DataResult.Success(Unit),
             SignUpUseCase(repository)("aung@example.com", "123456"),
         )
+        assertEquals(listOf("aung@example.com" to "123456"), repository.signUps)
     }
 
     @Test
@@ -71,6 +71,7 @@ class AuthDomainTest {
     private class FakeAuthRepository : AuthRepository {
         private val state = MutableStateFlow<AuthState>(AuthState.Initializing)
         val signIns = mutableListOf<Pair<String, String>>()
+        val signUps = mutableListOf<Pair<String, String>>()
 
         override val authState: StateFlow<AuthState> = state
 
@@ -79,8 +80,10 @@ class AuthDomainTest {
             return DataResult.Success(Unit)
         }
 
-        override suspend fun signUp(email: String, password: String): DataResult<SignUpResult, AuthError> =
-            DataResult.Success(SignUpResult.ConfirmationRequired(email))
+        override suspend fun signUp(email: String, password: String): DataResult<Unit, AuthError> {
+            signUps += email to password
+            return DataResult.Success(Unit)
+        }
 
         override suspend fun signOut() {
             state.value = AuthState.Unauthenticated

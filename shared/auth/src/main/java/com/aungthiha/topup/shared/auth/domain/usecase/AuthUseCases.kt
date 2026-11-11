@@ -7,7 +7,6 @@ import com.aungthiha.topup.shared.auth.domain.model.AuthState
 import com.aungthiha.topup.shared.auth.domain.model.CredentialsValidator
 import com.aungthiha.topup.shared.auth.domain.model.EmailValidation
 import com.aungthiha.topup.shared.auth.domain.model.PasswordValidation
-import com.aungthiha.topup.shared.auth.domain.model.SignUpResult
 import com.aungthiha.topup.shared.auth.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.StateFlow
 
@@ -26,7 +25,7 @@ class SignInUseCase(private val repository: AuthRepository) {
 }
 
 class SignUpUseCase(private val repository: AuthRepository) {
-    suspend operator fun invoke(email: String, password: String): DataResult<SignUpResult, AuthError> {
+    suspend operator fun invoke(email: String, password: String): DataResult<Unit, AuthError> {
         if (CredentialsValidator.validateEmail(email) != EmailValidation.VALID) {
             return DataResult.Error(AuthError.INVALID_EMAIL)
         }

@@ -37,8 +37,4 @@
     <string name="auth_error_rate_limited">Too many attempts. Please wait a moment and try again.</string>
     <string name="auth_error_no_connection">You\'re offline. Check your connection and try again.</string>
     <string name="auth_error_unknown">Something went wrong. Please try again.</string>
-
-    <string name="auth_confirmation_title">Check your inbox</string>
-    <string name="auth_confirmation_message">We sent a confirmation link to %1$s. Open it, then sign in with your new account.</string>
-    <string name="auth_go_to_sign_in">Go to sign in</string>
 </resources>
