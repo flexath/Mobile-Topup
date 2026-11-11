@@ -118,134 +118,134 @@ data class AppColorScheme(
     val onInfoContainer: Color,
 )
 
-/** Light palette — KBZ Blue / Red / Gold. */
+/** Light palette — Aura Blue / Purple / Gold. */
 val AppLightColorScheme = AppColorScheme(
-    // Primary - KBZ Blue
-    primary = Color(0xFF174F91),
+    // Primary - Aura Blue
+    primary = Color(0xFF2970FF),
     onPrimary = Color(0xFFFFFFFF),
-    primaryContainer = Color(0xFFDCEAFF),
-    onPrimaryContainer = Color(0xFF10365F),
+    primaryContainer = Color(0xFFECEFF4),
+    onPrimaryContainer = Color(0xFF2970FF),
 
-    // Secondary - KBZ Red
-    secondary = Color(0xFFD62828),
+    // Secondary - Aura Purple
+    secondary = Color(0xFF9C6BFF),
     onSecondary = Color(0xFFFFFFFF),
-    secondaryContainer = Color(0xFFFFE0DF),
-    onSecondaryContainer = Color(0xFF751414),
+    secondaryContainer = Color(0xFFF2F2F7),
+    onSecondaryContainer = Color(0xFF9C6BFF),
 
-    // Complementary - Gold
-    complementary = Color(0xFFE6A52E),
-    onComplementary = Color(0xFF241800),
-    complementaryContainer = Color(0xFFFFE8B8),
-    onComplementaryContainer = Color(0xFF654300),
+    // Complementary - Aura Rating Gold
+    complementary = Color(0xFFFFD600),
+    onComplementary = Color(0xFF0A0A0A),
+    complementaryContainer = Color(0xFFF0F2F8),
+    onComplementaryContainer = Color(0xFF4A4A4A),
 
     // Background
-    background = Color(0xFFF4F6FA),
-    onBackground = Color(0xFF172033),
+    background = Color(0xFFF9FAFB),
+    onBackground = Color(0xFF0A0A0A),
 
     // Surfaces
     surface = Color(0xFFFFFFFF),
-    onSurface = Color(0xFF172033),
+    onSurface = Color(0xFF0A0A0A),
     surfaceElevated = Color(0xFFFFFFFF),
-    surfaceVariant = Color(0xFFE9EEF5),
-    onSurfaceVariant = Color(0xFF46556B),
+    surfaceVariant = Color(0xFFF4F6FA),
+    onSurfaceVariant = Color(0xFF4A4A4A),
 
     // Outlines
-    outline = Color(0xFF78869A),
-    outlineVariant = Color(0xFFD4DCE7),
+    outline = Color(0xFFD6D9E0),
+    outlineVariant = Color(0xFFE5E7EB),
 
     // Content
-    contentPrimary = Color(0xFF172033),
-    contentSecondary = Color(0xFF66758A),
-    contentDisabled = Color(0xFFADB7C5),
+    contentPrimary = Color(0xFF0A0A0A),
+    contentSecondary = Color(0xFF4A4A4A),
+    contentDisabled = Color(0xFF8C8C8C),
 
     // Success
-    success = Color(0xFF16834A),
+    success = Color(0xFF2ECC71),
     onSuccess = Color(0xFFFFFFFF),
-    successContainer = Color(0xFFD8F5E4),
-    onSuccessContainer = Color(0xFF105A34),
+    successContainer = Color(0xFFECEFF4),
+    onSuccessContainer = Color(0xFF2ECC71),
 
-    // Warning
-    warning = Color(0xFF986000),
+    // Warning - Aura Growth Indicator
+    warning = Color(0xFFFF9800),
     onWarning = Color(0xFFFFFFFF),
-    warningContainer = Color(0xFFFFEDC2),
-    onWarningContainer = Color(0xFF674000),
+    warningContainer = Color(0xFFF0F2F8),
+    onWarningContainer = Color(0xFFFF9800),
 
     // Error
-    error = Color(0xFFBA1A1A),
+    error = Color(0xFFE74C3C),
     onError = Color(0xFFFFFFFF),
-    errorContainer = Color(0xFFFFDAD6),
-    onErrorContainer = Color(0xFF7F1111),
+    errorContainer = Color(0xFFF2F2F7),
+    onErrorContainer = Color(0xFFE74C3C),
 
-    // Info
-    info = Color(0xFF1769AA),
+    // Info - Aura Blue
+    info = Color(0xFF2970FF),
     onInfo = Color(0xFFFFFFFF),
-    infoContainer = Color(0xFFDCEEFF),
-    onInfoContainer = Color(0xFF10456F),
+    infoContainer = Color(0xFFECEFF4),
+    onInfoContainer = Color(0xFF2970FF),
 )
 
-/** Dark palette — KBZ Blue / Red / Gold. */
+/** Dark palette — Aura Blue / Purple / Gold. */
 val AppDarkColorScheme = AppColorScheme(
-    // Primary - KBZ Blue
-    primary = Color(0xFF8ABEFF),
-    onPrimary = Color(0xFF082E55),
-    primaryContainer = Color(0xFF174F91),
-    onPrimaryContainer = Color(0xFFDCEAFF),
+    // Primary - Aura Blue
+    primary = Color(0xFF2970FF),
+    onPrimary = Color(0xFFFFFFFF),
+    primaryContainer = Color(0xFF1A1F29),
+    onPrimaryContainer = Color(0xFF2970FF),
 
-    // Secondary - KBZ Red
-    secondary = Color(0xFFFF8A80),
-    onSecondary = Color(0xFF5C1010),
-    secondaryContainer = Color(0xFF8F2525),
-    onSecondaryContainer = Color(0xFFFFE0DF),
+    // Secondary - Aura Purple
+    secondary = Color(0xFFB68CFF),
+    onSecondary = Color(0xFFFFFFFF),
+    secondaryContainer = Color(0xFF2C2C2E),
+    onSecondaryContainer = Color(0xFFB68CFF),
 
-    // Complementary - Gold
-    complementary = Color(0xFFFFD180),
-    onComplementary = Color(0xFF382500),
-    complementaryContainer = Color(0xFF654A18),
-    onComplementaryContainer = Color(0xFFFFE8B8),
+    // Complementary - Aura Rating Gold
+    complementary = Color(0xFFFFD600),
+    onComplementary = Color(0xFF0E1117),
+    complementaryContainer = Color(0xFF1F2633),
+    onComplementaryContainer = Color(0xFFD0D0D0),
 
     // Background
-    background = Color(0xFF0B1220),
-    onBackground = Color(0xFFE8EDF5),
+    background = Color(0xFF0E1117),
+    onBackground = Color(0xFFFFFFFF),
 
     // Surfaces
-    surface = Color(0xFF111B2E),
-    onSurface = Color(0xFFE8EDF5),
-    surfaceElevated = Color(0xFF19263A),
-    surfaceVariant = Color(0xFF202D43),
-    onSurfaceVariant = Color(0xFFBBC7D8),
+    surface = Color(0xFF161B24),
+    onSurface = Color(0xFFFFFFFF),
+    surfaceElevated = Color(0xFF1A1F29),
+    surfaceVariant = Color(0xFF1F2633),
+    onSurfaceVariant = Color(0xFFD0D0D0),
 
     // Outlines
-    outline = Color(0xFF8797AD),
-    outlineVariant = Color(0xFF344258),
+    outline = Color(0xFF2F3542),
+    outlineVariant = Color(0xFF2B303B),
 
     // Content
-    contentPrimary = Color(0xFFF1F5FB),
-    contentSecondary = Color(0xFFABB8CA),
-    contentDisabled = Color(0xFF66758A),
+    contentPrimary = Color(0xFFFFFFFF),
+    contentSecondary = Color(0xFFD0D0D0),
+    contentDisabled = Color(0xFFA0A0A0),
 
     // Success
-    success = Color(0xFF69D99A),
-    onSuccess = Color(0xFF063D22),
-    successContainer = Color(0xFF124F32),
-    onSuccessContainer = Color(0xFFB5F1CC),
+    success = Color(0xFF27AE60),
+    onSuccess = Color(0xFFFFFFFF),
+    successContainer = Color(0xFF1A1F29),
+    onSuccessContainer = Color(0xFF27AE60),
 
-    // Warning
-    warning = Color(0xFFFFCA72),
-    onWarning = Color(0xFF432900),
-    warningContainer = Color(0xFF604313),
-    onWarningContainer = Color(0xFFFFE6B3),
+    // Warning - Aura Growth Indicator
+    warning = Color(0xFFFF9800),
+    onWarning = Color(0xFFFFFFFF),
+    warningContainer = Color(0xFF1F2633),
+    onWarningContainer = Color(0xFFFF9800),
 
     // Error
-    error = Color(0xFFFF8A80),
-    onError = Color(0xFF5C1010),
-    errorContainer = Color(0xFF852B2B),
-    onErrorContainer = Color(0xFFFFDAD6),
+    error = Color(0xFFC0392B),
+    onError = Color(0xFFFFFFFF),
+    errorContainer = Color(0xFF2C2C2E),
+    onErrorContainer = Color(0xFFC0392B),
 
-    // Info
-    info = Color(0xFF82C7FF),
-    onInfo = Color(0xFF07385B),
-    infoContainer = Color(0xFF16476B),
-    onInfoContainer = Color(0xFFD6EDFF),
+    // Info - Aura Blue
+    info = Color(0xFF2970FF),
+    onInfo = Color(0xFFFFFFFF),
+    infoContainer = Color(0xFF1A1F29),
+    onInfoContainer = Color(0xFF2970FF),
 )
 
 @Preview(name = "Color tokens - Light")
