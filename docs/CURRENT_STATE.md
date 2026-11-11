@@ -83,21 +83,22 @@ These are the **required capabilities** from the coding-test brief. Most are **n
 8. Firebase Analytics + Crashlytics wired via convention plugin (`google-services.json` present)
 9. Debug StrictMode logging in `TopUpApplication`
 10. Release signing expected via `local.properties` keys (fail-hard at configure if missing)
+11. Composite `build-logic/` with `topup.*` convention plugins (Android/Compose baselines + opt-in stacks)
 
 ### Not built today (high level)
 - Phone number input / validation
 - Telecom prefix detection
 - Plans / denominations catalog
 - Recharge / success / detail flows
-- Room (or any) persistence of transactions
+- Room entities / DAOs / transaction persistence (Room **plugin exists**, unused in product modules)
 - Domain / data layers, ViewModels, use cases, repositories
-- DI framework (Hilt/Koin not present)
-- Networking / remote APIs
+- Koin started in `Application` / module `di/` graphs (Koin **plugin exists**, not applied/wired yet)
+- Networking clients or Supabase usage (Ktor / Supabase **plugins exist**, unused)
 - Real history list, filters, search
 - Localization beyond default English labels
 - Deep links
 - Shared business modules (`shared/*` planned in architecture rules but **no `shared` modules exist yet**)
-- `:core:datastore` module exists but is **empty** (scaffold only)
+- `:core:datastore` applies DataStore + Coroutines conventions but still has **no Kotlin API / prefs code**
 
 ---
 
@@ -113,17 +114,17 @@ app → feature/* → shared/* → core/*
 
 | Module | Role today |
 |--------|------------|
-| `:app` | Application, `MainActivity`, `TopUpAppShell`, root `NavHost`, tab routing |
-| `:feature:topup` | Topup tab placeholder UI + nav trio |
-| `:feature:transactionhistory` | History tab placeholder UI + nav trio |
+| `:app` | Application, `MainActivity`, `TopUpAppShell`, root `NavHost`, tab routing; Firebase via `topup.firebase` |
+| `:feature:topup` | Topup tab placeholder UI + nav trio (`library.compose` + serialization + navigation) |
+| `:feature:transactionhistory` | History tab placeholder UI + nav trio (same stack) |
 | `:core:common` | `AppRoutes` marker interface only |
 | `:core:designsystem` | Theme tokens, adaptive device utils, floating nav / rail chrome |
-| `:core:datastore` | Empty scaffold (no DataStore APIs yet) |
-| `build-logic` | Composite build; `topup.*` convention plugins |
+| `:core:datastore` | Scaffold module; `topup.datastore` + `topup.coroutines` applied — **no source APIs yet** |
+| `build-logic` | Composite build; `topup.*` convention plugins (see §9) |
 
 ### Not present
 - `:shared:*` modules
-- Network / database / auth modules
+- Network / database / auth product modules (stack plugins available when those modules are created)
 - Additional features (auth, profile, payments, etc.)
 
 ---
@@ -137,15 +138,15 @@ app → feature/* → shared/* → core/*
 - **Domain:** models, repository interfaces, use cases
 - **Data:** API/Room/cache impls, mappers — keep DTOs/`*RepositoryImpl` out of presentation
 - **Navigation:** Features emit `NavCallbacks`; only `:app` navigates
-- **DI:** Bindings in owning module `di/`; app composes graphs
+- **DI:** Prefer **Koin** (convention plugin ready); bindings in owning module `di/`; app composes graphs
 
 ### Actual today
 - Feature modules contain **presentation/navigation + placeholder screens only**
 - No `domain/`, `data/`, `di/`, ViewModels, or use cases in features
-- No Room, Retrofit/Ktor, repository, or result-type (`DataResult`) implementation yet
-- Architecture is **scaffolded at module + navigation level**, not product-feature level
+- No Room/Ktor/Supabase/Koin usage in application code yet — only Gradle convention plugins + catalog entries
+- Architecture is **scaffolded at module + navigation + build-logic level**, not product-feature level
 
-**Implication for requirements:** New product work should land as vertical slices under `:feature:topup` / `:feature:transactionhistory`, extracting multi-feature domain into `:shared:*` only when reused. Prefer MVVM + use cases to satisfy both the assignment brief and the project’s Clean Architecture rules.
+**Implication for requirements:** New product work should land as vertical slices under `:feature:topup` / `:feature:transactionhistory`, extracting multi-feature domain into `:shared:*` only when reused. Prefer MVVM + use cases to satisfy both the assignment brief and the project’s Clean Architecture rules. Apply stack conventions (`topup.room`, `topup.koin`, etc.) on the owning module when implementing those layers.
 
 ---
 
@@ -203,6 +204,8 @@ Owned by `:core:designsystem`. Features/app consume tokens via `MaterialTheme` e
 
 Screens currently use raw Material `Button` in placeholders — product UI should move to design-system components as they are added.
 
+Cursor guidance: `.cursor/rules/topup-design-system.mdc`, `.cursor/skills/topup-design-system/`.
+
 ---
 
 ## 8. Capability matrix (requirements vs codebase)
@@ -210,12 +213,16 @@ Screens currently use raw Material `Button` in placeholders — product UI shoul
 | Capability | Status | Notes |
 |------------|--------|-------|
 | Kotlin + Compose app shell | ✅ Done | AGP 9 / Kotlin 2.4 stack |
-| Multi-module structure | ✅ Done | app / feature / core |
+| Multi-module structure | ✅ Done | app / feature / core + build-logic |
 | Typed multi-module navigation | ✅ Done | 2 tabs |
 | Adaptive nav chrome + animations | ✅ Partial | Tab chrome animated; no product-flow transitions yet |
 | Orientation / config survival | ⚠️ Partial | Compose + nav state; no ViewModel/`rememberSaveable` product state yet |
 | MVVM | ❌ Missing | No ViewModels |
-| Room / local DB | ❌ Missing | Required by brief |
+| Room / local DB | ⚠️ Plugin only | `topup.room` (+ optional `topup.sqlcipher`) ready; no entities/DAOs yet |
+| Preference DataStore | ⚠️ Plugin only | Applied on `:core:datastore`; no prefs API code yet |
+| Koin DI | ⚠️ Plugin only | `topup.koin` ready; not started in Application |
+| Ktor / Supabase | ⚠️ Plugin only | Catalog + conventions exist; unused in app code |
+| Coroutines / Flows | ⚠️ Partial | Convention available; applied on `:core:datastore` only |
 | Telecom prefix detection | ❌ Missing | Need offline prefix catalog |
 | Denomination / package catalog UI | ❌ Missing | Per-operator plans |
 | Detail screen + Proceed to Recharge | ❌ Missing | |
@@ -225,15 +232,15 @@ Screens currently use raw Material `Button` in placeholders — product UI shoul
 | Persist successful recharge | ❌ Missing | |
 | Attractive product UI | ⚠️ Foundation only | Theme + nav chrome; screens are stubs |
 | Firebase Analytics / Crashlytics | ✅ Wired | Not product-critical for assignment UX |
-| Networking backend | ❌ Not required by brief | Local/offline-first implied |
+| Networking backend | ❌ Not required by brief | Local/offline-first implied; Supabase optional if scope expands |
 | Auth / payments gateway | ❌ Not in brief | Treat as out of scope unless requirements expand |
 | i18n / Myanmar locale | ❌ Not started | May matter for Myanmar operators/copy |
 
 ---
 
-## 9. Tech stack (pinned versions)
+## 9. Tech stack & build-logic
 
-From `gradle/libs.versions.toml` / build-logic:
+From `gradle/libs.versions.toml` / `build-logic/`:
 
 | Area | Choice |
 |------|--------|
@@ -242,14 +249,39 @@ From `gradle/libs.versions.toml` / build-logic:
 | Compose BOM | `2026.09.00` |
 | Navigation Compose | `2.9.2` |
 | kotlinx.serialization | `1.11.0` |
+| kotlinx.coroutines | `1.11.0` |
 | Material3 Adaptive | `1.2.0` |
 | Firebase BOM | `35.1.0` |
+| Room | `2.8.5` (+ KSP `2.3.12`) |
+| SQLCipher | `4.20.0` |
+| DataStore Preferences | `1.3.0` |
+| Ktor | `3.6.1` |
+| Koin | `4.2.2` |
+| Supabase BOM | `3.9.0` |
 | minSdk / targetSdk / compileSdk | `24` / `37` / `37` |
 | Java toolchain | **18** |
 | Build types | **debug + release only** (no env flavors) |
-| Convention plugins | `topup.android.application(.compose)`, `topup.android.library(.compose)`, `topup.serialization`, `topup.navigation`, `topup.firebase` |
 
-**Not in project yet:** Hilt/Koin, Room, Retrofit/Ktor, Coil, DataStore APIs, testing beyond AGP template stubs.
+### Convention plugins (`topup.*`)
+
+| Plugin | Role |
+|--------|------|
+| `topup.android.application(.compose)` | App AGP + signing + Compose baseline |
+| `topup.android.library(.compose)` | Library AGP + Compose baseline |
+| `topup.serialization` | Serialization plugin + JSON |
+| `topup.navigation` | Navigation Compose |
+| `topup.firebase` | Google Services + Crashlytics + BoM (app) |
+| `topup.room` | KSP + Room runtime/KTX/compiler + schema export |
+| `topup.sqlcipher` | Encrypted SQLite (`sqlcipher-android`) |
+| `topup.datastore` | Preference DataStore |
+| `topup.ktor` | Ktor OkHttp client (+ Serialization) |
+| `topup.koin` | Koin Android (+ Compose helpers when Compose present) |
+| `topup.supabase` | Supabase BOM + postgrest/auth/realtime/storage/functions |
+| `topup.coroutines` | Coroutines core/android + test |
+
+Rules/skill: `.cursor/rules/topup-build-logic.mdc`, `.cursor/skills/topup-build-logic/`.
+
+**Release signing:** fail-hard via `RELEASE_KEYSTORE`, `RELEASE_KEYSTORE_PASSWORD`, `RELEASE_KEY_ALIAS`, `RELEASE_KEY_PASSWORD` in root `local.properties`.
 
 ---
 
@@ -292,15 +324,16 @@ Assignment implies **offline prefix DB** + **Room for transactions**. Catalog of
 Use these when chatting about scope:
 
 1. **Operator set & prefix tables** — which Myanmar operators and prefix lists are authoritative? How are they updated?
-2. **Plan catalog source** — hardcoded seed / JSON asset / Room seed vs remote?
+2. **Plan catalog source** — hardcoded seed / JSON asset / Room seed vs remote / Supabase?
 3. **Is recharge real or simulated?** — Brief says insert after successful recharge; likely simulated success locally.
 4. **Pending status** — When would a transaction be `Pending` if everything is local?
 5. **Single feature vs split** — Keep top-up flow in `:feature:topup` and history in `:feature:transactionhistory`; put shared Room entities / operator domain in `:shared:topup` (or similar) once both need it.
 6. **Detail screen placement** — Pre-recharge operator/plan detail inside topup flow vs post-history detail?
 7. **Success screen** — Nested route in topup graph (chrome hidden) vs dialog?
-8. **MVVM boundary** — ViewModels call use cases; Room behind repositories — aligns assignment “MVVM” with project Clean Architecture.
-9. **Animations** — Beyond nav chrome: shared element / success checkmark / list item transitions?
-10. **Out of scope** — Online payment, login, push notifications, multi-language (unless explicitly added).
+8. **MVVM + Koin boundary** — ViewModels call use cases; Room behind repositories; start Koin from `:app`.
+9. **SQLCipher** — Encrypt Room DB for transactions / prefixes, or plain Room for the coding test?
+10. **Animations** — Beyond nav chrome: shared element / success checkmark / list item transitions?
+11. **Out of scope** — Online payment, login, push notifications, multi-language (unless explicitly added).
 
 ---
 
@@ -315,8 +348,11 @@ Mobile-Topup/
 ├── core/
 │   ├── common/               # AppRoutes
 │   ├── designsystem/         # Theme + nav chrome
-│   └── datastore/            # Empty scaffold
+│   └── datastore/            # DataStore + coroutines conventions; no APIs yet
 ├── build-logic/              # topup.* convention plugins
+├── .cursor/
+│   ├── rules/                # topup-build-logic, navigation, design-system, …
+│   └── skills/               # Matching project skills
 └── docs/
     ├── CURRENT_STATE.md      # This file
     ├── Andorid Code Test Project Assignment.pdf
@@ -327,4 +363,4 @@ Mobile-Topup/
 
 ## 14. One-line status for AI assistants
 
-**TopUp is a native Android Compose multi-module shell with themed adaptive tab navigation (Topup + History). Product features from the KBZ mobile-topup coding assignment — prefix detection, plans, recharge success, Room-backed history with filter/search — are specified but not implemented; only placeholder screens exist.**
+**TopUp is a native Android Compose multi-module shell with themed adaptive tab navigation (Topup + History) and a full `topup.*` Gradle convention stack (Room, SQLCipher, DataStore, Ktor, Koin, Supabase, Coroutines). Product features from the KBZ mobile-topup coding assignment — prefix detection, plans, recharge success, Room-backed history with filter/search — are specified but not implemented; only placeholder screens exist, and most stack plugins are not yet applied in product modules.**

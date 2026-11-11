@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.google.services) apply false
     alias(libs.plugins.firebase.crashlytics) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.androidx.room) apply false
 
     // Convention plugins from included build `build-logic`.
     alias(libs.plugins.topup.android.application) apply false
@@ -16,4 +18,11 @@ plugins {
     alias(libs.plugins.topup.serialization) apply false
     alias(libs.plugins.topup.navigation) apply false
     alias(libs.plugins.topup.firebase) apply false
+    alias(libs.plugins.topup.room) apply false
+    alias(libs.plugins.topup.sqlcipher) apply false
+    alias(libs.plugins.topup.datastore) apply false
+    alias(libs.plugins.topup.ktor) apply false
+    alias(libs.plugins.topup.koin) apply false
+    alias(libs.plugins.topup.supabase) apply false
+    alias(libs.plugins.topup.coroutines) apply false
 }

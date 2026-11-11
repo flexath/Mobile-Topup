@@ -22,6 +22,7 @@ alwaysApply: true
 plugins {
     alias(libs.plugins.topup.android.library.compose)
     alias(libs.plugins.topup.serialization)
+    alias(libs.plugins.topup.koin)
 }
 
 // ❌ raw AGP/Kotlin/Compose plugins or duplicated baseline Compose deps
@@ -29,9 +30,18 @@ plugins {
 
 | Module kind | Plugins |
 |-------------|---------|
-| `:app` | `topup.android.application.compose` + stack as needed (`serialization`, `navigation`, `firebase`) |
+| `:app` | `topup.android.application.compose` + stack as needed |
 | Compose library | `topup.android.library.compose` (+ stack) |
-| Non-Compose library | `topup.android.library` |
+| Non-Compose library | `topup.android.library` (+ stack) |
+
+### Stack plugins (opt-in)
+
+`serialization` · `navigation` · `firebase` · `room` · `sqlcipher` · `datastore` · `ktor` · `koin` · `supabase` · `coroutines`
+
+- `topup.ktor` also applies Serialization.
+- `topup.supabase` needs `topup.ktor` on the same module.
+- `topup.room` applies KSP + Room; pair `topup.sqlcipher` when encrypting the DB.
+- Apply Android library/application convention **before** stack plugins that need AGP (e.g. Room).
 
 Baseline SDK/Java 18/Compose/test deps live in configurers — modules only add project + module-specific libs.
 

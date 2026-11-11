@@ -26,8 +26,15 @@ Project-specific Gradle conventions for **Mobile-Topup** (native Android). Const
 | `topup.serialization` | Serialization plugin + JSON |
 | `topup.navigation` | Navigation Compose |
 | `topup.firebase` | Google Services + Crashlytics + BoM (app) |
+| `topup.room` | KSP + Room runtime/KTX/compiler + schema export |
+| `topup.sqlcipher` | `sqlcipher-android` (pair with Room when encrypting) |
+| `topup.datastore` | Preference DataStore |
+| `topup.ktor` | Ktor OkHttp client stack (+ Serialization) |
+| `topup.koin` | Koin Android (+ Compose helpers if Compose applied) |
+| `topup.supabase` | Supabase BOM + postgrest/auth/realtime/storage/functions |
+| `topup.coroutines` | kotlinx-coroutines core/android + test |
 
-Do not invent Room/Koin/Ktor/Coil conventions until those stacks exist in the project.
+Pair `topup.supabase` with `topup.ktor`. Apply Android conventions before `topup.room`.
 
 ## Before coding
 

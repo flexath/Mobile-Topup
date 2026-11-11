@@ -18,6 +18,9 @@ internal object PluginIds {
     const val KOTLIN_COMPOSE_COMPILER: String = "org.jetbrains.kotlin.plugin.compose"
     const val KOTLIN_SERIALIZATION: String = "org.jetbrains.kotlin.plugin.serialization"
 
+    const val KSP: String = "com.google.devtools.ksp"
+    const val ANDROIDX_ROOM: String = "androidx.room"
+
     const val GOOGLE_SERVICES: String = "com.google.gms.google-services"
     const val FIREBASE_CRASHLYTICS: String = "com.google.firebase.crashlytics"
 
@@ -31,5 +34,12 @@ internal object PluginIds {
         const val SERIALIZATION: String = "topup.serialization"
         const val NAVIGATION: String = "topup.navigation"
         const val FIREBASE: String = "topup.firebase"
+        const val ROOM: String = "topup.room"
+        const val SQLCIPHER: String = "topup.sqlcipher"
+        const val DATASTORE: String = "topup.datastore"
+        const val KTOR: String = "topup.ktor"
+        const val KOIN: String = "topup.koin"
+        const val SUPABASE: String = "topup.supabase"
+        const val COROUTINES: String = "topup.coroutines"
     }
 }

@@ -20,6 +20,9 @@ fun DependencyHandler.testImplementation(dependencyNotation: Any): Dependency? =
 fun DependencyHandler.androidTestImplementation(dependencyNotation: Any): Dependency? =
     add("androidTestImplementation", dependencyNotation)
 
+fun DependencyHandler.ksp(dependencyNotation: Any): Dependency? =
+    add("ksp", dependencyNotation)
+
 /**
  * Primary `libs` version catalog for this build.
  */

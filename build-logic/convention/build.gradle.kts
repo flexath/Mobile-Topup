@@ -15,6 +15,8 @@ dependencies {
     compileOnly(libs.firebase.crashlytics.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.kotlin.compose.gradlePlugin)
+    compileOnly(libs.ksp.gradlePlugin)
+    compileOnly(libs.room.gradlePlugin)
 }
 
 // -----------------------------------------------------------------------------
@@ -50,6 +52,34 @@ gradlePlugin {
         register("firebase") {
             id = "topup.firebase"
             implementationClass = "plugins.FirebaseConventionPlugin"
+        }
+        register("room") {
+            id = "topup.room"
+            implementationClass = "plugins.RoomConventionPlugin"
+        }
+        register("sqlcipher") {
+            id = "topup.sqlcipher"
+            implementationClass = "plugins.SqlCipherConventionPlugin"
+        }
+        register("datastore") {
+            id = "topup.datastore"
+            implementationClass = "plugins.DatastoreConventionPlugin"
+        }
+        register("ktor") {
+            id = "topup.ktor"
+            implementationClass = "plugins.KtorConventionPlugin"
+        }
+        register("koin") {
+            id = "topup.koin"
+            implementationClass = "plugins.KoinConventionPlugin"
+        }
+        register("supabase") {
+            id = "topup.supabase"
+            implementationClass = "plugins.SupabaseConventionPlugin"
+        }
+        register("coroutines") {
+            id = "topup.coroutines"
+            implementationClass = "plugins.CoroutinesConventionPlugin"
         }
     }
 }
