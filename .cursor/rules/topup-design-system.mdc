@@ -1,0 +1,90 @@
+---
+description: TopUp Compose design system — AppTheme tokens, Manrope typography, spacing/shapes, and consumption rules (must follow)
+globs: core/designsystem/src/**/*.kt,feature/**/src/**/*.kt,shared/**/src/**/*.kt,app/src/**/*.kt
+alwaysApply: false
+---
+
+# TopUp Design System
+
+Must follow for all Compose UI in this repo. Native Android only.
+
+## Ownership
+
+- Reusable UI primitives and tokens live in `:core:designsystem`. Features / `shared` / `app` **consume** them.
+- No ViewModels, navigation graphs, domain models, or feature business logic in `:core:designsystem`.
+- `:core:designsystem` may depend on `:core:common` only — never on `feature/*`, `shared/*`, or `:app`.
+
+## Theme entry
+
+Wrap app UI and previews in `AppTheme { }` (provides Material 3 + TopUp tokens via `AppThemeProvider`).
+
+```kotlin
+// ✅
+AppTheme { MyScreen() }
+
+// ❌ Raw MaterialTheme / scaffold TopUpTheme / dynamic Material You colors
+MaterialTheme { MyScreen() }
+```
+
+## Token access (composables)
+
+Read TopUp semantics through `MaterialTheme` extensions — not raw hex colors or `MaterialTheme.colorScheme` for product UI:
+
+| Token | Access |
+|-------|--------|
+| Colors | `MaterialTheme.appColorScheme` |
+| Typography | `MaterialTheme.appTypography` |
+| Spacing | `MaterialTheme.appSpacing` |
+| Shapes | `MaterialTheme.appShapes` |
+| Window class | `MaterialTheme.deviceType` |
+| Light/dark | `MaterialTheme.isLightTheme` |
+
+```kotlin
+val colors = MaterialTheme.appColorScheme
+val spacing = MaterialTheme.appSpacing
+
+Text(
+    text = title,
+    style = MaterialTheme.appTypography.titleMedium,
+    color = colors.contentPrimary,
+)
+```
+
+## Colors
+
+- Consume by **semantic role** (`primary`, `contentSecondary`, `success`, `error`, …) from `AppColorScheme`.
+- Change values only in `AppColorScheme.kt` (`AppLightColorScheme` / `AppDarkColorScheme`). Keep `Theme.kt` Material bridge in sync.
+- **Complementary** (gold) is for progress/selection/highlights — not a substitute for `primary` or `success`.
+- On neutral surfaces in light theme, prefer `onComplementaryContainer` for complementary-hued labels/icons.
+- Do **not** use `Color(0x…)`, `Color.Red`, or Material You dynamic schemes in feature / app UI.
+
+## Typography
+
+- Manrope only (`R.font.manrope_*` in `:core:designsystem`).
+- Use `MaterialTheme.appTypography` roles (`displayLarge` … `labelSmall`).
+- Do not invent `TextStyle(fontSize = …)` or other font families in features.
+- Typography does **not** scale from window width.
+
+## Spacing & shapes
+
+- Fixed primitives / component rhythm (`small`, `button`, `hairline`, …) never scale with window width.
+- Adaptive layout tokens (`screenHorizontal`, `section`, `readableMaxWidth`, `bottomNavigationClearance`, …) come from `MaterialTheme.appSpacing` via `getAppSpacing(deviceType)`.
+- Add missing spacing to `AppSpacing.kt` — do not hard-code `dp` / `calculatedDp` in screens.
+- Use `AppSpacing.Default` only in non-composable defaults — never for screen layout.
+- Corners: `MaterialTheme.appShapes` — not ad-hoc `RoundedCornerShape(12.dp)`.
+- Window decisions: `MaterialTheme.deviceType` / `DeviceWidthClass` only — not `LocalConfiguration` breakpoints in features.
+
+## Components
+
+- Public composables: `App*` (e.g. `AppPrimaryButton`). Shared constants: `App*Defaults`.
+- Structure: `components/<category>/` under `:core:designsystem`; build on Material 3.
+- Accept `modifier: Modifier = Modifier`; hoist state/callbacks to callers.
+- Previews: wrap in `AppTheme { }`; exercise light/dark when useful.
+
+## When to extend
+
+| Situation | Action |
+|-----------|--------|
+| Used in 2+ features or generic pattern | Add/extend `:core:designsystem` |
+| Single-screen layout only | Feature `presentation/components` using design-system tokens |
+| New color / spacing / type role | Add to theme files first, then consume |

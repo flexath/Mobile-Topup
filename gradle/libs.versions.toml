@@ -47,6 +47,13 @@ firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
+# Build logic gradle plugins (compileOnly for convention module).
+android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+google-services-gradlePlugin = { module = "com.google.gms:google-services", version.ref = "googleServices" }
+firebase-crashlytics-gradlePlugin = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsGradle" }
+kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-compose-gradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
@@ -54,3 +61,12 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsGradle" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+
+# TopUp convention plugins (resolved from included build `build-logic`).
+topup-android-application = { id = "topup.android.application" }
+topup-android-application-compose = { id = "topup.android.application.compose" }
+topup-android-library = { id = "topup.android.library" }
+topup-android-library-compose = { id = "topup.android.library.compose" }
+topup-serialization = { id = "topup.serialization" }
+topup-navigation = { id = "topup.navigation" }
+topup-firebase = { id = "topup.firebase" }
