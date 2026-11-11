@@ -21,6 +21,7 @@ import com.aungthiha.topup.feature.topup.domain.usecase.RefreshWalletBalanceUseC
 import com.aungthiha.topup.feature.topup.domain.usecase.SyncCatalogUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.ValidateCustomAmountUseCase
 import com.aungthiha.topup.feature.topup.presentation.screens.processing.RechargeProcessingViewModel
+import com.aungthiha.topup.feature.topup.presentation.screens.recharge.RechargeViewModel
 import com.aungthiha.topup.feature.topup.presentation.screens.success.RechargeSuccessViewModel
 import com.aungthiha.topup.feature.topup.presentation.screens.topup.TopupViewModel
 import kotlinx.serialization.json.Json
@@ -67,12 +68,20 @@ val topupFeatureModule = module {
 
     viewModel {
         TopupViewModel(
+            observeCatalog = get(),
+            syncCatalog = get(),
+            observeWalletBalance = get(),
+            refreshWalletBalance = get(),
+            networkMonitor = get(),
+        )
+    }
+    viewModel {
+        RechargeViewModel(
             savedStateHandle = get(),
             observeCatalog = get(),
             observeCatalogSyncStatus = get(),
             syncCatalog = get(),
             observeWalletBalance = get(),
-            refreshWalletBalance = get(),
             detectOperator = get(),
             validateCustomAmount = get(),
             evaluateEligibility = get(),

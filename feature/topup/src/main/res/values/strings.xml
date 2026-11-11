@@ -9,6 +9,26 @@
     <string name="topup_wallet_unavailable">Balance unavailable</string>
     <string name="topup_wallet_refreshing">Updating balance…</string>
     <string name="topup_wallet_stale">Showing last saved balance</string>
+    <string name="topup_overview_offline">You\'re offline. Your balance may be out of date.</string>
+
+    <!-- Overview -->
+    <string name="topup_entry_title">Top up a mobile number</string>
+    <string name="topup_entry_message">Send airtime or buy a data package for any MPT, ATOM, Ooredoo or Mytel number, paid from your wallet.</string>
+    <string name="topup_entry_tag_airtime">Airtime</string>
+    <string name="topup_entry_tag_data">Data packages</string>
+    <string name="topup_entry_tag_auto_detect">Auto-detect</string>
+    <string name="topup_entry_cta">Start top-up</string>
+    <string name="topup_operators_title">Supported operators</string>
+    <string name="topup_steps_title">How it works</string>
+    <string name="topup_step_number_title">Enter a mobile number</string>
+    <string name="topup_step_number_message">We detect the operator from the number automatically.</string>
+    <string name="topup_step_amount_title">Choose an amount or package</string>
+    <string name="topup_step_amount_message">Pick a denomination, enter a custom amount, or select a data package.</string>
+    <string name="topup_step_confirm_title">Confirm and pay</string>
+    <string name="topup_step_confirm_message">Your wallet is charged and the balance updates once the recharge succeeds.</string>
+
+    <!-- Recharge -->
+    <string name="topup_recharge_title">Mobile top-up</string>
 
     <!-- Phone -->
     <string name="topup_phone_label">Mobile number</string>

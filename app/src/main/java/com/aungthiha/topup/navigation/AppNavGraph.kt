@@ -74,16 +74,23 @@ fun AppNavGraph(
                     TopupNavCallbacks.TopupScreen.ToSettings -> navController.navigate(SettingsRoutes.GraphRoute) {
                         launchSingleTop = true
                     }
-                    is TopupNavCallbacks.TopupScreen.ToProcessing -> navController.navigate(it.route) {
+                    TopupNavCallbacks.TopupScreen.ToRecharge -> navController.navigate(TopupRoutes.RechargeScreen) {
+                        launchSingleTop = true
+                    }
+                    is TopupNavCallbacks.RechargeScreen.ToProcessing -> navController.navigate(it.route) {
                         launchSingleTop = true
                     }
                     is TopupNavCallbacks.ProcessingScreen.ToSuccess ->
                         navController.navigate(TopupRoutes.RechargeSuccess(it.transactionId)) {
                             popUpTo<TopupRoutes.RechargeProcessing> { inclusive = true }
                         }
-                    TopupNavCallbacks.ProcessingScreen.BackToTopup,
-                    TopupNavCallbacks.SuccessScreen.BackToTopup,
-                    -> navController.popBackStack<TopupRoutes.TopupScreen>(inclusive = false)
+                    TopupNavCallbacks.ProcessingScreen.BackToRecharge -> {
+                        if (!navController.popBackStack<TopupRoutes.RechargeScreen>(inclusive = false)) {
+                            navController.popBackStack<TopupRoutes.TopupScreen>(inclusive = false)
+                        }
+                    }
+                    TopupNavCallbacks.SuccessScreen.BackToTopup ->
+                        navController.popBackStack<TopupRoutes.TopupScreen>(inclusive = false)
                     TopupNavCallbacks.ProcessingScreen.SessionExpired -> onSessionExpired()
                     TopupNavCallbacks.SuccessScreen.ToHistory -> {
                         // Drop the finished flow first so the Topup tab restores to its root screen.

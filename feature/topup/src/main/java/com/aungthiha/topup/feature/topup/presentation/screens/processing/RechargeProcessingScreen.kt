@@ -89,7 +89,7 @@ fun NavGraphBuilder.rechargeProcessingScreen(
         RechargeProcessingScreen(
             state = state,
             onRetry = viewModel::onRetry,
-            onBackToTopup = { onNavRoute(TopupNavCallbacks.ProcessingScreen.BackToTopup) },
+            onBackToTopup = { onNavRoute(TopupNavCallbacks.ProcessingScreen.BackToRecharge) },
             onSessionExpired = { onNavRoute(TopupNavCallbacks.ProcessingScreen.SessionExpired) },
             modifier = modifier,
         )

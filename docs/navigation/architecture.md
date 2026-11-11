@@ -45,12 +45,14 @@ navigate on sign-in/sign-out; they only change the session.
 | Graph | Destinations | Chrome |
 |-------|--------------|--------|
 | `AuthRoutes` | Login, Register | Hidden |
-| `TopupRoutes` | TopupScreen (tab root), RechargeProcessing(args), RechargeSuccess(transactionId) | Root only |
+| `TopupRoutes` | TopupScreen (wallet overview, tab root), RechargeScreen, RechargeProcessing(args), RechargeSuccess(transactionId) | Root only |
 | `TransactionHistoryRoutes` | TransactionHistoryScreen (tab root), TransactionDetailScreen(transactionId) | Root only |
 | `SettingsRoutes` | SettingsScreen (opened from the Top-up app bar, not a tab) | Hidden |
 
-Recharge flow: `ToProcessing(route)` pushes processing; `ToSuccess` replaces it
-(`popUpTo<RechargeProcessing> { inclusive = true }`); `BackToTopup` pops to `TopupScreen`;
+Recharge flow: `TopupScreen.ToRecharge` pushes `RechargeScreen` (number, operator, denominations /
+packages, Proceed); `RechargeScreen.ToProcessing(route)` pushes processing; `ToSuccess` replaces it
+(`popUpTo<RechargeProcessing> { inclusive = true }`); `ProcessingScreen.BackToRecharge` pops to
+`RechargeScreen` with the selection intact; `SuccessScreen.BackToTopup` pops to `TopupScreen`;
 `SuccessScreen.ToHistory` pops the finished flow first, then switches tabs so the Top-up tab
 restores to its root. Leaving the processing screen clears its ViewModel, which cancels the
 in-flight request (best effort — the backend idempotency key makes retries safe).

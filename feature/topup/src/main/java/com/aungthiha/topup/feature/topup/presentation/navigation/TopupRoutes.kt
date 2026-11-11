@@ -7,8 +7,13 @@ sealed class TopupRoutes : AppRoutes {
     @Serializable
     data object GraphRoute : TopupRoutes()
 
+    /** Wallet overview and tab root. */
     @Serializable
     data object TopupScreen : TopupRoutes()
+
+    /** Mobile number entry, operator detection, denomination / package selection. */
+    @Serializable
+    data object RechargeScreen : TopupRoutes()
 
     /**
      * Full-screen processing step. Carries the ids the backend needs plus display-only labels;
