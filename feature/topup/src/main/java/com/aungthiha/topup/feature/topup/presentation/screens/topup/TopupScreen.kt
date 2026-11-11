@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.LifecycleStartEffect
@@ -167,6 +168,11 @@ private fun ColumnScope.OfflineBanner(isOnline: Boolean) {
 /** Fades the content in the first time the screen is shown; not replayed when returning to it. */
 @Composable
 private fun RevealOnFirstEntry(content: @Composable () -> Unit) {
+    // Static previews do not advance enter transitions; show content immediately there.
+    if (LocalInspectionMode.current) {
+        content()
+        return
+    }
     var revealed by rememberSaveable { mutableStateOf(false) }
     val visibleState = remember { MutableTransitionState(revealed).apply { targetState = true } }
     LaunchedEffect(Unit) { revealed = true }

@@ -2,6 +2,8 @@ package com.aungthiha.topup.core.designsystem.utils
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
@@ -16,7 +18,18 @@ val spRatio get() = _spRatio
 
 @Composable
 fun InitializeRatios(designWidth: Int = 390) {
-    val screenWidthDp = PlatformConfiguration.screenWidthDp
+    val configuration = LocalConfiguration.current
+    // Preview hosts often report 0 for Resources.getSystem(); prefer Configuration there.
+    val screenWidthDp = if (LocalInspectionMode.current) {
+        configuration.screenWidthDp.coerceAtLeast(1)
+    } else {
+        PlatformConfiguration.screenWidthDp.coerceAtLeast(1)
+    }
+    val fontScale = if (LocalInspectionMode.current) {
+        configuration.fontScale
+    } else {
+        PlatformConfiguration.fontScale
+    }
     val baseRatio = designWidth.toFloat() / screenWidthDp
 
     _dpRatio = when {
@@ -24,7 +37,7 @@ fun InitializeRatios(designWidth: Int = 390) {
         else -> baseRatio * 0.1f
     }.coerceIn(0.5f, 1.1f)
 
-    _spRatio = (PlatformConfiguration.fontScale * _dpRatio * 0.9f)
+    _spRatio = (fontScale * _dpRatio * 0.9f)
         .coerceIn(0.8f, 1.2f)
 }
 

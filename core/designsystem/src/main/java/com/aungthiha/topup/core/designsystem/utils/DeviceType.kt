@@ -8,6 +8,8 @@ import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.adaptive.currentWindowDpSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalInspectionMode
 import kotlin.math.roundToInt
 
 /**
@@ -92,6 +94,17 @@ fun getDeviceType(
         supportLargeAndXLargeWidth = true,
     ),
 ): DeviceType {
+    // Adaptive window APIs are not available in Compose Preview; fall back to Configuration.
+    if (LocalInspectionMode.current) {
+        val configuration = LocalConfiguration.current
+        return remember(configuration.screenWidthDp, configuration.screenHeightDp) {
+            getDeviceType(
+                widthDp = configuration.screenWidthDp.coerceAtLeast(1),
+                heightDp = configuration.screenHeightDp.coerceAtLeast(1),
+            )
+        }
+    }
+
     val windowSize = currentWindowDpSize()
     val posture = windowAdaptiveInfo.windowPosture.toDevicePosture()
     return remember(windowSize, posture) {
