@@ -7,7 +7,7 @@ import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-internal interface CatalogDao {
+interface CatalogDao {
 
     @Transaction
     @Query("SELECT * FROM operators ORDER BY sort_order ASC, code ASC")

@@ -30,12 +30,12 @@ class TopUpApplication: Application() {
                     SupabaseConfig(url = BuildConfig.SUPABASE_URL, clientKey = BuildConfig.SUPABASE_ANON_KEY),
                 ),
                 datastoreModule,
+                appModule,
                 transactionSharedModule,
                 authFeatureModule,
                 topupFeatureModule,
                 transactionHistoryFeatureModule,
                 settingsFeatureModule,
-                appModule,
             )
         }
     }

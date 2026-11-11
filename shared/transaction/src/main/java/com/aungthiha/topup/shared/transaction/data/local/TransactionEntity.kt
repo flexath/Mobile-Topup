@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey
         Index(value = ["user_id", "operator_code"]),
     ],
 )
-internal data class TransactionEntity(
+data class TransactionEntity(
     @PrimaryKey
     @ColumnInfo(name = "id") val id: String,
     @ColumnInfo(name = "user_id") val userId: String,

@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 
 @Entity(tableName = "operators")
-internal data class OperatorEntity(
+data class OperatorEntity(
     @PrimaryKey
     @ColumnInfo(name = "code") val code: String,
     @ColumnInfo(name = "display_name") val displayName: String,
@@ -36,7 +36,7 @@ internal data class OperatorEntity(
         Index(value = ["sku"], unique = true),
     ],
 )
-internal data class CatalogProductEntity(
+data class CatalogProductEntity(
     @PrimaryKey
     @ColumnInfo(name = "id") val id: String,
     @ColumnInfo(name = "sku") val sku: String,
@@ -52,7 +52,7 @@ internal data class CatalogProductEntity(
     @ColumnInfo(name = "sort_order") val sortOrder: Int,
 )
 
-internal data class OperatorWithProducts(
+data class OperatorWithProducts(
     @Embedded val operator: OperatorEntity,
     @Relation(parentColumn = "code", entityColumn = "operator_code")
     val products: List<CatalogProductEntity>,

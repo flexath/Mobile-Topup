@@ -1,8 +1,6 @@
 package com.aungthiha.topup.feature.topup.di
 
-import androidx.room.Room
 import com.aungthiha.topup.core.common.di.ApplicationScope
-import com.aungthiha.topup.feature.topup.data.local.CatalogDatabase
 import com.aungthiha.topup.feature.topup.data.remote.SupabaseTopupRemoteService
 import com.aungthiha.topup.feature.topup.data.remote.TopupRemoteService
 import com.aungthiha.topup.feature.topup.data.repository.CatalogRepositoryImpl
@@ -25,17 +23,12 @@ import com.aungthiha.topup.feature.topup.presentation.screens.recharge.RechargeV
 import com.aungthiha.topup.feature.topup.presentation.screens.success.RechargeSuccessViewModel
 import com.aungthiha.topup.feature.topup.presentation.screens.topup.TopupViewModel
 import kotlinx.serialization.json.Json
-import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 val topupFeatureModule = module {
-    single {
-        Room.databaseBuilder(androidContext(), CatalogDatabase::class.java, CatalogDatabase.NAME).build()
-    }
-    single { get<CatalogDatabase>().catalogDao() }
     single<TopupRemoteService> { SupabaseTopupRemoteService(get()) }
 
     single<CatalogRepository> {

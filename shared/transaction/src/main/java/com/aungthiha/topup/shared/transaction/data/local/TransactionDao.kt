@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
  * different account. Filter semantics mirror `public.list_my_transactions` on the backend.
  */
 @Dao
-internal interface TransactionDao {
+interface TransactionDao {
 
     @Query(
         """
