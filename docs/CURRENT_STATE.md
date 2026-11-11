@@ -283,6 +283,8 @@ Rules/skill: `.cursor/rules/topup-build-logic.mdc`, `.cursor/skills/topup-build-
 
 **Release signing:** fail-hard via `RELEASE_KEYSTORE`, `RELEASE_KEYSTORE_PASSWORD`, `RELEASE_KEY_ALIAS`, `RELEASE_KEY_PASSWORD` in root `local.properties`.
 
+**Supabase BuildConfig:** fail-hard via `SUPABASE_URL`, `SUPABASE_ANON_KEY` in root `local.properties` → `BuildConfig.SUPABASE_URL` / `BuildConfig.SUPABASE_ANON_KEY` on `:app` (`buildFeatures.buildConfig = true`).
+
 ---
 
 ## 10. Current user journeys

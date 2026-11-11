@@ -6,6 +6,64 @@ import java.io.File
 import java.util.Properties
 
 /**
+ * Reads a required key from root `local.properties`.
+ *
+ * Fails configuration when the file or key is missing/blank.
+ */
+internal fun Project.requireLocalProperty(key: String): String {
+    val propsFile = rootProject.layout.projectDirectory.file("local.properties").asFile
+    if (!propsFile.exists()) {
+        error(
+            "Missing local.properties. Required key: `$key`.",
+        )
+    }
+
+    val properties = Properties()
+    propsFile.inputStream().use { properties.load(it) }
+
+    val value = properties.getProperty(key)?.trim()
+    if (value.isNullOrEmpty()) {
+        error(
+            "Missing `$key` in local.properties.",
+        )
+    }
+    return value
+}
+
+/**
+ * Supabase project URL + anon key for `:app` BuildConfig.
+ */
+internal data class SupabaseBuildConfigCredentials(
+    val url: String,
+    val anonKey: String,
+)
+
+internal fun Project.requireSupabaseBuildConfigCredentials(): SupabaseBuildConfigCredentials =
+    SupabaseBuildConfigCredentials(
+        url = requireLocalProperty(DefaultBuildConfig.SUPABASE_URL_KEY),
+        anonKey = requireLocalProperty(DefaultBuildConfig.SUPABASE_ANON_KEY_KEY),
+    )
+
+/**
+ * Escapes a value for use inside an AGP `buildConfigField` String literal.
+ */
+internal fun escapeBuildConfigString(value: String): String =
+    buildString(value.length + 8) {
+        append('"')
+        value.forEach { ch ->
+            when (ch) {
+                '\\' -> append("\\\\")
+                '"' -> append("\\\"")
+                '\n' -> append("\\n")
+                '\r' -> append("\\r")
+                '\t' -> append("\\t")
+                else -> append(ch)
+            }
+        }
+        append('"')
+    }
+
+/**
  * Credentials for signing `:app` release APKs / App Bundles from `local.properties`.
  *
  * [storeFilePath] may be absolute or relative to the Gradle project root.

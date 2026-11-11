@@ -4,13 +4,16 @@ import common.DefaultBuildConfig
 import common.JavaTargets
 import org.gradle.api.Project
 import utils.androidApplication
+import utils.escapeBuildConfigString
 import utils.requireReleaseSigningCredentials
+import utils.requireSupabaseBuildConfigCredentials
 
 /**
  * Configures the AGP `com.android.application` extension for `:app`.
  *
- * Keeps stock AGP `debug` / `release` build types. Release signing is
- * required via `local.properties` (fail-hard at configuration time).
+ * Keeps stock AGP `debug` / `release` build types. Release signing and
+ * Supabase BuildConfig secrets are required via `local.properties`
+ * (fail-hard at configuration time).
  */
 internal object AndroidApplicationConfigurer {
 
@@ -20,6 +23,8 @@ internal object AndroidApplicationConfigurer {
         check(keystoreFile.isFile) {
             "Release keystore not found at: ${keystoreFile.absolutePath}"
         }
+
+        val supabase = project.requireSupabaseBuildConfigCredentials()
 
         project.androidApplication {
             namespace = DefaultBuildConfig.APPLICATION_ID
@@ -32,6 +37,17 @@ internal object AndroidApplicationConfigurer {
                 versionCode = DefaultBuildConfig.VERSION_CODE
                 versionName = DefaultBuildConfig.VERSION_NAME
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+                buildConfigField(
+                    "String",
+                    "SUPABASE_URL",
+                    escapeBuildConfigString(supabase.url),
+                )
+                buildConfigField(
+                    "String",
+                    "SUPABASE_ANON_KEY",
+                    escapeBuildConfigString(supabase.anonKey),
+                )
             }
 
             signingConfigs {
@@ -56,6 +72,10 @@ internal object AndroidApplicationConfigurer {
             compileOptions {
                 sourceCompatibility = JavaTargets.JAVA_VERSION
                 targetCompatibility = JavaTargets.JAVA_VERSION
+            }
+
+            buildFeatures {
+                buildConfig = true
             }
         }
     }
