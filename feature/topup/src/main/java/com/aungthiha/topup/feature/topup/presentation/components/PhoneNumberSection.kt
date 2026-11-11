@@ -36,7 +36,7 @@ import com.aungthiha.topup.core.designsystem.theme.appTypography
 import com.aungthiha.topup.feature.topup.R
 import com.aungthiha.topup.feature.topup.domain.phone.InvalidPhoneReason
 import com.aungthiha.topup.feature.topup.domain.phone.PhoneNumberStatus
-import com.aungthiha.topup.feature.topup.presentation.screens.topup.OperatorUiModel
+import com.aungthiha.topup.feature.topup.presentation.states.OperatorUiModel
 
 @Composable
 internal fun PhoneNumberSection(

@@ -48,6 +48,7 @@ import com.aungthiha.topup.core.designsystem.theme.appTypography
 import com.aungthiha.topup.core.designsystem.utils.CaptureController
 import com.aungthiha.topup.core.designsystem.utils.rememberCaptureController
 import com.aungthiha.topup.feature.transactionhistory.R
+import com.aungthiha.topup.feature.transactionhistory.presentation.states.TransactionDetailUiState
 import com.aungthiha.topup.feature.transactionhistory.presentation.components.packageTitle
 import com.aungthiha.topup.feature.transactionhistory.presentation.navigation.TransactionHistoryNavCallbacks
 import com.aungthiha.topup.feature.transactionhistory.presentation.navigation.TransactionHistoryRoutes

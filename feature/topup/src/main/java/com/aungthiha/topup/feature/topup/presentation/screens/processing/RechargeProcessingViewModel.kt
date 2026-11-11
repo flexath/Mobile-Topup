@@ -6,10 +6,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.aungthiha.topup.core.common.result.DataResult
 import com.aungthiha.topup.feature.topup.domain.model.OperatorCode
-import com.aungthiha.topup.feature.topup.domain.model.RechargeError
 import com.aungthiha.topup.feature.topup.domain.model.RechargeRequest
 import com.aungthiha.topup.feature.topup.domain.usecase.ProcessRechargeUseCase
 import com.aungthiha.topup.feature.topup.presentation.navigation.TopupRoutes
+import com.aungthiha.topup.feature.topup.presentation.states.RechargeProcessingEvent
+import com.aungthiha.topup.feature.topup.presentation.states.RechargeProcessingUiState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -18,23 +19,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-
-sealed interface RechargeProcessingUiState {
-    val phoneNumber: String
-    val amountMmk: Long
-
-    data class Processing(override val phoneNumber: String, override val amountMmk: Long) : RechargeProcessingUiState
-
-    data class Failed(
-        override val phoneNumber: String,
-        override val amountMmk: Long,
-        val error: RechargeError,
-    ) : RechargeProcessingUiState
-}
-
-sealed interface RechargeProcessingEvent {
-    data class Succeeded(val transactionId: String) : RechargeProcessingEvent
-}
 
 /**
  * Owns the in-flight recharge request. The request starts once (rotation keeps this ViewModel)

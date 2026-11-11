@@ -4,36 +4,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aungthiha.topup.core.common.result.DataResult
-import com.aungthiha.topup.shared.auth.domain.model.AuthError
-import com.aungthiha.topup.shared.auth.domain.model.CredentialsValidator
-import com.aungthiha.topup.shared.auth.domain.model.EmailValidation
-import com.aungthiha.topup.shared.auth.domain.model.PasswordConfirmationValidation
-import com.aungthiha.topup.shared.auth.domain.model.PasswordValidation
-import com.aungthiha.topup.shared.auth.domain.usecase.SignUpUseCase
+import com.aungthiha.topup.feature.auth.domain.usecase.SignUpUseCase
+import com.aungthiha.topup.feature.auth.presentation.states.RegisterUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-
-data class RegisterUiState(
-    val email: String = "",
-    val password: String = "",
-    val confirmPassword: String = "",
-    val isPasswordVisible: Boolean = false,
-    val showValidation: Boolean = false,
-    val isSubmitting: Boolean = false,
-    val error: AuthError? = null,
-) {
-    val emailValidation: EmailValidation get() = CredentialsValidator.validateEmail(email)
-    val passwordValidation: PasswordValidation get() = CredentialsValidator.validatePassword(password)
-    val confirmationValidation: PasswordConfirmationValidation
-        get() = CredentialsValidator.validateConfirmation(password, confirmPassword)
-    val isFormValid: Boolean
-        get() = emailValidation == EmailValidation.VALID &&
-            passwordValidation == PasswordValidation.VALID &&
-            confirmationValidation == PasswordConfirmationValidation.VALID
-}
 
 /**
  * On success nothing is emitted: the session change moves the app to the authenticated shell.

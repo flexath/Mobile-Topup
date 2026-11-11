@@ -26,10 +26,11 @@ import com.aungthiha.topup.feature.auth.presentation.components.AuthSwitchPrompt
 import com.aungthiha.topup.feature.auth.presentation.components.EmailField
 import com.aungthiha.topup.feature.auth.presentation.components.PasswordField
 import com.aungthiha.topup.feature.auth.presentation.components.messageRes
+import com.aungthiha.topup.feature.auth.domain.model.CredentialsValidator
+import com.aungthiha.topup.feature.auth.domain.model.PasswordValidation
 import com.aungthiha.topup.feature.auth.presentation.navigation.AuthNavCallbacks
 import com.aungthiha.topup.feature.auth.presentation.navigation.AuthRoutes
-import com.aungthiha.topup.shared.auth.domain.model.CredentialsValidator
-import com.aungthiha.topup.shared.auth.domain.model.PasswordValidation
+import com.aungthiha.topup.feature.auth.presentation.states.RegisterUiState
 import org.koin.compose.viewmodel.koinViewModel
 
 fun NavGraphBuilder.registerScreen(

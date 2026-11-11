@@ -22,8 +22,8 @@ import com.aungthiha.topup.feature.topup.domain.usecase.ObserveWalletBalanceUseC
 import com.aungthiha.topup.feature.topup.domain.usecase.RefreshWalletBalanceUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.SyncCatalogUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.ValidateCustomAmountUseCase
-import com.aungthiha.topup.feature.topup.presentation.screens.topup.CatalogUiState
-import com.aungthiha.topup.feature.topup.presentation.screens.topup.TopupEvent
+import com.aungthiha.topup.feature.topup.presentation.states.CatalogUiState
+import com.aungthiha.topup.feature.topup.presentation.states.TopupEvent
 import com.aungthiha.topup.feature.topup.presentation.screens.topup.TopupViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

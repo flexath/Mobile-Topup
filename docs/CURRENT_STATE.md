@@ -36,11 +36,11 @@ app → feature/* → shared/* → core/*
 | Module | Role |
 |--------|------|
 | `:app` | `TopUpApplication` (Koin start), `MainActivity` (splash gate, theme), `MainViewModel`, `TopUpAppShell` (session-keyed graph + tab chrome), `AppNavGraph` |
-| `:feature:auth` | Login / Register screens + ViewModels |
+| `:feature:auth` | Login / Register screens + ViewModels; credential validation; sign-in/up repository against Supabase Auth |
 | `:feature:topup` | Top-up screen, confirmation sheet, processing, success; prefix detection; catalog (Room), wallet (DataStore), recharge (Edge Function) |
 | `:feature:transactionhistory` | History list (search / operator + date filters / sort / Load More) and transaction detail with receipt sharing |
-| `:feature:settings` | Appearance (System / Light / Dark), account email + logout, app information |
-| `:shared:auth` | Supabase Auth repository, auth state, credential validation, sign-in/up/out use cases, `CurrentUserProvider` impl |
+| `:feature:settings` | Appearance (System / Light / Dark), account email + logout, session observation / sign-out, `CurrentUserProvider` impl |
+
 | `:shared:transaction` | Transaction domain + Room cache (user-scoped) + `list_my_transactions` sync; used by top-up (save) and history (read) |
 | `:core:common` | `DataResult` / `DataError`, `NetworkMonitor`, session contracts (`CurrentUserProvider`, `UserScopedDataCleaner`), formatters, `ImageSharer` + FileProvider |
 | `:core:network` | Single `SupabaseClient` (Auth, Postgrest, Functions, Storage), `StorageUrlResolver`, network error mapping |

@@ -12,7 +12,6 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.datastore)
     implementation(projects.core.network)
-    implementation(projects.shared.auth)
     implementation(projects.shared.transaction)
     implementation(projects.feature.auth)
     implementation(projects.feature.topup)

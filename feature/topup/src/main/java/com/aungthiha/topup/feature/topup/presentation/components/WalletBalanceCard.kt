@@ -34,7 +34,7 @@ import com.aungthiha.topup.core.designsystem.theme.appShapes
 import com.aungthiha.topup.core.designsystem.theme.appSpacing
 import com.aungthiha.topup.core.designsystem.theme.appTypography
 import com.aungthiha.topup.feature.topup.R
-import com.aungthiha.topup.feature.topup.presentation.screens.topup.WalletUiState
+import com.aungthiha.topup.feature.topup.presentation.states.WalletUiState
 
 private const val ON_PRIMARY_WELL_ALPHA = 0.16f
 private const val ON_PRIMARY_SUPPORTING_ALPHA = 0.85f

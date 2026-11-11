@@ -6,7 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.aungthiha.topup.core.common.network.NetworkMonitor
 import com.aungthiha.topup.core.common.result.DataResult
 import com.aungthiha.topup.feature.transactionhistory.presentation.model.HistoryFilterState
-import com.aungthiha.topup.shared.transaction.domain.model.Transaction
+import com.aungthiha.topup.feature.transactionhistory.presentation.states.HistorySyncState
+import com.aungthiha.topup.feature.transactionhistory.presentation.states.TransactionHistoryUiState
 import com.aungthiha.topup.shared.transaction.domain.model.TransactionQuery
 import com.aungthiha.topup.shared.transaction.domain.model.TransactionSortOrder
 import com.aungthiha.topup.shared.transaction.domain.usecase.ObserveTransactionCountUseCase
@@ -29,27 +30,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
-
-data class HistorySyncState(
-    val isSyncing: Boolean = false,
-    val isLoadingMore: Boolean = false,
-    val lastSyncFailed: Boolean = false,
-    /** Whether the last remote page for [query] was full (more rows may exist on the server). */
-    val remoteHasMore: Boolean = false,
-    val query: TransactionQuery? = null,
-)
-
-data class TransactionHistoryUiState(
-    val filters: HistoryFilterState = HistoryFilterState(),
-    val transactions: List<Transaction> = emptyList(),
-    val matchingCachedCount: Int = 0,
-    val isInitialLoad: Boolean = true,
-    val isSyncing: Boolean = false,
-    val isLoadingMore: Boolean = false,
-    val showSyncWarning: Boolean = false,
-    val isOnline: Boolean = true,
-    val canLoadMore: Boolean = false,
-)
 
 /**
  * Room is the source of truth for the list. Supabase pages are synced in the background with the

@@ -2,10 +2,10 @@ package com.aungthiha.topup.feature.auth.presentation.components
 
 import androidx.annotation.StringRes
 import com.aungthiha.topup.feature.auth.R
-import com.aungthiha.topup.shared.auth.domain.model.AuthError
-import com.aungthiha.topup.shared.auth.domain.model.EmailValidation
-import com.aungthiha.topup.shared.auth.domain.model.PasswordConfirmationValidation
-import com.aungthiha.topup.shared.auth.domain.model.PasswordValidation
+import com.aungthiha.topup.feature.auth.domain.model.AuthError
+import com.aungthiha.topup.feature.auth.domain.model.EmailValidation
+import com.aungthiha.topup.feature.auth.domain.model.PasswordConfirmationValidation
+import com.aungthiha.topup.feature.auth.domain.model.PasswordValidation
 
 @StringRes
 internal fun AuthError.messageRes(): Int = when (this) {

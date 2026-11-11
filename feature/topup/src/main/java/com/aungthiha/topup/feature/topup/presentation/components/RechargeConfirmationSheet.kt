@@ -35,7 +35,7 @@ import com.aungthiha.topup.core.designsystem.theme.appTypography
 import com.aungthiha.topup.feature.topup.R
 import com.aungthiha.topup.feature.topup.domain.model.CatalogProductType
 import com.aungthiha.topup.feature.topup.domain.model.RechargeSelection
-import com.aungthiha.topup.feature.topup.presentation.screens.topup.RechargeConfirmationUi
+import com.aungthiha.topup.feature.topup.presentation.states.RechargeConfirmationUi
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

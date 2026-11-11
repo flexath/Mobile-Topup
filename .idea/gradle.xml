@@ -35,7 +35,6 @@
             <option value="$PROJECT_DIR$/feature/topup" />
             <option value="$PROJECT_DIR$/feature/transactionhistory" />
             <option value="$PROJECT_DIR$/shared" />
-            <option value="$PROJECT_DIR$/shared/auth" />
             <option value="$PROJECT_DIR$/shared/transaction" />
           </set>
         </option>

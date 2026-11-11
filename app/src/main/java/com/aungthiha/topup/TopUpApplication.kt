@@ -13,7 +13,6 @@ import com.aungthiha.topup.feature.auth.di.authFeatureModule
 import com.aungthiha.topup.feature.settings.di.settingsFeatureModule
 import com.aungthiha.topup.feature.topup.di.topupFeatureModule
 import com.aungthiha.topup.feature.transactionhistory.di.transactionHistoryFeatureModule
-import com.aungthiha.topup.shared.auth.di.authSharedModule
 import com.aungthiha.topup.shared.transaction.di.transactionSharedModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -31,7 +30,6 @@ class TopUpApplication: Application() {
                     SupabaseConfig(url = BuildConfig.SUPABASE_URL, clientKey = BuildConfig.SUPABASE_ANON_KEY),
                 ),
                 datastoreModule,
-                authSharedModule,
                 transactionSharedModule,
                 authFeatureModule,
                 topupFeatureModule,

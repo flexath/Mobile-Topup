@@ -5,17 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.aungthiha.topup.feature.topup.presentation.navigation.TopupRoutes
-import com.aungthiha.topup.shared.transaction.domain.model.Transaction
+import com.aungthiha.topup.feature.topup.presentation.states.RechargeSuccessUiState
 import com.aungthiha.topup.shared.transaction.domain.usecase.ObserveTransactionUseCase
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-
-sealed interface RechargeSuccessUiState {
-    data object Loading : RechargeSuccessUiState
-    data class Ready(val transaction: Transaction) : RechargeSuccessUiState
-}
 
 /** Shows the backend-confirmed transaction that ProcessRechargeUseCase cached before navigating here. */
 class RechargeSuccessViewModel(

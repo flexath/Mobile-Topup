@@ -48,6 +48,7 @@ import com.aungthiha.topup.core.designsystem.utils.rememberCaptureController
 import com.aungthiha.topup.feature.topup.R
 import com.aungthiha.topup.feature.topup.presentation.components.TransactionReceipt
 import com.aungthiha.topup.feature.topup.presentation.navigation.TopupNavCallbacks
+import com.aungthiha.topup.feature.topup.presentation.states.RechargeSuccessUiState
 import com.aungthiha.topup.feature.topup.presentation.navigation.TopupRoutes
 import com.aungthiha.topup.shared.transaction.domain.model.Transaction
 import kotlinx.coroutines.launch

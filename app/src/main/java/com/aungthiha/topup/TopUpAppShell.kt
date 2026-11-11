@@ -37,7 +37,7 @@ import com.aungthiha.topup.navigation.TopLevelDestination
 import com.aungthiha.topup.navigation.navigateToTopLevel
 import com.aungthiha.topup.navigation.showsAppNavigation
 import com.aungthiha.topup.navigation.toTopLevelDestination
-import com.aungthiha.topup.shared.auth.domain.model.AuthState
+import com.aungthiha.topup.feature.settings.domain.model.AuthState
 
 private const val SIGNED_OUT_KEY = "signed-out"
 

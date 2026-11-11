@@ -35,7 +35,6 @@ include(":core:datastore")
 include(":core:network")
 
 // Shared Modules
-include(":shared:auth")
 include(":shared:transaction")
 
 // Feature Modules
