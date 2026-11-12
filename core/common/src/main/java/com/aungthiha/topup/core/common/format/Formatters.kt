@@ -10,8 +10,9 @@ private const val MEGABYTES_PER_GIGABYTE = 1024
 /** Formats whole Myanmar kyat, e.g. `500000` → `500,000 Ks`. */
 fun formatKyat(amountMmk: Long): String = "${formatGrouped(amountMmk)} Ks"
 
-/** Digit grouping only, e.g. `20000` → `20,000`. */
-fun formatGrouped(value: Long): String = NumberFormat.getIntegerInstance(Locale.US).format(value)
+/** Digit grouping only, e.g. `20000` → `20,000`. Follows the app locale from ProvideAppLocale. */
+fun formatGrouped(value: Long): String =
+    NumberFormat.getIntegerInstance(Locale.getDefault()).format(value)
 
 /** `512` → `512 MB`, `5120` → `5 GB`, `1536` → `1.5 GB`. */
 fun formatDataAllowance(megabytes: Int): String {

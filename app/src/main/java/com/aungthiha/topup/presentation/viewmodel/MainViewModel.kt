@@ -2,6 +2,7 @@ package com.aungthiha.topup.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aungthiha.topup.core.datastore.LanguageManager
 import com.aungthiha.topup.feature.settings.domain.usecase.ObserveAppearanceModeUseCase
 import com.aungthiha.topup.feature.settings.domain.usecase.ObserveAuthStateUseCase
 import com.aungthiha.topup.feature.settings.domain.usecase.SignOutUseCase
@@ -15,11 +16,20 @@ import kotlinx.coroutines.launch
 class MainViewModel(
     observeAuthState: ObserveAuthStateUseCase,
     observeAppearanceMode: ObserveAppearanceModeUseCase,
+    languageManager: LanguageManager,
     private val signOut: SignOutUseCase,
 ) : ViewModel() {
 
-    val uiState: StateFlow<MainUiState> = combine(observeAuthState(), observeAppearanceMode()) { auth, appearance ->
-        MainUiState(authState = auth, appearanceMode = appearance)
+    val uiState: StateFlow<MainUiState> = combine(
+        observeAuthState(),
+        observeAppearanceMode(),
+        languageManager.getAppLanguage(),
+    ) { auth, appearance, language ->
+        MainUiState(
+            authState = auth,
+            appearanceMode = appearance,
+            appLanguage = language,
+        )
     }.stateIn(viewModelScope, SharingStarted.Eagerly, MainUiState())
 
     /** The backend rejected the session (e.g. revoked or expired refresh token). */

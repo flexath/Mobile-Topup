@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="history_title">မှတ်တမ်း</string>
+    <string name="history_back">နောက်သို့</string>
+    <string name="history_search_label">ရှာဖွေရန်</string>
+    <string name="history_search_placeholder">ဖုန်းနံပါတ် ဒါမှမဟုတ် ငွေလွှဲမှတ်တမ်း ID</string>
+    <string name="history_clear_search">ရှာဖွေမှုကို ဖျက်မယ်</string>
+    <string name="history_filter_date">ရက်စွဲ</string>
+    <string name="history_filter_date_range">%1$s – %2$s</string>
+    <string name="history_sort_newest">အသစ်ဆုံးကို အရင်ပြမယ်</string>
+    <string name="history_sort_oldest">အဟောင်းဆုံးကို အရင်ပြမယ်</string>
+    <string name="history_clear_filters">စစ်ထုတ်မှုအားလုံး ဖျက်မယ်</string>
+    <string name="history_date_picker_title">ရက်စွဲအပိုင်းအခြား ရွေးပါ</string>
+    <string name="history_date_picker_apply">အသုံးပြုမယ်</string>
+    <string name="history_date_picker_cancel">မလုပ်တော့ပါ</string>
+    <string name="history_date_picker_clear">ရှင်းမယ်</string>
+
+    <string name="history_syncing">မှတ်တမ်းတွေကို ရှာနေပါတယ်…</string>
+    <string name="history_offline">အင်တာနက် ချိတ်ဆက်မထားပါဘူး။ သိမ်းထားတဲ့ ငွေလွှဲမှတ်တမ်းတွေကို ပြသထားပါတယ်။</string>
+    <string name="history_sync_failed">မှတ်တမ်းတွေကို အပ်ဒိတ်မလုပ်နိုင်ခဲ့ပါဘူး။ သိမ်းထားတဲ့ ငွေလွှဲမှတ်တမ်းတွေကို ပြသထားပါတယ်။</string>
+    <string name="history_load_more">နောက်ထပ် ကြည့်မယ်</string>
+
+    <string name="history_empty_title">ငွေလွှဲမှတ်တမ်း မရှိသေးပါဘူး</string>
+    <string name="history_empty_message">အောင်မြင်တဲ့ ဖုန်းဘေလ်ဖြည့်မှုတွေကို ဒီမှာ တွေ့ရပါမယ်။</string>
+    <string name="history_empty_action">ဖုန်းဘေလ်ဖြည့်မယ်</string>
+    <string name="history_no_results_title">ကိုက်ညီတဲ့ မှတ်တမ်း မတွေ့ပါဘူး</string>
+    <string name="history_no_results_message">တခြားဖုန်းနံပါတ်၊ ငွေလွှဲမှတ်တမ်း ID၊ ရက်စွဲအပိုင်းအခြား ဒါမှမဟုတ် အော်ပရေတာနဲ့ ပြန်ရှာကြည့်ပါ။</string>
+
+    <string name="history_status_success">အောင်မြင်ပါပြီ</string>
+    <string name="history_item_denomination">%1$s ကျပ် ဖုန်းဘေလ်</string>
+    <string name="history_item_custom">ကိုယ်တိုင်ထည့်ထားတဲ့ ငွေပမာဏ</string>
+
+    <string name="history_detail_title">ငွေလွှဲအသေးစိတ်</string>
+    <string name="history_detail_share">ပြေစာ မျှဝေမယ်</string>
+    <string name="history_detail_balance_after">ငွေလွှဲပြီးနောက် Wallet လက်ကျန်ငွေ</string>
+    <string name="history_detail_not_found_title">ငွေလွှဲမှတ်တမ်း မတွေ့ပါ</string>
+    <string name="history_detail_not_found_message">ဒီငွေလွှဲမှတ်တမ်းကို ဒီစက်မှာ ရှာမတွေ့ပါဘူး။</string>
+    <string name="history_share_chooser">ပြေစာ မျှဝေမယ်</string>
+</resources>

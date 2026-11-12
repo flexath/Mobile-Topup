@@ -11,6 +11,7 @@ plugins {
 dependencies {
     implementation(projects.core.common)
     implementation(projects.core.designsystem)
+    implementation(projects.core.datastore)
     implementation(projects.core.network)
 
     implementation(libs.androidx.lifecycle.runtime.compose)

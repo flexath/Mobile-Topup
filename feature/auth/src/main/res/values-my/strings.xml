@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="auth_brand_name">TopUp</string>
+    <string name="auth_login_title">ပြန်လည် ကြိုဆိုပါတယ်</string>
+    <string name="auth_login_subtitle">သင့် Wallet ထဲကငွေကို အသုံးပြုပြီး ဖုန်းဘေလ်ဖြည့်ဖို့ အကောင့်ဝင်ပါ။</string>
+    <string name="auth_register_title">အကောင့်အသစ်ဖွင့်မယ်</string>
+    <string name="auth_register_subtitle">Wallet ရရှိဖို့ အီးမေးလ်နဲ့ အကောင့်ဖွင့်လိုက်ပါ။</string>
+
+    <string name="auth_email_label">အီးမေးလ်</string>
+    <string name="auth_email_placeholder">you@example.com</string>
+    <string name="auth_password_label">စကားဝှက်</string>
+    <string name="auth_confirm_password_label">စကားဝှက် ထပ်ထည့်ပါ</string>
+    <string name="auth_show_password">စကားဝှက် ပြရန်</string>
+    <string name="auth_hide_password">စကားဝှက် ဖျောက်ရန်</string>
+
+    <string name="auth_sign_in">အကောင့်ဝင်မယ်</string>
+    <string name="auth_create_account">အကောင့်ဖွင့်မယ်</string>
+    <string name="auth_no_account">အကောင့်မရှိသေးဘူးလား။</string>
+    <string name="auth_register_link">အကောင့်ဖွင့်ရန်</string>
+    <string name="auth_have_account">အကောင့်ရှိပြီးသားလား။</string>
+    <string name="auth_sign_in_link">အကောင့်ဝင်ရန်</string>
+    <string name="auth_back">နောက်သို့</string>
+
+    <string name="auth_error_email_empty">အီးမေးလ်လိပ်စာ ထည့်ပေးပါ။</string>
+    <string name="auth_error_email_invalid">မှန်ကန်တဲ့ အီးမေးလ်လိပ်စာ ထည့်ပေးပါ။</string>
+    <string name="auth_error_password_empty">စကားဝှက် ထည့်ပေးပါ။</string>
+    <string name="auth_error_password_short">အနည်းဆုံး စာလုံး %1$d လုံး ရှိရပါမယ်။</string>
+    <string name="auth_error_confirm_empty">စကားဝှက်ကို ထပ်ထည့်ပေးပါ။</string>
+    <string name="auth_error_confirm_mismatch">စကားဝှက်နှစ်ခု မတူပါဘူး။</string>
+
+    <string name="auth_error_invalid_credentials">အီးမေးလ် ဒါမှမဟုတ် စကားဝှက် မှားနေပါတယ်။</string>
+    <string name="auth_error_email_not_confirmed">ပို့ပေးထားတဲ့ လင့်ခ်ကနေ အီးမေးလ်ကို အတည်ပြုပြီးမှ အကောင့်ဝင်ပါ။</string>
+    <string name="auth_error_email_registered">ဒီအီးမေးလ်နဲ့ အကောင့်ရှိပြီးသားပါ။ အကောင့်အသစ်ဖွင့်မယ့်အစား အကောင့်ဝင်ကြည့်ပါ။</string>
+    <string name="auth_error_weak_password">ပိုမိုခိုင်မာတဲ့ စကားဝှက်တစ်ခု ရွေးပေးပါ။</string>
+    <string name="auth_error_invalid_email">ဒီအီးမေးလ်လိပ်စာကို အသုံးပြုလို့မရပါဘူး။</string>
+    <string name="auth_error_signup_disabled">လောလောဆယ် အကောင့်အသစ်ဖွင့်လို့ မရသေးပါဘူး။</string>
+    <string name="auth_error_rate_limited">ကြိုးစားမှု များလွန်းနေပါတယ်။ ခဏစောင့်ပြီး ပြန်လုပ်ကြည့်ပါ။</string>
+    <string name="auth_error_no_connection">အင်တာနက် ချိတ်ဆက်မထားပါဘူး။ Connection စစ်ဆေးပြီး ပြန်လုပ်ကြည့်ပါ။</string>
+    <string name="auth_error_unknown">တစ်ခုခု မှားယွင်းသွားပါတယ်။ ထပ်ကြိုးစားကြည့်ပါ။</string>
+</resources>

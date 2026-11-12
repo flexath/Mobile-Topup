@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">ဆက်တင်များ</string>
+    <string name="settings_back">နောက်သို့</string>
+
+    <string name="settings_appearance">အသွင်အပြင်</string>
+    <string name="settings_appearance_system">ဖုန်းဆက်တင်အတိုင်း</string>
+    <string name="settings_appearance_system_description">ဖုန်းရဲ့ Theme အတိုင်း ပြသမယ်</string>
+    <string name="settings_appearance_light">အလင်းရောင်</string>
+    <string name="settings_appearance_dark">အမှောင်</string>
+
+    <string name="settings_language">ဘာသာစကား</string>
+
+    <string name="settings_account">အကောင့်</string>
+    <string name="settings_signed_in_as">လက်ရှိဝင်ထားတဲ့အကောင့်</string>
+    <string name="settings_email_unknown">အီးမေးလ် မသိရှိပါ</string>
+    <string name="settings_logout">အကောင့်ထွက်ရန်</string>
+    <string name="settings_logout_confirm_title">အကောင့်ထွက်မှာ သေချာပါသလား။</string>
+    <string name="settings_logout_confirm_message">ဒီဖုန်းထဲမှာ သိမ်းထားတဲ့ Wallet လက်ကျန်ငွေနဲ့ မှတ်တမ်းတွေကို ဖျက်လိုက်ပါမယ်။ နောက်မှ အချိန်မရွေး ပြန်ဝင်နိုင်ပါတယ်။</string>
+    <string name="settings_logout_confirm">အကောင့်ထွက်ရန်</string>
+    <string name="settings_logout_cancel">မလုပ်တော့ပါ</string>
+
+    <string name="settings_about">အက်ပ်အကြောင်း</string>
+    <string name="settings_app_name">TopUp</string>
+    <string name="settings_version">ဗားရှင်း %1$s</string>
+</resources>

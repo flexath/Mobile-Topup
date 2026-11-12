@@ -46,6 +46,7 @@ import com.aungthiha.topup.core.designsystem.theme.appColorScheme
 import com.aungthiha.topup.core.designsystem.theme.appSpacing
 import com.aungthiha.topup.core.designsystem.theme.appTypography
 import com.aungthiha.topup.feature.settings.R
+import com.aungthiha.topup.feature.settings.presentation.components.SettingsLanguagePicker
 import com.aungthiha.topup.feature.settings.presentation.navigation.SettingsNavCallbacks
 import com.aungthiha.topup.feature.settings.presentation.navigation.SettingsRoutes
 import org.koin.compose.viewmodel.koinViewModel
@@ -81,6 +82,7 @@ fun SettingsScreen(
     onConfirmLogout: () -> Unit,
     onDismissLogout: () -> Unit,
     modifier: Modifier = Modifier,
+    languageSection: @Composable () -> Unit = { SettingsLanguagePicker() },
 ) {
     val spacing = MaterialTheme.appSpacing
     Column(
@@ -121,6 +123,10 @@ fun SettingsScreen(
                         onClick = { onAppearanceSelected(AppearanceMode.DARK) },
                     )
                 }
+            }
+
+            SettingsSection(title = R.string.settings_language) {
+                languageSection()
             }
 
             SettingsSection(title = R.string.settings_account) {
@@ -256,6 +262,7 @@ private fun SettingsScreenPreview() {
             onLogoutClick = {},
             onConfirmLogout = {},
             onDismissLogout = {},
+            languageSection = {},
         )
     }
 }

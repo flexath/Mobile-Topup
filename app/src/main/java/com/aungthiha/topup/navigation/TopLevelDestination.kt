@@ -1,12 +1,14 @@
 package com.aungthiha.topup.navigation
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
+import com.aungthiha.topup.R
 import com.aungthiha.topup.core.common.navigation.AppRoutes
-import com.aungthiha.topup.core.designsystem.R
+import com.aungthiha.topup.core.designsystem.R as DesignSystemR
 import com.aungthiha.topup.feature.topup.presentation.navigation.TopupRoutes
 import com.aungthiha.topup.feature.transactionhistory.presentation.navigation.TransactionHistoryRoutes
 import kotlin.reflect.KClass
@@ -17,22 +19,22 @@ import kotlin.reflect.KClass
  * Each owns a feature graph so switching tabs preserves that feature's back stack.
  */
 enum class TopLevelDestination(
-    val label: String,
+    @StringRes val labelRes: Int,
     @DrawableRes val icon: Int,
     val graphRoute: AppRoutes,
     val graphRouteClass: KClass<out AppRoutes>,
     val rootRouteClass: KClass<out AppRoutes>,
 ) {
     Topup(
-        label = "Topup",
-        icon = R.drawable.ic_topup,
+        labelRes = R.string.nav_topup,
+        icon = DesignSystemR.drawable.ic_topup,
         graphRoute = TopupRoutes.GraphRoute,
         graphRouteClass = TopupRoutes.GraphRoute::class,
         rootRouteClass = TopupRoutes.TopupScreen::class,
     ),
     History(
-        label = "History",
-        icon = R.drawable.ic_transaction_history,
+        labelRes = R.string.nav_history,
+        icon = DesignSystemR.drawable.ic_transaction_history,
         graphRoute = TransactionHistoryRoutes.GraphRoute,
         graphRouteClass = TransactionHistoryRoutes.GraphRoute::class,
         rootRouteClass = TransactionHistoryRoutes.TransactionHistoryScreen::class,
