@@ -44,9 +44,15 @@ captures/
 *.iml
 .idea/
 
-# Keystore files
+# Keystore files (including CI ephemeral keystore/release.jks)
 *.jks
 *.keystore
+keystore/
+
+# Firebase / Google Cloud service account keys (never commit)
+*firebase-adminsdk*.json
+*-service-account*.json
+firebase-service-account.json
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
