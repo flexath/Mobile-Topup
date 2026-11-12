@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -41,7 +40,7 @@ import com.aungthiha.topup.core.designsystem.theme.appSpacing
 import com.aungthiha.topup.core.designsystem.theme.appTypography
 import com.aungthiha.topup.feature.auth.R
 
-/** Scrollable, width-capped column shared by Login and Register so both adapt to any window. */
+/** Scrollable column shared by Login and Register. */
 @Composable
 internal fun AuthScaffold(
     @StringRes title: Int,
@@ -60,7 +59,6 @@ internal fun AuthScaffold(
     ) {
         Column(
             modifier = Modifier
-                .widthIn(max = spacing.messageMaxWidth + spacing.huge)
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = spacing.screenHorizontal, vertical = spacing.section),

@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
@@ -128,7 +127,6 @@ fun RechargeSuccessScreen(
                 if (MaterialTheme.deviceType.widthClass >= DeviceWidthClass.Medium) {
                     Row(
                         modifier = Modifier
-                            .widthIn(max = spacing.readableMaxWidth + spacing.illustration)
                             .fillMaxSize()
                             .padding(horizontal = spacing.screenHorizontal),
                         horizontalArrangement = Arrangement.spacedBy(spacing.pane),
@@ -144,9 +142,7 @@ fun RechargeSuccessScreen(
                     }
                 } else {
                     SuccessColumn(
-                        Modifier
-                            .widthIn(max = spacing.readableMaxWidth)
-                            .padding(horizontal = spacing.screenHorizontal),
+                        Modifier.padding(horizontal = spacing.screenHorizontal),
                     ) {
                         SuccessHeader(transaction)
                         TransactionReceipt(transaction = transaction, captureController = captureController)

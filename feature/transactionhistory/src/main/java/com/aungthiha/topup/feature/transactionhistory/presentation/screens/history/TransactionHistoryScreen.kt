@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -117,7 +116,6 @@ fun TransactionHistoryScreen(
         AppTopBar(title = stringResource(R.string.history_title))
         Column(
             modifier = Modifier
-                .widthIn(max = spacing.readableMaxWidth)
                 .fillMaxWidth()
                 .weight(1f),
         ) {
