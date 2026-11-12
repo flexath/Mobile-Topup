@@ -4,11 +4,10 @@ import com.aungthiha.topup.core.common.coroutines.DispatcherProvider
 import com.aungthiha.topup.core.common.result.NetworkError
 import com.aungthiha.topup.core.network.StorageUrlResolver
 import com.aungthiha.topup.core.network.toNetworkError
-import com.aungthiha.topup.feature.topup.data.local.dao.CatalogDao
 import com.aungthiha.topup.feature.topup.data.mapper.toDomain
-import com.aungthiha.topup.feature.topup.data.mapper.toEntity
 import com.aungthiha.topup.feature.topup.data.remote.response.OperatorDto
 import com.aungthiha.topup.feature.topup.data.remote.service.TopupRemoteService
+import com.aungthiha.topup.feature.topup.domain.cache.CatalogCache
 import com.aungthiha.topup.feature.topup.domain.model.CatalogSyncStatus
 import com.aungthiha.topup.feature.topup.domain.model.OperatorCatalog
 import com.aungthiha.topup.feature.topup.domain.model.OperatorCode
@@ -20,7 +19,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -32,12 +30,12 @@ import java.util.concurrent.atomic.AtomicLong
  *
  * - The cold-launch refresh runs once per process in [appScope], so screens, rotation and
  *   operator changes never trigger extra requests.
- * - Each request takes a generation number; only the newest generation may write to Room, so a
+ * - Each request takes a generation number; only the newest generation may write to cache, so a
  *   slow, superseded response can never overwrite newer data.
- * - Room is only replaced by a valid, non-empty response; failures keep the cached catalog.
+ * - Cache is only replaced by a valid, non-empty response; failures keep the cached catalog.
  */
 internal class CatalogRepositoryImpl(
-    private val dao: CatalogDao,
+    private val cache: CatalogCache,
     private val remote: TopupRemoteService,
     private val storage: StorageUrlResolver,
     private val appScope: CoroutineScope,
@@ -52,9 +50,7 @@ internal class CatalogRepositoryImpl(
     override val syncStatus: StateFlow<CatalogSyncStatus> = _syncStatus.asStateFlow()
 
     override fun observeCatalog(): Flow<List<OperatorCatalog>> =
-        dao.observeCatalog()
-            .map { rows -> rows.mapNotNull { it.toDomain() } }
-            .flowOn(dispatchers.io)
+        cache.observeCatalog().flowOn(dispatchers.io)
 
     override fun startLaunchRefresh() {
         if (launchRefreshStarted.compareAndSet(false, true)) launchRefresh()
@@ -77,15 +73,17 @@ internal class CatalogRepositoryImpl(
             if (!catalog.isValid()) {
                 CatalogSyncStatus.Failed(NetworkError.SERIALIZATION)
             } else {
-                writeMutex.withLock {
-                    if (generation == latestGeneration.get()) {
-                        dao.replaceCatalog(
-                            operators = catalog.map { it.toEntity(storage) },
-                            products = catalog.flatMap { operator -> operator.products.map { it.toEntity() } },
-                        )
+                val mapped = catalog.mapNotNull { it.toDomain(storage) }
+                if (mapped.isEmpty()) {
+                    CatalogSyncStatus.Failed(NetworkError.SERIALIZATION)
+                } else {
+                    writeMutex.withLock {
+                        if (generation == latestGeneration.get()) {
+                            cache.replaceCatalog(mapped)
+                        }
                     }
+                    CatalogSyncStatus.Synced
                 }
-                CatalogSyncStatus.Synced
             }
         } catch (cancellation: CancellationException) {
             throw cancellation

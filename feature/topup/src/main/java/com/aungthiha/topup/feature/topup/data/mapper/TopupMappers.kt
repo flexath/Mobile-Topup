@@ -28,24 +28,13 @@ import com.aungthiha.topup.shared.transaction.domain.model.TransactionStatus
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
-internal fun OperatorDto.toEntity(storage: StorageUrlResolver) = OperatorEntity(
-    code = code,
-    displayName = displayName,
-    fullName = name,
-    logoUrl = storage.publicUrl(logoBucket, logoPath),
-    customAmountMinMmk = customAmountMinMmk,
-    customAmountMaxMmk = customAmountMaxMmk,
-    customAmountStepMmk = customAmountStepMmk,
-    sortOrder = sortOrder,
-)
-
 private val OPERATOR_PREFIX_FORMAT = Regex("^09[0-9]{2,3}$")
 
 /** Drops unknown operators and malformed prefixes rather than guessing. */
-internal fun OperatorPrefixDto.toEntityOrNull(): OperatorPrefixEntity? {
+internal fun OperatorPrefixDto.toDomainOrNull(): OperatorPrefix? {
     if (!OPERATOR_PREFIX_FORMAT.matches(prefix)) return null
     val code = OperatorCode.fromCode(operatorCode) ?: return null
-    return OperatorPrefixEntity(prefix = prefix, operatorCode = code.code)
+    return OperatorPrefix(prefix = prefix, operator = code)
 }
 
 internal fun OperatorPrefixEntity.toDomainOrNull(): OperatorPrefix? {
@@ -53,20 +42,52 @@ internal fun OperatorPrefixEntity.toDomainOrNull(): OperatorPrefix? {
     return OperatorPrefix(prefix = prefix, operator = code)
 }
 
-internal fun CatalogProductDto.toEntity() = CatalogProductEntity(
-    id = id.lowercase(),
-    sku = sku,
-    operatorCode = operatorCode,
-    productType = productType,
-    name = name,
-    priceMmk = priceMmk,
-    dataAllowanceMb = dataAllowanceMb,
-    callMinutes = callMinutes,
-    services = services,
-    validityDays = validityDays,
-    isDemo = isDemo,
-    sortOrder = sortOrder,
+internal fun OperatorPrefix.toEntity() = OperatorPrefixEntity(
+    prefix = prefix,
+    operatorCode = operator.code,
 )
+
+/** Unified catalog DTO → domain. Unknown operators / product types are dropped. */
+internal fun OperatorDto.toDomain(storage: StorageUrlResolver): OperatorCatalog? {
+    val operatorCode = OperatorCode.fromCode(code) ?: return null
+    val products = products
+        .mapNotNull { it.toDomain(operatorCode) }
+        .sortedWith(compareBy({ it.sortOrder }, { it.priceMmk }))
+    return OperatorCatalog(
+        operator = TelecomOperator(
+            code = operatorCode,
+            displayName = displayName,
+            fullName = name,
+            logoUrl = storage.publicUrl(logoBucket, logoPath),
+            customAmountRule = CustomAmountRule(
+                minMmk = customAmountMinMmk,
+                maxMmk = customAmountMaxMmk,
+                stepMmk = customAmountStepMmk,
+            ),
+            sortOrder = sortOrder,
+        ),
+        denominations = products.filter { it.type == CatalogProductType.DENOMINATION },
+        packages = products.filter { it.type == CatalogProductType.DATA_PACKAGE },
+    )
+}
+
+private fun CatalogProductDto.toDomain(operatorCode: OperatorCode): CatalogProduct? {
+    val type = CatalogProductType.entries.firstOrNull { it.name == productType } ?: return null
+    return CatalogProduct(
+        id = id.lowercase(),
+        sku = sku,
+        operatorCode = operatorCode,
+        type = type,
+        name = name,
+        priceMmk = priceMmk,
+        dataAllowanceMb = dataAllowanceMb,
+        callMinutes = callMinutes,
+        services = services,
+        validityDays = validityDays,
+        isDemo = isDemo,
+        sortOrder = sortOrder,
+    )
+}
 
 /** Rows for unknown operators or product types are skipped rather than guessed. */
 internal fun OperatorWithProducts.toDomain(): OperatorCatalog? {
@@ -85,6 +106,7 @@ internal fun OperatorWithProducts.toDomain(): OperatorCatalog? {
                 maxMmk = operator.customAmountMaxMmk,
                 stepMmk = operator.customAmountStepMmk,
             ),
+            sortOrder = operator.sortOrder,
         ),
         denominations = products.filter { it.type == CatalogProductType.DENOMINATION },
         packages = products.filter { it.type == CatalogProductType.DATA_PACKAGE },
@@ -105,8 +127,38 @@ private fun CatalogProductEntity.toDomain(operatorCode: OperatorCode): CatalogPr
         services = services,
         validityDays = validityDays,
         isDemo = isDemo,
+        sortOrder = sortOrder,
     )
 }
+
+internal fun TelecomOperator.toEntity() = OperatorEntity(
+    code = code.code,
+    displayName = displayName,
+    fullName = fullName,
+    logoUrl = logoUrl,
+    customAmountMinMmk = customAmountRule.minMmk,
+    customAmountMaxMmk = customAmountRule.maxMmk,
+    customAmountStepMmk = customAmountRule.stepMmk,
+    sortOrder = sortOrder,
+)
+
+internal fun CatalogProduct.toEntity() = CatalogProductEntity(
+    id = id.lowercase(),
+    sku = sku,
+    operatorCode = operatorCode.code,
+    productType = type.name,
+    name = name,
+    priceMmk = priceMmk,
+    dataAllowanceMb = dataAllowanceMb,
+    callMinutes = callMinutes,
+    services = services,
+    validityDays = validityDays,
+    isDemo = isDemo,
+    sortOrder = sortOrder,
+)
+
+internal fun OperatorCatalog.toEntities(): Pair<OperatorEntity, List<CatalogProductEntity>> =
+    operator.toEntity() to (denominations + packages).map { it.toEntity() }
 
 @OptIn(ExperimentalTime::class)
 internal fun RechargeTransactionDto.toDomain(storage: StorageUrlResolver) = Transaction(

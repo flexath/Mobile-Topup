@@ -5,6 +5,7 @@ import com.aungthiha.topup.core.common.result.NetworkError
 import com.aungthiha.topup.feature.topup.data.FakeCatalogDao
 import com.aungthiha.topup.feature.topup.data.FakeStorage
 import com.aungthiha.topup.feature.topup.data.FakeTopupRemoteService
+import com.aungthiha.topup.feature.topup.data.local.cache.CatalogCacheImpl
 import com.aungthiha.topup.feature.topup.data.operatorDto
 import com.aungthiha.topup.feature.topup.domain.model.CatalogSyncStatus
 import com.aungthiha.topup.feature.topup.domain.model.OperatorCode
@@ -26,10 +27,11 @@ class CatalogRepositoryImplTest {
 
     private val dispatcher = StandardTestDispatcher()
     private val dao = FakeCatalogDao()
+    private val cache = CatalogCacheImpl(dao)
     private val remote = FakeTopupRemoteService()
 
     private fun TestScope.newRepository() = CatalogRepositoryImpl(
-        dao = dao,
+        cache = cache,
         remote = remote,
         storage = FakeStorage(),
         appScope = backgroundScope,

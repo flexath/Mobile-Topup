@@ -12,24 +12,27 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 @OptIn(ExperimentalTime::class)
-internal fun TransactionDto.toEntity(userId: String, storage: StorageUrlResolver) = TransactionEntity(
+internal fun TransactionDto.toDomain(storage: StorageUrlResolver) = Transaction(
     id = id.lowercase(),
-    userId = userId,
     phoneNumber = phoneNumber,
-    operatorCode = operatorCode,
-    operatorName = operatorName,
-    operatorLogoUrl = storage.publicUrl(operatorLogoBucket, operatorLogoPath),
-    productId = productId,
-    productSku = productSku,
-    productType = productType,
-    productName = productName,
-    dataAllowanceMb = dataAllowanceMb,
-    callMinutes = callMinutes,
-    services = services,
-    validityDays = validityDays,
+    operator = TransactionOperator(
+        code = operatorCode,
+        name = operatorName,
+        logoUrl = storage.publicUrl(operatorLogoBucket, operatorLogoPath),
+    ),
+    product = PurchasedProduct(
+        id = productId,
+        sku = productSku,
+        type = productType.toProductType(),
+        name = productName,
+        dataAllowanceMb = dataAllowanceMb,
+        callMinutes = callMinutes,
+        services = services,
+        validityDays = validityDays,
+    ),
     amountMmk = amountMmk,
     currency = currency,
-    status = status,
+    status = TransactionStatus.SUCCESS,
     balanceAfterMmk = balanceAfterMmk,
     createdAtMillis = Instant.parse(createdAt).toEpochMilliseconds(),
 )

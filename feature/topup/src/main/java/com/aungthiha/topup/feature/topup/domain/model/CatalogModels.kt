@@ -15,6 +15,7 @@ data class TelecomOperator(
     val fullName: String,
     val logoUrl: String?,
     val customAmountRule: CustomAmountRule,
+    val sortOrder: Int = 0,
 )
 
 enum class CatalogProductType { DENOMINATION, DATA_PACKAGE }
@@ -31,6 +32,7 @@ data class CatalogProduct(
     val services: List<String>,
     val validityDays: Int?,
     val isDemo: Boolean,
+    val sortOrder: Int = 0,
 )
 
 data class OperatorCatalog(

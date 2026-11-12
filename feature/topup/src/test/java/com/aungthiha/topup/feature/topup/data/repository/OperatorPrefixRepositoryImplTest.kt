@@ -3,7 +3,7 @@ package com.aungthiha.topup.feature.topup.data.repository
 import com.aungthiha.topup.core.common.coroutines.DispatcherProvider
 import com.aungthiha.topup.feature.topup.data.FakeOperatorPrefixDao
 import com.aungthiha.topup.feature.topup.data.FakeTopupRemoteService
-import com.aungthiha.topup.feature.topup.data.local.entity.OperatorPrefixEntity
+import com.aungthiha.topup.feature.topup.data.local.cache.OperatorPrefixCacheImpl
 import com.aungthiha.topup.feature.topup.data.remote.response.OperatorPrefixDto
 import com.aungthiha.topup.feature.topup.domain.model.OperatorCode
 import com.aungthiha.topup.feature.topup.domain.phone.OperatorPrefix
@@ -24,10 +24,11 @@ class OperatorPrefixRepositoryImplTest {
 
     private val dispatcher = StandardTestDispatcher()
     private val dao = FakeOperatorPrefixDao()
+    private val cache = OperatorPrefixCacheImpl(dao)
     private val remote = FakeTopupRemoteService()
 
     private fun TestScope.newRepository() = OperatorPrefixRepositoryImpl(
-        dao = dao,
+        cache = cache,
         remote = remote,
         appScope = backgroundScope,
         dispatchers = DispatcherProvider(io = dispatcher, default = dispatcher, main = dispatcher),
@@ -127,8 +128,8 @@ class OperatorPrefixRepositoryImplTest {
 
         assertEquals(1, dao.replaceCount)
         assertEquals(
-            listOf(OperatorPrefixEntity("0977", "ATOM")),
-            dao.getAll(),
+            listOf(OperatorPrefix("0977", OperatorCode.ATOM)),
+            cache.getPrefixes(),
         )
     }
 }

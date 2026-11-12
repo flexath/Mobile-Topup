@@ -6,6 +6,7 @@ import com.aungthiha.topup.core.common.result.LocalError
 import com.aungthiha.topup.core.common.result.NetworkError
 import com.aungthiha.topup.core.common.session.CurrentUserProvider
 import com.aungthiha.topup.core.network.StorageUrlResolver
+import com.aungthiha.topup.shared.transaction.data.local.cache.TransactionCacheImpl
 import com.aungthiha.topup.shared.transaction.data.local.dao.TransactionDao
 import com.aungthiha.topup.shared.transaction.data.local.entity.TransactionEntity
 import com.aungthiha.topup.shared.transaction.data.remote.response.TransactionDto
@@ -35,10 +36,11 @@ class TransactionRepositoryImplTest {
 
     private val dispatcher = UnconfinedTestDispatcher()
     private val dao = InMemoryTransactionDao()
+    private val cache = TransactionCacheImpl(dao)
     private val remote = FakeRemote()
     private val currentUser = FakeUser("user-a")
     private val repository = TransactionRepositoryImpl(
-        dao = dao,
+        cache = cache,
         remote = remote,
         currentUser = currentUser,
         storage = object : StorageUrlResolver {

@@ -1,12 +1,16 @@
 package com.aungthiha.topup.feature.topup.di
 
 import com.aungthiha.topup.core.common.di.ApplicationScope
+import com.aungthiha.topup.feature.topup.data.local.cache.CatalogCacheImpl
+import com.aungthiha.topup.feature.topup.data.local.cache.OperatorPrefixCacheImpl
 import com.aungthiha.topup.feature.topup.data.remote.service.SupabaseTopupRemoteService
 import com.aungthiha.topup.feature.topup.data.remote.service.TopupRemoteService
 import com.aungthiha.topup.feature.topup.data.repository.CatalogRepositoryImpl
 import com.aungthiha.topup.feature.topup.data.repository.OperatorPrefixRepositoryImpl
 import com.aungthiha.topup.feature.topup.data.repository.RechargeRepositoryImpl
 import com.aungthiha.topup.feature.topup.data.repository.WalletRepositoryImpl
+import com.aungthiha.topup.feature.topup.domain.cache.CatalogCache
+import com.aungthiha.topup.feature.topup.domain.cache.OperatorPrefixCache
 import com.aungthiha.topup.feature.topup.domain.repository.CatalogRepository
 import com.aungthiha.topup.feature.topup.domain.repository.OperatorPrefixRepository
 import com.aungthiha.topup.feature.topup.domain.repository.RechargeRepository
@@ -35,9 +39,12 @@ import org.koin.dsl.module
 val topupFeatureModule = module {
     single<TopupRemoteService> { SupabaseTopupRemoteService(get()) }
 
+    single<CatalogCache> { CatalogCacheImpl(dao = get()) }
+    single<OperatorPrefixCache> { OperatorPrefixCacheImpl(dao = get()) }
+
     single<CatalogRepository> {
         CatalogRepositoryImpl(
-            dao = get(),
+            cache = get(),
             remote = get(),
             storage = get(),
             appScope = get(ApplicationScope),
@@ -46,7 +53,7 @@ val topupFeatureModule = module {
     }
     single<OperatorPrefixRepository> {
         OperatorPrefixRepositoryImpl(
-            dao = get(),
+            cache = get(),
             remote = get(),
             appScope = get(ApplicationScope),
             dispatchers = get(),
