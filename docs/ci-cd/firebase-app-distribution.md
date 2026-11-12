@@ -8,7 +8,7 @@ Workflow file: [`.github/workflows/firebase-app-distribution.yml`](../../.github
 
 | Event | Behavior |
 |-------|----------|
-| Push to `master` | Full pipeline: validate → unit tests → Lint → assemble release → distribute |
+| Push to `master` or `release/**` | Full pipeline: validate → unit tests → Lint → assemble release → distribute |
 | `workflow_dispatch` | Same pipeline; optional `release_notes` input for testers |
 
 Failed Gradle steps stop the job; Firebase upload does not run.
@@ -82,7 +82,7 @@ Testers receive an email / invite link after a successful distribution.
 ## Release notes
 
 - **Manual run:** Actions → **Firebase App Distribution** → **Run workflow** → fill `release_notes` (optional).
-- **Push to `master` / empty input:** latest commit subject is used.
+- **Push to `master` / `release/**` / empty input:** latest commit subject is used.
 
 ## Manual workflow run
 
@@ -92,9 +92,9 @@ Testers receive an email / invite link after a successful distribution.
 4. After success, open the job **Summary** for console / testing / download links when the distribution action provides them.
 5. Confirm the build appears under Firebase → App Distribution.
 
-## Automatic distribution on `master`
+## Automatic distribution on `master` and `release/**`
 
-Every push to `master` runs the same job. After merge/push, check Actions for the run and Firebase App Distribution for the new release.
+Every push to `master` or a `release/**` branch runs the same job. After merge/push, check Actions for the run and Firebase App Distribution for the new release.
 
 ## What the pipeline runs
 
