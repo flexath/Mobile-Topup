@@ -10,6 +10,7 @@ import com.aungthiha.topup.feature.topup.domain.usecase.ObserveCatalogUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.ObserveWalletBalanceUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.RefreshWalletBalanceUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.SyncCatalogUseCase
+import com.aungthiha.topup.feature.topup.domain.usecase.SyncOperatorPrefixesUseCase
 import com.aungthiha.topup.feature.topup.presentation.states.OperatorUiModel
 import com.aungthiha.topup.feature.topup.presentation.states.TopupUiState
 import com.aungthiha.topup.feature.topup.presentation.states.WalletUiState
@@ -26,6 +27,7 @@ import kotlinx.coroutines.launch
 class TopupViewModel(
     observeCatalog: ObserveCatalogUseCase,
     private val syncCatalog: SyncCatalogUseCase,
+    private val syncOperatorPrefixes: SyncOperatorPrefixesUseCase,
     observeWalletBalance: ObserveWalletBalanceUseCase,
     private val refreshWalletBalance: RefreshWalletBalanceUseCase,
     networkMonitor: NetworkMonitor,
@@ -54,8 +56,9 @@ class TopupViewModel(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS), TopupUiState())
 
     init {
-        // Start the once-per-launch catalog refresh early so the recharge screen opens with data.
+        // Start the once-per-launch catalog + prefix refresh early so the recharge screen opens with data.
         syncCatalog()
+        syncOperatorPrefixes()
         refreshWallet(force = true)
     }
 

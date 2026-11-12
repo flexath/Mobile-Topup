@@ -59,6 +59,7 @@ import com.aungthiha.topup.feature.topup.R
 import com.aungthiha.topup.feature.topup.domain.model.RechargeBlocker
 import com.aungthiha.topup.feature.topup.domain.model.RechargeTab
 import com.aungthiha.topup.feature.topup.domain.phone.PhoneNumberStatus
+import com.aungthiha.topup.feature.topup.presentation.actions.RechargeActions
 import com.aungthiha.topup.feature.topup.presentation.components.DenominationOptions
 import com.aungthiha.topup.feature.topup.presentation.components.PackageOptions
 import com.aungthiha.topup.feature.topup.presentation.components.PhoneNumberSection
@@ -107,19 +108,6 @@ fun NavGraphBuilder.rechargeScreen(
         )
     }
 }
-
-data class RechargeActions(
-    val onNavigateUp: () -> Unit = {},
-    val onPhoneNumberChange: (String) -> Unit = {},
-    val onTabSelected: (RechargeTab) -> Unit = {},
-    val onProductSelected: (String) -> Unit = {},
-    val onToggleCustomAmount: () -> Unit = {},
-    val onCustomAmountChange: (String) -> Unit = {},
-    val onRetryCatalog: () -> Unit = {},
-    val onProceed: () -> Unit = {},
-    val onConfirm: () -> Unit = {},
-    val onDismissConfirmation: () -> Unit = {},
-)
 
 /**
  * The complete mobile top-up flow. App navigation chrome is hidden here, so the Proceed CTA is

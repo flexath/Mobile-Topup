@@ -21,7 +21,6 @@ declare
   v_sql text;
   v_denied boolean;
   v_denial_checks text[] := array[
-    'select count(*) from public.operator_prefixes',
     'update public.wallets set balance_mmk = 999999999',
     'insert into public.wallets (user_id) values (gen_random_uuid())',
     'delete from public.wallets',
@@ -150,6 +149,11 @@ begin
   select count(*) into v_count from public.catalog_products;
   execute 'reset role';
   v_results := v_results || jsonb_build_object('check', 'authenticated users can read catalog products', 'passed', v_count = 44, 'detail', v_count);
+
+  execute 'set local role authenticated';
+  select count(*) into v_count from public.operator_prefixes;
+  execute 'reset role';
+  v_results := v_results || jsonb_build_object('check', 'authenticated users can read operator prefixes', 'passed', v_count = 49, 'detail', v_count);
 
   -- Client writes and privileged calls are denied --------------------------------
   foreach v_sql in array v_denial_checks loop

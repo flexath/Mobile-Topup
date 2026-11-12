@@ -13,8 +13,10 @@ import com.aungthiha.topup.feature.topup.domain.usecase.DetectOperatorUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.EvaluateRechargeEligibilityUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.ObserveCatalogSyncStatusUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.ObserveCatalogUseCase
+import com.aungthiha.topup.feature.topup.domain.usecase.ObserveOperatorPrefixesUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.ObserveWalletBalanceUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.SyncCatalogUseCase
+import com.aungthiha.topup.feature.topup.domain.usecase.SyncOperatorPrefixesUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.ValidateCustomAmountUseCase
 import com.aungthiha.topup.feature.topup.presentation.screens.recharge.RechargeViewModel
 import com.aungthiha.topup.feature.topup.presentation.states.CatalogUiState
@@ -41,6 +43,7 @@ class RechargeViewModelTest {
 
     private val dispatcher = UnconfinedTestDispatcher()
     private val catalogRepository = FakeCatalogRepository()
+    private val prefixRepository = FakeOperatorPrefixRepository()
     private val walletRepository = FakeWalletRepository(initial = WalletBalance(500_000, 0))
     private val network = FakeNetworkMonitor()
 
@@ -55,6 +58,8 @@ class RechargeViewModelTest {
         observeCatalog = ObserveCatalogUseCase(catalogRepository),
         observeCatalogSyncStatus = ObserveCatalogSyncStatusUseCase(catalogRepository),
         syncCatalog = SyncCatalogUseCase(catalogRepository),
+        syncOperatorPrefixes = SyncOperatorPrefixesUseCase(prefixRepository),
+        observeOperatorPrefixes = ObserveOperatorPrefixesUseCase(prefixRepository),
         observeWalletBalance = ObserveWalletBalanceUseCase(walletRepository),
         detectOperator = DetectOperatorUseCase(),
         validateCustomAmount = ValidateCustomAmountUseCase(),
@@ -72,6 +77,7 @@ class RechargeViewModelTest {
         subscribe(vm)
 
         assertEquals(1, catalogRepository.launchRefreshes)
+        assertEquals(1, prefixRepository.launchRefreshes)
         assertEquals(0, walletRepository.refreshes)
         assertEquals(500_000L, vm.uiState.value.walletBalanceMmk)
     }

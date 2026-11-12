@@ -236,7 +236,7 @@ Feature and shared modules follow the same internal layout:
 
 ## Technical Highlights
 
-- **Offline operator detection** — `OperatorPrefixTable` + longest-prefix match; no network required to identify MPT / ATOM / Ooredoo / Mytel.
+- **Offline operator detection** — Room-cached `operator_prefixes` (synced from Supabase) with longest-prefix match; `OperatorPrefixTable.Default` is the fallback when Room is empty.
 - **Room as catalog & history source of truth** — UI observes local DB; remote refresh writes through; catalog failures keep the last good cache.
 - **Supabase Auth + RLS** — the Android client never picks another user’s wallet or transactions; identity comes from the session.
 - **User-scoped local data** — wallet DataStore keys and the transactions table are cleared on logout so account switches cannot leak cache.
@@ -344,7 +344,7 @@ Backend verification (optional, needs Supabase credentials / throwaway accounts)
 | **App entry & session gate** | `app/.../MainActivity.kt`, `MainViewModel.kt`, `TopUpAppShell.kt` |
 | **Root navigation & tabs** | `app/.../navigation/AppNavGraph.kt`, `TopLevelDestination.kt` |
 | **Auth UI + Supabase Auth** | `feature/auth/` |
-| **Operator detection** | `feature/topup/.../domain/phone/` (`MyanmarPhoneNumber`, `OperatorPrefixTable`) |
+| **Operator detection** | `feature/topup/.../domain/phone/` + Room `operator_prefixes` (`MyanmarPhoneNumber`, `OperatorPrefixTable` fallback) |
 | **Catalog / wallet / recharge** | `feature/topup/` (`data/`, `domain/usecase/`, recharge presentation) |
 | **Transaction domain + Room** | `shared/transaction/` |
 | **History + receipt share** | `feature/transactionhistory/` |

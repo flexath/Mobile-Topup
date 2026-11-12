@@ -7,6 +7,8 @@ import com.aungthiha.topup.feature.topup.data.local.CatalogConverters
 import com.aungthiha.topup.feature.topup.data.local.CatalogDao
 import com.aungthiha.topup.feature.topup.data.local.CatalogProductEntity
 import com.aungthiha.topup.feature.topup.data.local.OperatorEntity
+import com.aungthiha.topup.feature.topup.data.local.OperatorPrefixDao
+import com.aungthiha.topup.feature.topup.data.local.OperatorPrefixEntity
 import com.aungthiha.topup.shared.transaction.data.local.TransactionDao
 import com.aungthiha.topup.shared.transaction.data.local.TransactionEntity
 
@@ -18,14 +20,16 @@ import com.aungthiha.topup.shared.transaction.data.local.TransactionEntity
     entities = [
         OperatorEntity::class,
         CatalogProductEntity::class,
+        OperatorPrefixEntity::class,
         TransactionEntity::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = true,
 )
 @TypeConverters(CatalogConverters::class)
 abstract class TopUpDatabase : RoomDatabase() {
     abstract fun catalogDao(): CatalogDao
+    abstract fun operatorPrefixDao(): OperatorPrefixDao
     abstract fun transactionDao(): TransactionDao
 
     companion object {

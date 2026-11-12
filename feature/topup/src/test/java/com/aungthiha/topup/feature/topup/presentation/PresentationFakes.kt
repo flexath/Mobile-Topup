@@ -7,7 +7,9 @@ import com.aungthiha.topup.feature.topup.TestCatalog
 import com.aungthiha.topup.feature.topup.domain.model.CatalogSyncStatus
 import com.aungthiha.topup.feature.topup.domain.model.OperatorCatalog
 import com.aungthiha.topup.feature.topup.domain.model.WalletBalance
+import com.aungthiha.topup.feature.topup.domain.phone.OperatorPrefix
 import com.aungthiha.topup.feature.topup.domain.repository.CatalogRepository
+import com.aungthiha.topup.feature.topup.domain.repository.OperatorPrefixRepository
 import com.aungthiha.topup.feature.topup.domain.repository.WalletRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,6 +23,20 @@ internal class FakeCatalogRepository : CatalogRepository {
 
     override fun observeCatalog(): Flow<List<OperatorCatalog>> = catalog
     override val syncStatus: StateFlow<CatalogSyncStatus> = status
+    override fun startLaunchRefresh() {
+        launchRefreshes++
+    }
+    override fun retryRefresh() {
+        retries++
+    }
+}
+
+internal class FakeOperatorPrefixRepository : OperatorPrefixRepository {
+    val prefixes = MutableStateFlow<List<OperatorPrefix>>(emptyList())
+    var launchRefreshes = 0
+    var retries = 0
+
+    override fun observePrefixes(): Flow<List<OperatorPrefix>> = prefixes
     override fun startLaunchRefresh() {
         launchRefreshes++
     }

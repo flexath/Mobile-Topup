@@ -37,7 +37,7 @@ app → feature/* → shared/* → core/*
 |--------|------|
 | `:app` | `TopUpApplication` (Koin start), `MainActivity` (splash gate, theme), `MainViewModel`, `TopUpAppShell` (session-keyed graph + tab chrome), `AppNavGraph` |
 | `:feature:auth` | Login / Register screens + ViewModels; credential validation; sign-in/up repository against Supabase Auth |
-| `:feature:topup` | Top-up screen, confirmation sheet, processing, success; prefix detection; catalog (Room), wallet (DataStore), recharge (Edge Function) |
+| `:feature:topup` | Top-up screen, confirmation sheet, processing, success; prefix detection (Room + `OperatorPrefixTable` fallback); catalog (Room), wallet (DataStore), recharge (Edge Function) |
 | `:feature:transactionhistory` | History list (search / operator + date filters / sort / Load More) and transaction detail with receipt sharing |
 | `:feature:settings` | Appearance (System / Light / Dark), account email + logout, session observation / sign-out, `CurrentUserProvider` impl |
 
@@ -78,12 +78,12 @@ Source of truth in the repo: `supabase/migrations/`, `supabase/functions/process
 | `public.profiles`, `public.wallets` | 1:1 with `auth.users`; wallet default **500,000 MMK** (bigint, whole kyat), `balance_mmk >= 0` |
 | `app_private.handle_new_auth_user` + trigger `on_auth_user_created` | Idempotent profile + wallet provisioning (`on conflict do nothing`), backfill in migration |
 | `public.operators`, `public.catalog_products` | MPT / ATOM / Ooredoo / Mytel with Storage logo refs (`telecom/*.jpeg`); 7 denominations per operator + 16 **demo** data packages (`is_demo = true`) |
-| `public.operator_prefixes` | Server-side copy of the PRD prefix dataset used to validate recharges (no client access) |
+| `public.operator_prefixes` | PRD prefix dataset; authenticated clients may `SELECT` for Room offline cache; `process_recharge` still validates server-side |
 | `public.transactions` | Successful recharges only, product snapshot columns, `unique (user_id, idempotency_key)`, index `(user_id, created_at desc, id desc)` |
 | `public.process_recharge(...)` | Single-transaction recharge: wallet row lock (`FOR UPDATE`), idempotent replay, prefix/operator/product/price validation, insufficient-balance rejection without writes. `EXECUTE` granted to `service_role` only |
 | `public.list_my_transactions(...)` | Security-invoker history query (search, operators, date range, sort, limit/offset) scoped by `auth.uid()` + RLS |
 | Edge Function `process-recharge` | Verifies the caller with `auth.getUser(token)` (deployed with `verify_jwt = false` so it works with legacy and new API keys), validates input, calls the RPC with the server key, returns structured JSON + HTTP status (402 for insufficient balance) |
-| RLS | Enabled on all six tables. Users can only `SELECT` their own profile / wallet / transactions; authenticated users can read active catalog rows; no client `INSERT/UPDATE/DELETE` grants anywhere |
+| RLS | Enabled on all six tables. Users can only `SELECT` their own profile / wallet / transactions; authenticated users can read active catalog rows and operator prefixes; no client `INSERT/UPDATE/DELETE` grants anywhere |
 
 Custom amounts: demo rule **1,000–50,000 MMK in steps of 100**, stored on `operators` and enforced
 by `process_recharge`; the app reads the same values from the catalog for client-side validation.

@@ -43,6 +43,12 @@ internal data class CatalogProductDto(
 )
 
 @Serializable
+internal data class OperatorPrefixDto(
+    @SerialName("prefix") val prefix: String,
+    @SerialName("operator_code") val operatorCode: String,
+)
+
+@Serializable
 internal data class WalletDto(
     @SerialName("balance_mmk") val balanceMmk: Long,
     @SerialName("currency") val currency: String,

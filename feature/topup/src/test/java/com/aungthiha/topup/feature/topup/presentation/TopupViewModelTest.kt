@@ -5,6 +5,7 @@ import com.aungthiha.topup.feature.topup.domain.usecase.ObserveCatalogUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.ObserveWalletBalanceUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.RefreshWalletBalanceUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.SyncCatalogUseCase
+import com.aungthiha.topup.feature.topup.domain.usecase.SyncOperatorPrefixesUseCase
 import com.aungthiha.topup.feature.topup.presentation.screens.topup.TopupViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,6 +27,7 @@ class TopupViewModelTest {
 
     private val dispatcher = UnconfinedTestDispatcher()
     private val catalogRepository = FakeCatalogRepository()
+    private val prefixRepository = FakeOperatorPrefixRepository()
     private val walletRepository = FakeWalletRepository()
     private val network = FakeNetworkMonitor()
     private var now = 0L
@@ -39,6 +41,7 @@ class TopupViewModelTest {
     private fun viewModel() = TopupViewModel(
         observeCatalog = ObserveCatalogUseCase(catalogRepository),
         syncCatalog = SyncCatalogUseCase(catalogRepository),
+        syncOperatorPrefixes = SyncOperatorPrefixesUseCase(prefixRepository),
         observeWalletBalance = ObserveWalletBalanceUseCase(walletRepository),
         refreshWalletBalance = RefreshWalletBalanceUseCase(walletRepository),
         networkMonitor = network,
@@ -56,6 +59,7 @@ class TopupViewModelTest {
         vm.onScreenVisible()
 
         assertEquals(1, catalogRepository.launchRefreshes)
+        assertEquals(1, prefixRepository.launchRefreshes)
         assertEquals(1, walletRepository.refreshes)
         assertEquals(500_000L, vm.uiState.value.wallet.balanceMmk)
         assertFalse(vm.uiState.value.wallet.isRefreshing)

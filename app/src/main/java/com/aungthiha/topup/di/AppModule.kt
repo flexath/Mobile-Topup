@@ -14,6 +14,7 @@ val appModule = module {
             .build()
     }
     single { get<TopUpDatabase>().catalogDao() }
+    single { get<TopUpDatabase>().operatorPrefixDao() }
     single { get<TopUpDatabase>().transactionDao() }
 
     viewModelOf(::MainViewModel)

@@ -8,9 +8,12 @@ import com.aungthiha.topup.core.network.StorageUrlResolver
 import com.aungthiha.topup.feature.topup.data.local.CatalogDao
 import com.aungthiha.topup.feature.topup.data.local.CatalogProductEntity
 import com.aungthiha.topup.feature.topup.data.local.OperatorEntity
+import com.aungthiha.topup.feature.topup.data.local.OperatorPrefixDao
+import com.aungthiha.topup.feature.topup.data.local.OperatorPrefixEntity
 import com.aungthiha.topup.feature.topup.data.local.OperatorWithProducts
 import com.aungthiha.topup.feature.topup.data.remote.CatalogProductDto
 import com.aungthiha.topup.feature.topup.data.remote.OperatorDto
+import com.aungthiha.topup.feature.topup.data.remote.OperatorPrefixDto
 import com.aungthiha.topup.feature.topup.data.remote.RechargeRequestDto
 import com.aungthiha.topup.feature.topup.data.remote.TopupRemoteService
 import com.aungthiha.topup.feature.topup.data.remote.WalletDto
@@ -49,17 +52,48 @@ internal class FakeCatalogDao : CatalogDao {
     }
 }
 
+internal class FakeOperatorPrefixDao : OperatorPrefixDao {
+    val rows = MutableStateFlow<List<OperatorPrefixEntity>>(emptyList())
+    var replaceCount = 0
+
+    override fun observeAll(): Flow<List<OperatorPrefixEntity>> = rows
+
+    override suspend fun getAll(): List<OperatorPrefixEntity> = rows.value
+
+    override suspend fun count(): Int = rows.value.size
+
+    override suspend fun insertAll(prefixes: List<OperatorPrefixEntity>) {
+        rows.value = (rows.value + prefixes).sortedBy { it.prefix }
+    }
+
+    override suspend fun deleteAll() {
+        rows.value = emptyList()
+    }
+
+    override suspend fun replaceAll(prefixes: List<OperatorPrefixEntity>) {
+        replaceCount++
+        super.replaceAll(prefixes)
+    }
+}
+
 internal class FakeTopupRemoteService : TopupRemoteService {
     /** Each call consumes the next handler, letting tests control ordering and failures. */
     val catalogResponses = ArrayDeque<suspend () -> List<OperatorDto>>()
+    val prefixResponses = ArrayDeque<suspend () -> List<OperatorPrefixDto>>()
     var wallet: WalletDto? = WalletDto(balanceMmk = 500_000, currency = "MMK")
     var walletError: Throwable? = null
     var rechargeBody: suspend (RechargeRequestDto) -> String = { error("not stubbed") }
     var catalogCalls = 0
+    var prefixCalls = 0
 
     override suspend fun fetchCatalog(): List<OperatorDto> {
         catalogCalls++
         return catalogResponses.removeFirst().invoke()
+    }
+
+    override suspend fun fetchOperatorPrefixes(): List<OperatorPrefixDto> {
+        prefixCalls++
+        return prefixResponses.removeFirst().invoke()
     }
 
     override suspend fun fetchWallet(): WalletDto? {

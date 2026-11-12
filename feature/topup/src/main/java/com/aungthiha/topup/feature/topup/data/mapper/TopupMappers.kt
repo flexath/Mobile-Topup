@@ -3,9 +3,11 @@ package com.aungthiha.topup.feature.topup.data.mapper
 import com.aungthiha.topup.core.network.StorageUrlResolver
 import com.aungthiha.topup.feature.topup.data.local.CatalogProductEntity
 import com.aungthiha.topup.feature.topup.data.local.OperatorEntity
+import com.aungthiha.topup.feature.topup.data.local.OperatorPrefixEntity
 import com.aungthiha.topup.feature.topup.data.local.OperatorWithProducts
 import com.aungthiha.topup.feature.topup.data.remote.CatalogProductDto
 import com.aungthiha.topup.feature.topup.data.remote.OperatorDto
+import com.aungthiha.topup.feature.topup.data.remote.OperatorPrefixDto
 import com.aungthiha.topup.feature.topup.data.remote.RechargeFailureBodyDto
 import com.aungthiha.topup.feature.topup.data.remote.RechargeSuccessDto
 import com.aungthiha.topup.feature.topup.data.remote.RechargeTransactionDto
@@ -17,6 +19,7 @@ import com.aungthiha.topup.feature.topup.domain.model.OperatorCode
 import com.aungthiha.topup.feature.topup.domain.model.RechargeError
 import com.aungthiha.topup.feature.topup.domain.model.RechargeReceipt
 import com.aungthiha.topup.feature.topup.domain.model.TelecomOperator
+import com.aungthiha.topup.feature.topup.domain.phone.OperatorPrefix
 import com.aungthiha.topup.shared.transaction.domain.model.PurchasedProduct
 import com.aungthiha.topup.shared.transaction.domain.model.RechargeProductType
 import com.aungthiha.topup.shared.transaction.domain.model.Transaction
@@ -35,6 +38,20 @@ internal fun OperatorDto.toEntity(storage: StorageUrlResolver) = OperatorEntity(
     customAmountStepMmk = customAmountStepMmk,
     sortOrder = sortOrder,
 )
+
+private val OPERATOR_PREFIX_FORMAT = Regex("^09[0-9]{2,3}$")
+
+/** Drops unknown operators and malformed prefixes rather than guessing. */
+internal fun OperatorPrefixDto.toEntityOrNull(): OperatorPrefixEntity? {
+    if (!OPERATOR_PREFIX_FORMAT.matches(prefix)) return null
+    val code = OperatorCode.fromCode(operatorCode) ?: return null
+    return OperatorPrefixEntity(prefix = prefix, operatorCode = code.code)
+}
+
+internal fun OperatorPrefixEntity.toDomainOrNull(): OperatorPrefix? {
+    val code = OperatorCode.fromCode(operatorCode) ?: return null
+    return OperatorPrefix(prefix = prefix, operator = code)
+}
 
 internal fun CatalogProductDto.toEntity() = CatalogProductEntity(
     id = id.lowercase(),

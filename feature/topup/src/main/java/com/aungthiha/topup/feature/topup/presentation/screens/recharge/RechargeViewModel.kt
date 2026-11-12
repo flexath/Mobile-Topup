@@ -12,13 +12,18 @@ import com.aungthiha.topup.feature.topup.domain.model.RechargeSelection
 import com.aungthiha.topup.feature.topup.domain.model.RechargeTab
 import com.aungthiha.topup.feature.topup.domain.model.WalletBalance
 import com.aungthiha.topup.feature.topup.domain.phone.MyanmarPhoneNumber
+import com.aungthiha.topup.feature.topup.domain.phone.OperatorPrefix
+import com.aungthiha.topup.feature.topup.domain.phone.OperatorPrefixTable
 import com.aungthiha.topup.feature.topup.domain.phone.PhoneNumberStatus
+import com.aungthiha.topup.feature.topup.domain.phone.resolvePrefixTable
 import com.aungthiha.topup.feature.topup.domain.usecase.DetectOperatorUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.EvaluateRechargeEligibilityUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.ObserveCatalogSyncStatusUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.ObserveCatalogUseCase
+import com.aungthiha.topup.feature.topup.domain.usecase.ObserveOperatorPrefixesUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.ObserveWalletBalanceUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.SyncCatalogUseCase
+import com.aungthiha.topup.feature.topup.domain.usecase.SyncOperatorPrefixesUseCase
 import com.aungthiha.topup.feature.topup.domain.usecase.ValidateCustomAmountUseCase
 import com.aungthiha.topup.feature.topup.presentation.navigation.TopupRoutes
 import com.aungthiha.topup.feature.topup.presentation.states.CatalogUiState
@@ -45,6 +50,8 @@ class RechargeViewModel(
     observeCatalog: ObserveCatalogUseCase,
     observeCatalogSyncStatus: ObserveCatalogSyncStatusUseCase,
     private val syncCatalog: SyncCatalogUseCase,
+    private val syncOperatorPrefixes: SyncOperatorPrefixesUseCase,
+    observeOperatorPrefixes: ObserveOperatorPrefixesUseCase,
     observeWalletBalance: ObserveWalletBalanceUseCase,
     private val detectOperator: DetectOperatorUseCase,
     private val validateCustomAmount: ValidateCustomAmountUseCase,
@@ -54,6 +61,7 @@ class RechargeViewModel(
 
     private val formState = MutableStateFlow(restoreForm())
     private val events = Channel<RechargeEvent>(Channel.BUFFERED)
+    private val roomPrefixes = MutableStateFlow<List<OperatorPrefix>>(emptyList())
 
     val rechargeEvents: Flow<RechargeEvent> = events.receiveAsFlow()
 
@@ -65,13 +73,15 @@ class RechargeViewModel(
     val uiState: StateFlow<RechargeUiState> = combine(
         formState,
         catalogInputs,
+        roomPrefixes,
         observeWalletBalance(),
         networkMonitor.isOnline,
-    ) { form, catalog, balance, online ->
+    ) { form, catalog, prefixes, balance, online ->
         buildUiState(
             form = form,
             catalogs = catalog.first,
             syncStatus = catalog.second,
+            roomPrefixes = prefixes,
             balance = balance,
             isOnline = online,
         )
@@ -80,11 +90,15 @@ class RechargeViewModel(
     init {
         // No-op once the launch refresh ran; still needed when restored here after process death.
         syncCatalog()
+        syncOperatorPrefixes()
+        viewModelScope.launch {
+            observeOperatorPrefixes().collect { roomPrefixes.value = it }
+        }
     }
 
     fun onPhoneNumberChange(raw: String) {
         val normalized = MyanmarPhoneNumber.normalize(raw).take(MAX_PHONE_INPUT_LENGTH)
-        val detected = (detectOperator(normalized) as? PhoneNumberStatus.Detected)?.operator
+        val detected = (detectOperator(normalized, prefixTable()) as? PhoneNumberStatus.Detected)?.operator
         updateForm { form ->
             val operatorChanged = detected != null && form.selectionOperator != null && detected != form.selectionOperator
             if (operatorChanged) {
@@ -165,7 +179,9 @@ class RechargeViewModel(
     }
 
     private fun currentOperator(form: RechargeFormState) =
-        (detectOperator(form.phoneInput) as? PhoneNumberStatus.Detected)?.operator
+        (detectOperator(form.phoneInput, prefixTable()) as? PhoneNumberStatus.Detected)?.operator
+
+    private fun prefixTable(): OperatorPrefixTable = resolvePrefixTable(roomPrefixes.value)
 
     private fun updateForm(transform: (RechargeFormState) -> RechargeFormState) {
         val updated = formState.updateAndGet(transform)
@@ -181,10 +197,11 @@ class RechargeViewModel(
         form: RechargeFormState,
         catalogs: List<OperatorCatalog>,
         syncStatus: CatalogSyncStatus,
+        roomPrefixes: List<OperatorPrefix>,
         balance: WalletBalance?,
         isOnline: Boolean,
     ): RechargeUiState {
-        val phoneStatus = detectOperator(form.phoneInput)
+        val phoneStatus = detectOperator(form.phoneInput, resolvePrefixTable(roomPrefixes))
         val detectedCode = (phoneStatus as? PhoneNumberStatus.Detected)?.operator
         val operatorCatalog = catalogs.firstOrNull { it.operator.code == detectedCode }
         val operator = detectedCode?.let { code ->
