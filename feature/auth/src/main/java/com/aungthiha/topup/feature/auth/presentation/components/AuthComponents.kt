@@ -64,7 +64,7 @@ internal fun AuthScaffold(
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = spacing.screenHorizontal, vertical = spacing.section),
-            verticalArrangement = Arrangement.spacedBy(spacing.large),
+            verticalArrangement = Arrangement.spacedBy(spacing.medium),
         ) {
             AuthBrandHeader(title = title, subtitle = subtitle)
             content()
