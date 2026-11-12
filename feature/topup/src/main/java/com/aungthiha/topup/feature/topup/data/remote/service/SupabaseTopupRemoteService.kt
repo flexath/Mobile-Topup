@@ -1,5 +1,6 @@
 package com.aungthiha.topup.feature.topup.data.remote.service
 
+import com.aungthiha.topup.feature.topup.data.remote.config.TopupApiConfig
 import com.aungthiha.topup.feature.topup.data.remote.response.OperatorDto
 import com.aungthiha.topup.feature.topup.data.remote.response.OperatorPrefixDto
 import com.aungthiha.topup.feature.topup.data.remote.response.RechargeRequestDto
@@ -18,34 +19,30 @@ internal class SupabaseTopupRemoteService(
     private val supabase: SupabaseClient,
 ) : TopupRemoteService {
     override suspend fun fetchCatalog(): List<OperatorDto> =
-        supabase.from("operators")
+        supabase.from(TopupApiConfig.OPERATORS_TABLE)
             .select(Columns.raw(OperatorDto.UNIFIED_CATALOG_SELECT)) {
                 order("sort_order", Order.ASCENDING)
             }
             .decodeList<OperatorDto>()
 
     override suspend fun fetchOperatorPrefixes(): List<OperatorPrefixDto> =
-        supabase.from("operator_prefixes")
+        supabase.from(TopupApiConfig.OPERATOR_PREFIXES_TABLE)
             .select(Columns.list("prefix", "operator_code")) {
                 order("prefix", Order.ASCENDING)
             }
             .decodeList<OperatorPrefixDto>()
 
     override suspend fun fetchWallet(): WalletDto? =
-        supabase.from("wallets")
+        supabase.from(TopupApiConfig.WALLETS_TABLE)
             .select(Columns.list("balance_mmk", "currency"))
             .decodeSingleOrNull<WalletDto>()
 
     override suspend fun processRecharge(request: RechargeRequestDto): String =
         supabase.functions
             .invoke(
-                function = PROCESS_RECHARGE_FUNCTION,
+                function = TopupApiConfig.PROCESS_RECHARGE_FUNCTION,
                 body = request,
                 headers = Headers.build { append(HttpHeaders.ContentType, ContentType.Application.Json.toString()) },
             )
             .bodyAsText()
-
-    private companion object {
-        const val PROCESS_RECHARGE_FUNCTION = "process-recharge"
-    }
 }
