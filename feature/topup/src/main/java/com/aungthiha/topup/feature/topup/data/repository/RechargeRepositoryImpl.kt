@@ -6,10 +6,10 @@ import com.aungthiha.topup.core.network.StorageUrlResolver
 import com.aungthiha.topup.core.network.toNetworkError
 import com.aungthiha.topup.feature.topup.data.mapper.toReceipt
 import com.aungthiha.topup.feature.topup.data.mapper.toRechargeError
-import com.aungthiha.topup.feature.topup.data.remote.RechargeFailureDto
-import com.aungthiha.topup.feature.topup.data.remote.RechargeRequestDto
-import com.aungthiha.topup.feature.topup.data.remote.RechargeSuccessDto
-import com.aungthiha.topup.feature.topup.data.remote.TopupRemoteService
+import com.aungthiha.topup.feature.topup.data.remote.response.RechargeFailureDto
+import com.aungthiha.topup.feature.topup.data.remote.response.RechargeRequestDto
+import com.aungthiha.topup.feature.topup.data.remote.response.RechargeSuccessDto
+import com.aungthiha.topup.feature.topup.data.remote.service.TopupRemoteService
 import com.aungthiha.topup.feature.topup.domain.model.RechargeError
 import com.aungthiha.topup.feature.topup.domain.model.RechargeReceipt
 import com.aungthiha.topup.feature.topup.domain.model.RechargeRequest

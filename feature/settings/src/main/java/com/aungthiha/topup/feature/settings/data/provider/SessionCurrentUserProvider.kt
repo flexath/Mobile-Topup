@@ -1,4 +1,4 @@
-package com.aungthiha.topup.feature.settings.data
+package com.aungthiha.topup.feature.settings.data.provider
 
 import com.aungthiha.topup.core.common.session.CurrentUserProvider
 import com.aungthiha.topup.feature.settings.domain.model.AuthState

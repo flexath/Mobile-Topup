@@ -4,11 +4,11 @@ import com.aungthiha.topup.core.common.coroutines.DispatcherProvider
 import com.aungthiha.topup.core.common.result.NetworkError
 import com.aungthiha.topup.core.network.StorageUrlResolver
 import com.aungthiha.topup.core.network.toNetworkError
-import com.aungthiha.topup.feature.topup.data.local.CatalogDao
+import com.aungthiha.topup.feature.topup.data.local.dao.CatalogDao
 import com.aungthiha.topup.feature.topup.data.mapper.toDomain
 import com.aungthiha.topup.feature.topup.data.mapper.toEntity
-import com.aungthiha.topup.feature.topup.data.remote.OperatorDto
-import com.aungthiha.topup.feature.topup.data.remote.TopupRemoteService
+import com.aungthiha.topup.feature.topup.data.remote.response.OperatorDto
+import com.aungthiha.topup.feature.topup.data.remote.service.TopupRemoteService
 import com.aungthiha.topup.feature.topup.domain.model.CatalogSyncStatus
 import com.aungthiha.topup.feature.topup.domain.model.OperatorCatalog
 import com.aungthiha.topup.feature.topup.domain.model.OperatorCode

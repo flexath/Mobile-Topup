@@ -1,8 +1,12 @@
-package com.aungthiha.topup.feature.topup.data.remote
+package com.aungthiha.topup.feature.topup.data.remote.service
 
+import com.aungthiha.topup.feature.topup.data.remote.response.OperatorDto
+import com.aungthiha.topup.feature.topup.data.remote.response.OperatorPrefixDto
+import com.aungthiha.topup.feature.topup.data.remote.response.RechargeRequestDto
+import com.aungthiha.topup.feature.topup.data.remote.response.WalletDto
 /**
  * Remote gateway for top-up catalog, prefixes, wallet, and recharge.
- * Implementation: [SupabaseTopupRemoteService].
+ * Implementation: [com.aungthiha.topup.feature.topup.data.remote.service.SupabaseTopupRemoteService].
  */
 internal interface TopupRemoteService {
     /** The whole catalog (all operators + their active products) in one request. */

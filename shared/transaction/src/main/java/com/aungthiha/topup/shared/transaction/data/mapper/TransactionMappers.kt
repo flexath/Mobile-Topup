@@ -1,8 +1,8 @@
 package com.aungthiha.topup.shared.transaction.data.mapper
 
 import com.aungthiha.topup.core.network.StorageUrlResolver
-import com.aungthiha.topup.shared.transaction.data.local.TransactionEntity
-import com.aungthiha.topup.shared.transaction.data.remote.TransactionDto
+import com.aungthiha.topup.shared.transaction.data.local.entity.TransactionEntity
+import com.aungthiha.topup.shared.transaction.data.remote.response.TransactionDto
 import com.aungthiha.topup.shared.transaction.domain.model.PurchasedProduct
 import com.aungthiha.topup.shared.transaction.domain.model.RechargeProductType
 import com.aungthiha.topup.shared.transaction.domain.model.Transaction

@@ -1,5 +1,7 @@
 package com.aungthiha.topup.feature.topup.data.local
 
+import com.aungthiha.topup.feature.topup.data.local.dao.OperatorPrefixDao
+import com.aungthiha.topup.feature.topup.data.local.entity.OperatorPrefixEntity
 import androidx.room.Database
 import androidx.room.RoomDatabase
 

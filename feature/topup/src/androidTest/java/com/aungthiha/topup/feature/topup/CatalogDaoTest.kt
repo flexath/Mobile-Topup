@@ -5,10 +5,10 @@ import android.database.sqlite.SQLiteConstraintException
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.aungthiha.topup.feature.topup.data.local.CatalogDao
+import com.aungthiha.topup.feature.topup.data.local.dao.CatalogDao
 import com.aungthiha.topup.feature.topup.data.local.CatalogDatabase
-import com.aungthiha.topup.feature.topup.data.local.CatalogProductEntity
-import com.aungthiha.topup.feature.topup.data.local.OperatorEntity
+import com.aungthiha.topup.feature.topup.data.local.entity.CatalogProductEntity
+import com.aungthiha.topup.feature.topup.data.local.entity.OperatorEntity
 
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest

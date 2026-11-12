@@ -1,8 +1,8 @@
 package com.aungthiha.topup.feature.topup.di
 
 import com.aungthiha.topup.core.common.di.ApplicationScope
-import com.aungthiha.topup.feature.topup.data.remote.SupabaseTopupRemoteService
-import com.aungthiha.topup.feature.topup.data.remote.TopupRemoteService
+import com.aungthiha.topup.feature.topup.data.remote.service.SupabaseTopupRemoteService
+import com.aungthiha.topup.feature.topup.data.remote.service.TopupRemoteService
 import com.aungthiha.topup.feature.topup.data.repository.CatalogRepositoryImpl
 import com.aungthiha.topup.feature.topup.data.repository.OperatorPrefixRepositoryImpl
 import com.aungthiha.topup.feature.topup.data.repository.RechargeRepositoryImpl

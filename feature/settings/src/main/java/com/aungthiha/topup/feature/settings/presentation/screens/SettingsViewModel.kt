@@ -3,8 +3,8 @@ package com.aungthiha.topup.feature.settings.presentation.screens
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aungthiha.topup.core.datastore.model.AppearanceMode
-import com.aungthiha.topup.feature.settings.domain.ObserveAppearanceModeUseCase
-import com.aungthiha.topup.feature.settings.domain.SetAppearanceModeUseCase
+import com.aungthiha.topup.feature.settings.domain.usecase.ObserveAppearanceModeUseCase
+import com.aungthiha.topup.feature.settings.domain.usecase.SetAppearanceModeUseCase
 import com.aungthiha.topup.feature.settings.domain.model.AuthState
 import com.aungthiha.topup.feature.settings.domain.usecase.ObserveAuthStateUseCase
 import com.aungthiha.topup.feature.settings.domain.usecase.SignOutUseCase

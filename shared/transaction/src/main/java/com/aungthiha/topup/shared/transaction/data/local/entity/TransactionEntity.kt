@@ -1,4 +1,4 @@
-package com.aungthiha.topup.shared.transaction.data.local
+package com.aungthiha.topup.shared.transaction.data.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

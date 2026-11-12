@@ -1,4 +1,4 @@
-package com.aungthiha.topup.shared.transaction.data.remote
+package com.aungthiha.topup.shared.transaction.data.remote.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

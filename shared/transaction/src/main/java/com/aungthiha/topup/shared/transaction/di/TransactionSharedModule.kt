@@ -1,8 +1,8 @@
 package com.aungthiha.topup.shared.transaction.di
 
 import com.aungthiha.topup.core.common.session.UserScopedDataCleaner
-import com.aungthiha.topup.shared.transaction.data.remote.SupabaseTransactionRemoteService
-import com.aungthiha.topup.shared.transaction.data.remote.TransactionRemoteService
+import com.aungthiha.topup.shared.transaction.data.remote.service.SupabaseTransactionRemoteService
+import com.aungthiha.topup.shared.transaction.data.remote.service.TransactionRemoteService
 import com.aungthiha.topup.shared.transaction.data.repository.TransactionRepositoryImpl
 import com.aungthiha.topup.shared.transaction.domain.repository.TransactionRepository
 import com.aungthiha.topup.shared.transaction.domain.usecase.ObserveTransactionCountUseCase

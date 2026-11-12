@@ -1,5 +1,8 @@
-package com.aungthiha.topup.feature.topup.data.local
+package com.aungthiha.topup.feature.topup.data.local.dao
 
+import com.aungthiha.topup.feature.topup.data.local.entity.CatalogProductEntity
+import com.aungthiha.topup.feature.topup.data.local.entity.OperatorEntity
+import com.aungthiha.topup.feature.topup.data.local.entity.OperatorWithProducts
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query

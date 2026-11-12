@@ -6,7 +6,7 @@ import com.aungthiha.topup.core.common.result.NetworkError
 import com.aungthiha.topup.feature.topup.data.FakeCurrentUser
 import com.aungthiha.topup.feature.topup.data.FakePreferences
 import com.aungthiha.topup.feature.topup.data.FakeTopupRemoteService
-import com.aungthiha.topup.feature.topup.data.remote.WalletDto
+import com.aungthiha.topup.feature.topup.data.remote.response.WalletDto
 import com.aungthiha.topup.feature.topup.domain.model.WalletBalance
 import io.github.jan.supabase.exceptions.HttpRequestException
 import io.ktor.client.request.HttpRequestBuilder

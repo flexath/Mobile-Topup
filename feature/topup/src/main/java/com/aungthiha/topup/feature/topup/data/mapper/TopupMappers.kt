@@ -1,16 +1,16 @@
 package com.aungthiha.topup.feature.topup.data.mapper
 
 import com.aungthiha.topup.core.network.StorageUrlResolver
-import com.aungthiha.topup.feature.topup.data.local.CatalogProductEntity
-import com.aungthiha.topup.feature.topup.data.local.OperatorEntity
-import com.aungthiha.topup.feature.topup.data.local.OperatorPrefixEntity
-import com.aungthiha.topup.feature.topup.data.local.OperatorWithProducts
-import com.aungthiha.topup.feature.topup.data.remote.CatalogProductDto
-import com.aungthiha.topup.feature.topup.data.remote.OperatorDto
-import com.aungthiha.topup.feature.topup.data.remote.OperatorPrefixDto
-import com.aungthiha.topup.feature.topup.data.remote.RechargeFailureBodyDto
-import com.aungthiha.topup.feature.topup.data.remote.RechargeSuccessDto
-import com.aungthiha.topup.feature.topup.data.remote.RechargeTransactionDto
+import com.aungthiha.topup.feature.topup.data.local.entity.CatalogProductEntity
+import com.aungthiha.topup.feature.topup.data.local.entity.OperatorEntity
+import com.aungthiha.topup.feature.topup.data.local.entity.OperatorPrefixEntity
+import com.aungthiha.topup.feature.topup.data.local.entity.OperatorWithProducts
+import com.aungthiha.topup.feature.topup.data.remote.response.CatalogProductDto
+import com.aungthiha.topup.feature.topup.data.remote.response.OperatorDto
+import com.aungthiha.topup.feature.topup.data.remote.response.OperatorPrefixDto
+import com.aungthiha.topup.feature.topup.data.remote.response.RechargeFailureBodyDto
+import com.aungthiha.topup.feature.topup.data.remote.response.RechargeSuccessDto
+import com.aungthiha.topup.feature.topup.data.remote.response.RechargeTransactionDto
 import com.aungthiha.topup.feature.topup.domain.model.CatalogProduct
 import com.aungthiha.topup.feature.topup.domain.model.CatalogProductType
 import com.aungthiha.topup.feature.topup.domain.model.CustomAmountRule

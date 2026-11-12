@@ -1,4 +1,4 @@
-package com.aungthiha.topup.feature.topup.data.local
+package com.aungthiha.topup.feature.topup.data.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Embedded

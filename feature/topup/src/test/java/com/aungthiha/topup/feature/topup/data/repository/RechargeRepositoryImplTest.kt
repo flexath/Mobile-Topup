@@ -5,8 +5,8 @@ import com.aungthiha.topup.core.common.result.NetworkError
 import com.aungthiha.topup.feature.topup.data.FakeStorage
 import com.aungthiha.topup.feature.topup.data.FakeTopupRemoteService
 import com.aungthiha.topup.feature.topup.data.mapper.toRechargeError
-import com.aungthiha.topup.feature.topup.data.remote.RechargeFailureBodyDto
-import com.aungthiha.topup.feature.topup.data.remote.RechargeRequestDto
+import com.aungthiha.topup.feature.topup.data.remote.response.RechargeFailureBodyDto
+import com.aungthiha.topup.feature.topup.data.remote.response.RechargeRequestDto
 import com.aungthiha.topup.feature.topup.domain.model.OperatorCode
 import com.aungthiha.topup.feature.topup.domain.model.RechargeError
 import com.aungthiha.topup.feature.topup.domain.model.RechargeRequest

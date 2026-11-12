@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.aungthiha.topup.shared.transaction.data.local.TransactionDao
+import com.aungthiha.topup.shared.transaction.data.local.dao.TransactionDao
 import com.aungthiha.topup.shared.transaction.data.local.TransactionDatabase
-import com.aungthiha.topup.shared.transaction.data.local.TransactionEntity
+import com.aungthiha.topup.shared.transaction.data.local.entity.TransactionEntity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After

@@ -1,10 +1,10 @@
 package com.aungthiha.topup.feature.topup.data.repository
 
 import com.aungthiha.topup.core.common.coroutines.DispatcherProvider
-import com.aungthiha.topup.feature.topup.data.local.OperatorPrefixDao
+import com.aungthiha.topup.feature.topup.data.local.dao.OperatorPrefixDao
 import com.aungthiha.topup.feature.topup.data.mapper.toDomainOrNull
 import com.aungthiha.topup.feature.topup.data.mapper.toEntityOrNull
-import com.aungthiha.topup.feature.topup.data.remote.TopupRemoteService
+import com.aungthiha.topup.feature.topup.data.remote.service.TopupRemoteService
 import com.aungthiha.topup.feature.topup.domain.phone.OperatorPrefix
 import com.aungthiha.topup.feature.topup.domain.repository.OperatorPrefixRepository
 import kotlinx.coroutines.CancellationException

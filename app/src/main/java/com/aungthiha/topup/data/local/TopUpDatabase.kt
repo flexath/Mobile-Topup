@@ -3,14 +3,14 @@ package com.aungthiha.topup.data.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.aungthiha.topup.feature.topup.data.local.CatalogConverters
-import com.aungthiha.topup.feature.topup.data.local.CatalogDao
-import com.aungthiha.topup.feature.topup.data.local.CatalogProductEntity
-import com.aungthiha.topup.feature.topup.data.local.OperatorEntity
-import com.aungthiha.topup.feature.topup.data.local.OperatorPrefixDao
-import com.aungthiha.topup.feature.topup.data.local.OperatorPrefixEntity
-import com.aungthiha.topup.shared.transaction.data.local.TransactionDao
-import com.aungthiha.topup.shared.transaction.data.local.TransactionEntity
+import com.aungthiha.topup.feature.topup.data.local.converter.CatalogConverters
+import com.aungthiha.topup.feature.topup.data.local.dao.CatalogDao
+import com.aungthiha.topup.feature.topup.data.local.entity.CatalogProductEntity
+import com.aungthiha.topup.feature.topup.data.local.entity.OperatorEntity
+import com.aungthiha.topup.feature.topup.data.local.dao.OperatorPrefixDao
+import com.aungthiha.topup.feature.topup.data.local.entity.OperatorPrefixEntity
+import com.aungthiha.topup.shared.transaction.data.local.dao.TransactionDao
+import com.aungthiha.topup.shared.transaction.data.local.entity.TransactionEntity
 
 /**
  * Single app Room database. Catalog tables are shared cache (kept on sign-out);

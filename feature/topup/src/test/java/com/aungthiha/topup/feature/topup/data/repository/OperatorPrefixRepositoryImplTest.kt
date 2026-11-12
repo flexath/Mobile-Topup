@@ -3,8 +3,8 @@ package com.aungthiha.topup.feature.topup.data.repository
 import com.aungthiha.topup.core.common.coroutines.DispatcherProvider
 import com.aungthiha.topup.feature.topup.data.FakeOperatorPrefixDao
 import com.aungthiha.topup.feature.topup.data.FakeTopupRemoteService
-import com.aungthiha.topup.feature.topup.data.local.OperatorPrefixEntity
-import com.aungthiha.topup.feature.topup.data.remote.OperatorPrefixDto
+import com.aungthiha.topup.feature.topup.data.local.entity.OperatorPrefixEntity
+import com.aungthiha.topup.feature.topup.data.remote.response.OperatorPrefixDto
 import com.aungthiha.topup.feature.topup.domain.model.OperatorCode
 import com.aungthiha.topup.feature.topup.domain.phone.OperatorPrefix
 import io.github.jan.supabase.exceptions.HttpRequestException

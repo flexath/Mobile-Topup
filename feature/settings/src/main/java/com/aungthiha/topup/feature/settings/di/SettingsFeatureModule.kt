@@ -2,10 +2,10 @@ package com.aungthiha.topup.feature.settings.di
 
 import com.aungthiha.topup.core.common.di.ApplicationScope
 import com.aungthiha.topup.core.common.session.CurrentUserProvider
-import com.aungthiha.topup.feature.settings.data.SessionCurrentUserProvider
+import com.aungthiha.topup.feature.settings.data.provider.SessionCurrentUserProvider
 import com.aungthiha.topup.feature.settings.data.repository.SupabaseAuthSessionRepository
-import com.aungthiha.topup.feature.settings.domain.ObserveAppearanceModeUseCase
-import com.aungthiha.topup.feature.settings.domain.SetAppearanceModeUseCase
+import com.aungthiha.topup.feature.settings.domain.usecase.ObserveAppearanceModeUseCase
+import com.aungthiha.topup.feature.settings.domain.usecase.SetAppearanceModeUseCase
 import com.aungthiha.topup.feature.settings.domain.repository.AuthSessionRepository
 import com.aungthiha.topup.feature.settings.domain.usecase.ObserveAuthStateUseCase
 import com.aungthiha.topup.feature.settings.domain.usecase.SignOutUseCase

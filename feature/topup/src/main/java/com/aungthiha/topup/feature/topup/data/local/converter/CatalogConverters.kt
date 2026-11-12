@@ -1,4 +1,4 @@
-package com.aungthiha.topup.feature.topup.data.local
+package com.aungthiha.topup.feature.topup.data.local.converter
 
 import androidx.room.TypeConverter
 import kotlinx.serialization.json.Json

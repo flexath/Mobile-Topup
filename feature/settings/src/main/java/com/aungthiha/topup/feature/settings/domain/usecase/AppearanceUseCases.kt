@@ -1,4 +1,4 @@
-package com.aungthiha.topup.feature.settings.domain
+package com.aungthiha.topup.feature.settings.domain.usecase
 
 import com.aungthiha.topup.core.datastore.UserPreferencesDataSource
 import com.aungthiha.topup.core.datastore.model.AppearanceMode

@@ -1,5 +1,6 @@
-package com.aungthiha.topup.feature.topup.data.local
+package com.aungthiha.topup.feature.topup.data.local.dao
 
+import com.aungthiha.topup.feature.topup.data.local.entity.OperatorPrefixEntity
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy

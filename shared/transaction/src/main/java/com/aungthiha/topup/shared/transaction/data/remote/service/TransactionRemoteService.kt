@@ -1,5 +1,6 @@
-package com.aungthiha.topup.shared.transaction.data.remote
+package com.aungthiha.topup.shared.transaction.data.remote.service
 
+import com.aungthiha.topup.shared.transaction.data.remote.response.TransactionDto
 import com.aungthiha.topup.shared.transaction.domain.model.TransactionQuery
 
 /**

@@ -8,7 +8,7 @@ import com.aungthiha.topup.core.common.session.CurrentUserProvider
 import com.aungthiha.topup.core.datastore.UserPreferencesDataSource
 import com.aungthiha.topup.core.datastore.model.CachedWalletBalance
 import com.aungthiha.topup.core.network.toNetworkError
-import com.aungthiha.topup.feature.topup.data.remote.TopupRemoteService
+import com.aungthiha.topup.feature.topup.data.remote.service.TopupRemoteService
 import com.aungthiha.topup.feature.topup.domain.model.WalletBalance
 import com.aungthiha.topup.feature.topup.domain.repository.WalletRepository
 import kotlinx.coroutines.CancellationException

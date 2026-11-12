@@ -7,10 +7,10 @@ import com.aungthiha.topup.core.common.result.LocalError
 import com.aungthiha.topup.core.common.session.CurrentUserProvider
 import com.aungthiha.topup.core.network.StorageUrlResolver
 import com.aungthiha.topup.core.network.toNetworkError
-import com.aungthiha.topup.shared.transaction.data.local.TransactionDao
+import com.aungthiha.topup.shared.transaction.data.local.dao.TransactionDao
 import com.aungthiha.topup.shared.transaction.data.mapper.toDomain
 import com.aungthiha.topup.shared.transaction.data.mapper.toEntity
-import com.aungthiha.topup.shared.transaction.data.remote.TransactionRemoteService
+import com.aungthiha.topup.shared.transaction.data.remote.service.TransactionRemoteService
 import com.aungthiha.topup.shared.transaction.domain.model.Transaction
 import com.aungthiha.topup.shared.transaction.domain.model.TransactionQuery
 import com.aungthiha.topup.shared.transaction.domain.model.TransactionSortOrder

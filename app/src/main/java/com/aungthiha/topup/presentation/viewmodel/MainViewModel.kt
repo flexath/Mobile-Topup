@@ -2,7 +2,7 @@ package com.aungthiha.topup.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aungthiha.topup.feature.settings.domain.ObserveAppearanceModeUseCase
+import com.aungthiha.topup.feature.settings.domain.usecase.ObserveAppearanceModeUseCase
 import com.aungthiha.topup.feature.settings.domain.usecase.ObserveAuthStateUseCase
 import com.aungthiha.topup.feature.settings.domain.usecase.SignOutUseCase
 import com.aungthiha.topup.presentation.states.MainUiState

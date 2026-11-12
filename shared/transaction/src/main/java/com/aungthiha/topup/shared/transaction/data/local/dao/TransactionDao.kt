@@ -1,5 +1,6 @@
-package com.aungthiha.topup.shared.transaction.data.local
+package com.aungthiha.topup.shared.transaction.data.local.dao
 
+import com.aungthiha.topup.shared.transaction.data.local.entity.TransactionEntity
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert

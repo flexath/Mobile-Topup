@@ -4,7 +4,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.aungthiha.topup.feature.topup.data.local.OperatorPrefixDatabase
-import com.aungthiha.topup.feature.topup.data.local.OperatorPrefixEntity
+import com.aungthiha.topup.feature.topup.data.local.entity.OperatorPrefixEntity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
