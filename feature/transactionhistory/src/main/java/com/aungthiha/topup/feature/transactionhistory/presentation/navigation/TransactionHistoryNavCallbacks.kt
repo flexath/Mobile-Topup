@@ -5,5 +5,6 @@ sealed interface TransactionHistoryNavCallbacks {
 
     sealed interface TransactionHistoryScreen : TransactionHistoryNavCallbacks {
         data object ToTopup : TransactionHistoryScreen
+        data class ToDetail(val transactionId: String) : TransactionHistoryScreen
     }
 }

@@ -48,6 +48,7 @@ Baseline SDK/Java 18/Compose/test deps live in configurers — modules only add 
 ## Secrets & signing
 
 - Release signing keys in root `local.properties` (never commit): `RELEASE_KEYSTORE`, `RELEASE_KEYSTORE_PASSWORD`, `RELEASE_KEY_ALIAS`, `RELEASE_KEY_PASSWORD`.
+- Supabase client keys in root `local.properties` (never commit): `SUPABASE_URL`, `SUPABASE_ANON_KEY` → `:app` `BuildConfig.SUPABASE_URL` / `BuildConfig.SUPABASE_ANON_KEY`.
 - Fail-hard at configuration if missing/invalid — owned by `AndroidApplicationConfigurer`.
 
 ## Layout & ownership

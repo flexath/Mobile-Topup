@@ -33,6 +33,13 @@ object DefaultBuildConfig {
     const val RELEASE_KEY_ALIAS_KEY: String = "RELEASE_KEY_ALIAS"
     const val RELEASE_KEY_PASSWORD_KEY: String = "RELEASE_KEY_PASSWORD"
 
+    /**
+     * Required Supabase client config for `:app` BuildConfig fields.
+     * Both keys must be present or configuration fails.
+     */
+    const val SUPABASE_URL_KEY: String = "SUPABASE_URL"
+    const val SUPABASE_ANON_KEY_KEY: String = "SUPABASE_ANON_KEY"
+
     // ---- Versioning -------------------------------------------------------
 
     private const val VERSION_MAJOR: Int = 1

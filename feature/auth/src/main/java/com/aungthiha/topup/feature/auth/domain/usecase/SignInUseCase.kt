@@ -1,0 +1,17 @@
+package com.aungthiha.topup.feature.auth.domain.usecase
+
+import com.aungthiha.topup.core.common.result.DataResult
+import com.aungthiha.topup.feature.auth.domain.model.AuthError
+import com.aungthiha.topup.feature.auth.domain.model.CredentialsValidator
+import com.aungthiha.topup.feature.auth.domain.model.EmailValidation
+import com.aungthiha.topup.feature.auth.domain.repository.AuthRepository
+
+class SignInUseCase(private val repository: AuthRepository) {
+    suspend operator fun invoke(email: String, password: String): DataResult<Unit, AuthError> {
+        if (CredentialsValidator.validateEmail(email) != EmailValidation.VALID) {
+            return DataResult.Error(AuthError.INVALID_EMAIL)
+        }
+        if (password.isEmpty()) return DataResult.Error(AuthError.INVALID_CREDENTIALS)
+        return repository.signIn(CredentialsValidator.normalizeEmail(email), password)
+    }
+}

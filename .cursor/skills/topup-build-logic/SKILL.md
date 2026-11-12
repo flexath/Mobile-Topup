@@ -14,6 +14,7 @@ Project-specific Gradle conventions for **Mobile-Topup** (native Android). Const
 - Plugin IDs: `topup.*` via version catalog aliases
 - Java **18** via `JavaTargets`; SDK/app identity via `DefaultBuildConfig`
 - Release signing: fail-hard on `RELEASE_*` keys in root `local.properties`
+- Supabase: fail-hard on `SUPABASE_URL` / `SUPABASE_ANON_KEY` → `:app` `BuildConfig` fields
 
 ## Current convention plugins
 
