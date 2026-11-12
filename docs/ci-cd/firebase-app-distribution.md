@@ -107,7 +107,7 @@ Every push to `master` or a `release/**` branch runs the same job. After merge/p
 
 Then uploads `app/build/outputs/apk/release/*.apk` via Firebase App Distribution.
 
-Runner: `ubuntu-latest`, Temurin **JDK 18**, Gradle caching, Android SDK via `android-actions/setup-android`.
+Runner: `ubuntu-latest`, Temurin **JDK 18** (`actions/setup-java@v5`), Gradle caching, Android SDK via `android-actions/setup-android@v4` (`platform-tools` only — the legacy `tools` package is no longer served by Google).
 
 ## Security notes
 
@@ -128,6 +128,7 @@ Runner: `ubuntu-latest`, Temurin **JDK 18**, Gradle caching, Android SDK via `an
 | Firebase upload auth / permission error | Service account lacks App Distribution role or wrong JSON | Fix IAM roles; re-paste full JSON into `FIREBASE_SERVICE_ACCOUNT_JSON` |
 | Upload succeeds but testers see nothing | Wrong `FIREBASE_APP_ID` or empty/wrong `FIREBASE_TESTER_GROUPS` | Match App ID and group aliases in Firebase Console |
 | JDK / toolchain errors | Wrong Java on runner | Workflow must use Java **18** (already configured) |
+| `Failed to find package 'tools'` in Set up Android SDK | Obsolete `android-actions/setup-android@v3` default | Use `@v4` with `packages: platform-tools` (already configured) |
 
 ## Out of scope
 
