@@ -342,7 +342,7 @@ Backend verification (optional, needs Supabase credentials / throwaway accounts)
 GitHub Actions builds a signed **release APK** and uploads it to **Firebase App Distribution** (no Play Store).
 
 - Workflow: [`.github/workflows/firebase-app-distribution.yml`](.github/workflows/firebase-app-distribution.yml)
-- Triggers: push to `master` or `release/**`, or manual **Actions → Firebase App Distribution → Run workflow**
+- Triggers: push to `release/**`, or manual **Actions → Firebase App Distribution → Run workflow**
 - Setup (secrets, keystore Base64, tester groups, troubleshooting): [`docs/ci-cd/firebase-app-distribution.md`](docs/ci-cd/firebase-app-distribution.md)
 
 ---
