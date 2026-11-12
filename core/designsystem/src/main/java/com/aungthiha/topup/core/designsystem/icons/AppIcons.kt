@@ -33,4 +33,6 @@ object AppIcons {
     val VisibilityOff = R.drawable.ic_visibility_off
     val Wallet = R.drawable.ic_wallet
     val Warning = R.drawable.ic_warning
+    val UkFlag = R.drawable.ic_uk_flag
+    val MyanmarFlag = R.drawable.ic_myanmar_flag
 }

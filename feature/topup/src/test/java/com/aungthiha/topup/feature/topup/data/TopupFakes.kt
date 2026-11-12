@@ -2,6 +2,7 @@ package com.aungthiha.topup.feature.topup.data
 
 import com.aungthiha.topup.core.common.session.CurrentUserProvider
 import com.aungthiha.topup.core.datastore.UserPreferencesDataSource
+import com.aungthiha.topup.core.datastore.model.AppLanguage
 import com.aungthiha.topup.core.datastore.model.AppearanceMode
 import com.aungthiha.topup.core.datastore.model.CachedWalletBalance
 import com.aungthiha.topup.core.network.StorageUrlResolver
@@ -116,11 +117,18 @@ internal class FakeCurrentUser(initial: String? = "user-a") : CurrentUserProvide
 internal class FakePreferences : UserPreferencesDataSource {
     val wallets = MutableStateFlow<Map<String, CachedWalletBalance>>(emptyMap())
     private val appearance = MutableStateFlow(AppearanceMode.SYSTEM)
+    private val language = MutableStateFlow(AppLanguage.ENGLISH)
 
     override val appearanceMode: Flow<AppearanceMode> = appearance
 
     override suspend fun setAppearanceMode(mode: AppearanceMode) {
         appearance.value = mode
+    }
+
+    override val appLanguage: Flow<AppLanguage> = language
+
+    override suspend fun setAppLanguage(language: AppLanguage) {
+        this.language.value = language
     }
 
     override fun walletBalance(userId: String): Flow<CachedWalletBalance?> = wallets.map { it[userId] }

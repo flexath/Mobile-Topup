@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="topup_title">ဖုန်းဘေလ်ဖြည့်ရန်</string>
+    <string name="topup_settings">ဆက်တင်များ</string>
+    <string name="topup_back">နောက်သို့</string>
+
+    <!-- Wallet -->
+    <string name="topup_wallet_label">လက်ကျန်ငွေ</string>
+    <string name="topup_wallet_unavailable">လက်ကျန်ငွေကို မရရှိနိုင်ပါ</string>
+    <string name="topup_wallet_refreshing">လက်ကျန်ငွေကို အပ်ဒိတ်လုပ်နေပါတယ်…</string>
+    <string name="topup_wallet_stale">နောက်ဆုံး သိမ်းထားတဲ့ လက်ကျန်ငွေကို ပြသထားပါတယ်</string>
+    <string name="topup_overview_offline">အင်တာနက် ချိတ်ဆက်မထားပါဘူး။ လက်ကျန်ငွေက အခုလက်ရှိအခြေအနေ မဟုတ်နိုင်ပါဘူး။</string>
+
+    <!-- Overview -->
+    <string name="topup_entry_title">ဖုန်းဘေလ် ဖြည့်မယ်</string>
+    <string name="topup_entry_message">MPT၊ ATOM၊ Ooredoo နဲ့ Mytel ဖုန်းနံပါတ်တွေကို သင့် Wallet ထဲကငွေနဲ့ ဖုန်းဘေလ်ဖြည့်တာ၊ ဒေတာပက်ကေ့ချ်ဝယ်တာတွေ လုပ်နိုင်ပါတယ်။</string>
+    <string name="topup_entry_tag_airtime">ဖုန်းဘေလ်</string>
+    <string name="topup_entry_tag_data">ဒေတာပက်ကေ့ချ်</string>
+    <string name="topup_entry_tag_auto_detect">အော်ပရေတာ အလိုအလျောက်သိရှိခြင်း</string>
+    <string name="topup_entry_cta">ဘေလ်စဖြည့်မယ်</string>
+    <string name="topup_operators_title">အသုံးပြုနိုင်တဲ့ အော်ပရေတာများ</string>
+    <string name="topup_steps_title">အသုံးပြုပုံ</string>
+    <string name="topup_step_number_title">ဖုန်းနံပါတ် ထည့်ပါ</string>
+    <string name="topup_step_number_message">ဖုန်းနံပါတ်ကို ကြည့်ပြီး အော်ပရေတာကို အလိုအလျောက် သိရှိပေးပါတယ်။</string>
+    <string name="topup_step_amount_title">ငွေပမာဏ ဒါမှမဟုတ် ပက်ကေ့ချ် ရွေးပါ</string>
+    <string name="topup_step_amount_message">သတ်မှတ်ထားတဲ့ ငွေပမာဏကို ရွေးနိုင်သလို ကိုယ်တိုင်ငွေပမာဏ ထည့်တာ၊ ဒေတာပက်ကေ့ချ် ရွေးတာလည်း လုပ်နိုင်ပါတယ်။</string>
+    <string name="topup_step_confirm_title">အတည်ပြုပြီး ငွေပေးချေပါ</string>
+    <string name="topup_step_confirm_message">ဘေလ်ဖြည့်တာ အောင်မြင်တာနဲ့ သင့် Wallet ထဲကငွေကို ဖြတ်ပြီး လက်ကျန်ငွေကို အပ်ဒိတ်လုပ်ပေးပါမယ်။</string>
+
+    <!-- Recharge -->
+    <string name="topup_recharge_title">ဖုန်းဘေလ်ဖြည့်ရန်</string>
+
+    <!-- Phone -->
+    <string name="topup_phone_label">ဖုန်းနံပါတ်</string>
+    <string name="topup_phone_placeholder">09xxxxxxxxx</string>
+    <string name="topup_phone_helper">09 နဲ့စတဲ့ မြန်မာဖုန်းနံပါတ် ၁၁ လုံး ထည့်ပေးပါ။</string>
+    <string name="topup_phone_invalid_characters">ဂဏန်းတွေပဲ ထည့်ပေးပါ။</string>
+    <string name="topup_phone_invalid_format">မြန်မာဖုန်းနံပါတ်တွေက 09 နဲ့ စပါတယ်။</string>
+    <string name="topup_phone_too_long">ဖုန်းနံပါတ်မှာ ဂဏန်း ၁၁ လုံးပဲ ရှိရပါမယ် (09xxxxxxxxx)။</string>
+    <string name="topup_phone_unsupported">ဒီဖုန်းနံပါတ်ရဲ့ အော်ပရေတာကို လောလောဆယ် မပံ့ပိုးသေးပါဘူး။</string>
+    <string name="topup_operator_detected">သိရှိထားတဲ့ အော်ပရေတာ</string>
+
+    <!-- Tabs -->
+    <string name="topup_tab_denominations">သတ်မှတ်ငွေပမာဏများ</string>
+    <string name="topup_tab_packages">ပက်ကေ့ချ်များ</string>
+    <string name="topup_enter_number_hint">ဒီအော်ပရေတာရဲ့ ငွေပမာဏနဲ့ ပက်ကေ့ချ်တွေကို ကြည့်ဖို့ မှန်ကန်တဲ့ ဖုန်းနံပါတ် ထည့်ပေးပါ။</string>
+    <string name="topup_unsupported_hint">MPT၊ ATOM၊ Ooredoo နဲ့ Mytel ဖုန်းနံပါတ်တွေကိုသာ ဘေလ်ဖြည့်နိုင်ပါတယ်။</string>
+    <string name="topup_kyat_suffix">ကျပ်</string>
+    <string name="topup_custom_amount_cta">ကိုယ်တိုင် ငွေပမာဏထည့်မယ်</string>
+    <string name="topup_custom_amount_hide">ကိုယ်တိုင်ထည့်ရန်ကို ပိတ်မယ်</string>
+    <string name="topup_custom_amount_label">ကိုယ်တိုင်ထည့်မယ့် ငွေပမာဏ (ကျပ်)</string>
+    <string name="topup_custom_amount_rule">%1$s ကျပ်နဲ့ %2$s ကျပ်ကြား၊ %3$s ကျပ်စီ တိုးထည့်နိုင်ပါတယ်။</string>
+    <string name="topup_custom_amount_not_number">ဂဏန်းတွေပဲ ထည့်ပေးပါ။</string>
+    <string name="topup_custom_amount_below">အနည်းဆုံး %1$s ကျပ် ထည့်ရပါမယ်။</string>
+    <string name="topup_custom_amount_above">အများဆုံး %1$s ကျပ်ပဲ ထည့်နိုင်ပါတယ်။</string>
+    <string name="topup_custom_amount_step">%1$s ကျပ်၏ ဆတိုးပမာဏကို ထည့်ပေးပါ။</string>
+    <string name="topup_no_packages">ဒီအော်ပရေတာအတွက် လောလောဆယ် ဒေတာပက်ကေ့ချ် မရှိသေးပါဘူး။</string>
+    <string name="topup_no_denominations">ဒီအော်ပရေတာအတွက် လောလောဆယ် သတ်မှတ်ငွေပမာဏ မရှိသေးပါဘူး။</string>
+    <string name="topup_demo_catalog_note">ပြသထားတဲ့ ပက်ကေ့ချ်နဲ့ ငွေပမာဏတွေက ဒီအော်ပရေတာရဲ့ လက်ရှိစာရင်းအတိုင်း ဖြစ်ပါတယ်။</string>
+
+    <!-- Catalog states -->
+    <string name="topup_catalog_loading">ပက်ကေ့ချ်တွေ ရယူနေပါတယ်…</string>
+    <string name="topup_catalog_error_title">ပက်ကေ့ချ်တွေကို ရယူလို့မရပါ</string>
+    <string name="topup_catalog_error_message">ငွေပမာဏနဲ့ ပက်ကေ့ချ်တွေကို ရယူလို့ မရခဲ့ပါဘူး။ အင်တာနက်စစ်ဆေးပြီး ပြန်ကြိုးစားကြည့်ပါ။</string>
+    <string name="topup_retry">ပြန်ကြိုးစားမယ်</string>
+    <string name="topup_catalog_stale">ပက်ကေ့ချ်တွေကို အသစ်ပြန်မရယူနိုင်ခဲ့ပါဘူး။ သိမ်းထားတဲ့စာရင်းကို ပြသထားပါတယ်။</string>
+    <string name="topup_offline">အင်တာနက် ချိတ်ဆက်မထားပါဘူး။ ပြန်ချိတ်ဆက်ပြီးမှ ဘေလ်ဖြည့်နိုင်ပါမယ်။</string>
+
+    <!-- CTA -->
+    <string name="topup_proceed">ဘေလ်ဖြည့်ရန် ဆက်လုပ်မယ်</string>
+    <string name="topup_blocker_invalid_number">ဆက်လုပ်ဖို့ မှန်ကန်တဲ့ ဖုန်းနံပါတ် ထည့်ပေးပါ။</string>
+    <string name="topup_blocker_unsupported">ဒီအော်ပရေတာကို မပံ့ပိုးပါဘူး။</string>
+    <string name="topup_blocker_catalog">ပက်ကေ့ချ်တွေ ရယူနေဆဲပါ။</string>
+    <string name="topup_blocker_no_selection">ငွေပမာဏ၊ ကိုယ်တိုင်ထည့်မယ့် ပမာဏ ဒါမှမဟုတ် ပက်ကေ့ချ်တစ်ခုခု ရွေးပေးပါ။</string>
+    <string name="topup_blocker_invalid_amount">မှန်ကန်တဲ့ ငွေပမာဏ ထည့်ပေးပါ။</string>
+    <string name="topup_blocker_offline">ဘေလ်ဖြည့်ဖို့ အင်တာနက် ချိတ်ဆက်ပေးပါ။</string>
+
+    <!-- Confirmation -->
+    <string name="topup_confirm_title">ဘေလ်ဖြည့်မယ့်အချက်အလက်ကို အတည်ပြုပါ</string>
+    <string name="topup_confirm_phone">ဖုန်းနံပါတ်</string>
+    <string name="topup_confirm_operator">အော်ပရေတာ</string>
+    <string name="topup_confirm_item">ဘေလ်ဖြည့်မည့်အမျိုးအစား</string>
+    <string name="topup_confirm_details">အသေးစိတ်</string>
+    <string name="topup_confirm_price">ကျသင့်ငွေ</string>
+    <string name="topup_confirm_balance">Wallet လက်ကျန်ငွေ</string>
+    <string name="topup_confirm_low_balance">သိမ်းထားတဲ့ လက်ကျန်ငွေက ကျသင့်ငွေထက် နည်းနေပုံရပါတယ်။ ဘေလ်ဖြည့်တာ မအောင်မြင်နိုင်ပါဘူး။</string>
+    <string name="topup_confirm_simulated_note">အတည်ပြုလိုက်တာနဲ့ သင့် Wallet ထဲကငွေကို ဖြတ်ပြီး အပေါ်က ဖုန်းနံပါတ်ကို ဘေလ်ဖြည့်ပေးပါမယ်။</string>
+    <string name="topup_confirm">အတည်ပြုမယ်</string>
+    <string name="topup_cancel">မလုပ်တော့ပါ</string>
+    <string name="topup_item_denomination">%1$s ကျပ် ဖုန်းဘေလ်</string>
+    <string name="topup_item_custom">ကိုယ်တိုင်ထည့်ထားတဲ့ ငွေပမာဏ</string>
+
+    <!-- Processing -->
+    <string name="topup_processing_title">ဘေလ်ဖြည့်နေပါတယ်</string>
+    <string name="topup_processing_message">%1$s နံပါတ်ကို %2$s ဖြည့်ပေးနေပါတယ်။</string>
+    <string name="topup_processing_note">ကျေးဇူးပြုပြီး အက်ပ်ကို မပိတ်ပါနဲ့။ မလုပ်ဆောင်ရသေးတဲ့ တောင်းဆိုမှုကို နောက်ပြန်သွားရင် ပယ်ဖျက်သွားနိုင်ပါတယ်။</string>
+    <string name="topup_error_insufficient_title">လက်ကျန်ငွေ မလုံလောက်ပါ</string>
+    <string name="topup_error_insufficient_message">သင့် Wallet လက်ကျန်ငွေ (%1$s) က ဒီဘေလ်ဖြည့်မှုအတွက် လိုအပ်တဲ့ %2$s မလုံလောက်ပါဘူး။ ငွေမဖြတ်ထားပါဘူး။</string>
+    <string name="topup_error_insufficient_message_generic">ဒီဘေလ်ဖြည့်မှုအတွက် သင့် Wallet လက်ကျန်ငွေ မလုံလောက်ပါဘူး။ ငွေမဖြတ်ထားပါဘူး။</string>
+    <string name="topup_error_choose_another">တခြားတစ်ခု ရွေးမယ်</string>
+    <string name="topup_error_network_title">အင်တာနက် ချိတ်ဆက်မှု ပြဿနာ</string>
+    <string name="topup_error_network_message">ဘေလ်ဖြည့်မှု အောင်မြင်မအောင်မြင် အတည်ပြုလို့ မရခဲ့ပါဘူး။ ဘေလ်ဖြည့်ပြီးသွားရင် History ထဲမှာ ပေါ်လာပါလိမ့်မယ်။ ထပ်ကြိုးစားလို့ ငွေနှစ်ခါ ဖြတ်မှာ မဟုတ်ပါဘူး။</string>
+    <string name="topup_error_session_title">အကောင့်ဝင်ထားတဲ့ သက်တမ်းကုန်သွားပါပြီ</string>
+    <string name="topup_error_session_message">ဆက်လုပ်ဖို့ အကောင့်ပြန်ဝင်ပေးပါ။</string>
+    <string name="topup_error_session_action">အကောင့်ပြန်ဝင်မယ်</string>
+    <string name="topup_error_product_title">ဒီပက်ကေ့ချ်ကို အသုံးပြုလို့မရတော့ပါ</string>
+    <string name="topup_error_product_message">ဒီရွေးချယ်မှုကို အခု အသုံးပြုလို့ မရတော့ပါဘူး။ တခြားတစ်ခု ရွေးပေးပါ။</string>
+    <string name="topup_error_number_title">ဖုန်းနံပါတ်ကို လက်မခံပါ</string>
+    <string name="topup_error_number_message">ရွေးထားတဲ့ အော်ပရေတာအတွက် ဒီဖုန်းနံပါတ်ကို စနစ်က အတည်မပြုနိုင်ခဲ့ပါဘူး။</string>
+    <string name="topup_error_amount_title">ငွေပမာဏ မမှန်ပါ</string>
+    <string name="topup_error_amount_message">ထည့်ထားတဲ့ ငွေပမာဏက သတ်မှတ်ထားတဲ့ ပမာဏအတွင်း မရှိပါဘူး။</string>
+    <string name="topup_error_generic_title">ဘေလ်ဖြည့်လို့ မအောင်မြင်ပါ</string>
+    <string name="topup_error_generic_message">တစ်ခုခု မှားယွင်းသွားပါတယ်။ History ထဲမှာ ဘေလ်ဖြည့်မှု ပေါ်လာတာ မရှိရင် ငွေဖြတ်ထားမှာ မဟုတ်ပါဘူး။</string>
+    <string name="topup_try_again">ထပ်ကြိုးစားမယ်</string>
+    <string name="topup_go_back">နောက်သို့</string>
+
+    <!-- Success -->
+    <string name="topup_success_title">ဘေလ်ဖြည့်တာ အောင်မြင်ပါပြီ</string>
+    <string name="topup_success_message">%1$s နံပါတ်ကို %2$s ဖြည့်ပြီးပါပြီ။</string>
+    <string name="topup_success_checkmark">အောင်မြင်ပါပြီ</string>
+    <string name="topup_success_remaining">Wallet ထဲမှာ ကျန်ရှိတဲ့ငွေ</string>
+    <string name="topup_success_back_to_topup">ဘေလ်ဖြည့်တဲ့စာမျက်နှာကို ပြန်သွားမယ်</string>
+    <string name="topup_success_open_history">မှတ်တမ်းကြည့်မယ်</string>
+    <string name="topup_share_receipt">ပြေစာ မျှဝေမယ်</string>
+    <string name="topup_share_chooser">ပြေစာ မျှဝေမယ်</string>
+    <string name="topup_success_loading">ပြေစာကို ရယူနေပါတယ်…</string>
+
+</resources>

@@ -21,6 +21,7 @@ import com.aungthiha.topup.core.designsystem.components.AppPrimaryButton
 import com.aungthiha.topup.core.designsystem.theme.AppTheme
 import com.aungthiha.topup.core.designsystem.theme.appSpacing
 import com.aungthiha.topup.feature.auth.R
+import com.aungthiha.topup.feature.auth.presentation.components.AuthLanguagePicker
 import com.aungthiha.topup.feature.auth.presentation.components.AuthScaffold
 import com.aungthiha.topup.feature.auth.presentation.components.AuthSwitchPrompt
 import com.aungthiha.topup.feature.auth.presentation.components.EmailField
@@ -63,12 +64,14 @@ fun RegisterScreen(
     onSubmit: () -> Unit,
     onSignIn: () -> Unit,
     modifier: Modifier = Modifier,
+    languagePicker: @Composable () -> Unit = { AuthLanguagePicker() },
 ) {
     val focusManager = LocalFocusManager.current
     AuthScaffold(
         title = R.string.auth_register_title,
         subtitle = R.string.auth_register_subtitle,
         modifier = modifier,
+        languagePicker = languagePicker,
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(MaterialTheme.appSpacing.large)) {
             EmailField(
@@ -144,6 +147,7 @@ private fun RegisterScreenPreview() {
             onTogglePasswordVisibility = {},
             onSubmit = {},
             onSignIn = {},
+            languagePicker = {},
         )
     }
 }

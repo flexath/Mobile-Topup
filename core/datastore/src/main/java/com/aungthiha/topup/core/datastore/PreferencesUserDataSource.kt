@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.aungthiha.topup.core.datastore.model.AppLanguage
 import com.aungthiha.topup.core.datastore.model.AppearanceMode
 import com.aungthiha.topup.core.datastore.model.CachedWalletBalance
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +26,18 @@ internal class PreferencesUserDataSource(
 
     override suspend fun setAppearanceMode(mode: AppearanceMode) {
         dataStore.edit { it[APPEARANCE_MODE] = mode.name }
+    }
+
+    override val appLanguage: Flow<AppLanguage> = dataStore.data
+        .map { preferences ->
+            preferences[APP_LANGUAGE]
+                ?.let(AppLanguage::fromStoredName)
+                ?: AppLanguage.ENGLISH
+        }
+        .distinctUntilChanged()
+
+    override suspend fun setAppLanguage(language: AppLanguage) {
+        dataStore.edit { it[APP_LANGUAGE] = language.name }
     }
 
     override fun walletBalance(userId: String): Flow<CachedWalletBalance?> = dataStore.data
@@ -58,6 +71,7 @@ internal class PreferencesUserDataSource(
 
     private companion object {
         val APPEARANCE_MODE = stringPreferencesKey("appearance_mode")
+        val APP_LANGUAGE = stringPreferencesKey("app_language")
         const val WALLET_KEY_PREFIX = "wallet_"
     }
 }
