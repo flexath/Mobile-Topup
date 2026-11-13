@@ -27,6 +27,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "TopUp"
 include(":app")
+include(":baselineprofile")
 
 // Core Modules
 include(":core:common")
