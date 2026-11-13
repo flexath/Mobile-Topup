@@ -1,0 +1,84 @@
+---
+description: Mandatory TopUp Gradle build-logic — convention plugins, debug/release only, no KMP/env flavors
+globs: build-logic/**,**/build.gradle.kts,gradle/libs.versions.toml,settings.gradle.kts
+alwaysApply: true
+---
+
+# TopUp Build Logic (MUST FOLLOW)
+
+> Native Android only. Plugin prefix: `topup.*`. Composite build: `build-logic/`.
+> This repo does **not** use Phera/KMP plugins or six environment build types.
+
+## Build types
+
+- `:app` uses stock AGP **`debug`** and **`release` only**.
+- Do **not** add `dev` / `stg` / `prod`, product flavors, or `developmentDebug`-style types.
+- Libraries (`core/*`, `feature/*`) stay single-variant; no environment flavors.
+
+## Convention plugins only in modules
+
+```kotlin
+// ✅
+plugins {
+    alias(libs.plugins.topup.android.library.compose)
+    alias(libs.plugins.topup.serialization)
+    alias(libs.plugins.topup.koin)
+}
+
+// ❌ raw AGP/Kotlin/Compose plugins or duplicated baseline Compose deps
+```
+
+| Module kind | Plugins |
+|-------------|---------|
+| `:app` | `topup.android.application.compose` + stack as needed |
+| Compose library | `topup.android.library.compose` (+ stack) |
+| Non-Compose library | `topup.android.library` (+ stack) |
+
+### Stack plugins (opt-in)
+
+`serialization` · `navigation` · `firebase` · `room` · `sqlcipher` · `datastore` · `ktor` · `koin` · `supabase` · `coroutines`
+
+- `topup.ktor` also applies Serialization.
+- `topup.supabase` needs `topup.ktor` on the same module.
+- `topup.room` applies KSP + Room; pair `topup.sqlcipher` when encrypting the DB.
+- Apply Android library/application convention **before** stack plugins that need AGP (e.g. Room).
+
+Baseline SDK/Java 18/Compose/test deps live in configurers — modules only add project + module-specific libs.
+
+## Secrets & signing
+
+- Release signing keys in root `local.properties` (never commit): `RELEASE_KEYSTORE`, `RELEASE_KEYSTORE_PASSWORD`, `RELEASE_KEY_ALIAS`, `RELEASE_KEY_PASSWORD`.
+- Supabase client keys in root `local.properties` (never commit): `SUPABASE_URL`, `SUPABASE_ANON_KEY` → `:app` `BuildConfig.SUPABASE_URL` / `BuildConfig.SUPABASE_ANON_KEY`.
+- Fail-hard at configuration if missing/invalid — owned by `AndroidApplicationConfigurer`.
+
+## Layout & ownership
+
+```
+build-logic/convention/src/main/kotlin/
+├── common/          # DefaultBuildConfig, PluginIds, JavaTargets (no BuildEnvironment)
+├── configuration/   # *Configurer (Android DSL + stack deps)
+├── plugins/         # Thin Plugin wrappers
+└── utils/           # Catalog / Android / local.properties helpers
+```
+
+| Change | Where |
+|--------|--------|
+| SDK / app id / version / signing keys | `DefaultBuildConfig.kt` |
+| App / library Android DSL | `AndroidApplicationConfigurer` / `AndroidLibraryConfigurer` |
+| New stack | `*Configurer` + plugin + `gradlePlugin {}` + `PluginIds` + `libs.versions.toml` |
+
+Keep plugins thin: `pluginManager.apply(...)` then configurer. Sync `PluginIds` ↔ `gradlePlugin` ↔ catalog.
+
+## Anti-patterns
+
+- KMP / Compose Multiplatform / `buildSrc` / Groovy DSL
+- Inline versions outside `libs.versions.toml`
+- `afterEvaluate` for variant wiring; duplicating signing/minify outside app configurer
+- Applying `com.android.application` to `core/*` or `feature/*`
+
+## Verify
+
+```bash
+./gradlew :build-logic:convention:validatePlugins
+./gradlew :app:assembleDebug :app:assembleRelease
+```

@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -22,5 +23,23 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "TopUp"
 include(":app")
+include(":baselineprofile")
+
+// Core Modules
+include(":core:common")
+include(":core:designsystem")
+include(":core:datastore")
+include(":core:network")
+
+// Shared Modules
+include(":shared:transaction")
+
+// Feature Modules
+include(":feature:auth")
+include(":feature:topup")
+include(":feature:transactionhistory")
+include(":feature:settings")

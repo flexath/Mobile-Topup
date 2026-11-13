@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "279743143519",
+    "project_id": "mobile-topup-5d3e1",
+    "storage_bucket": "mobile-topup-5d3e1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279743143519:android:a8b0f7f84873ec395705ea",
+        "android_client_info": {
+          "package_name": "com.aungthiha.topup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0Lsb5STfxvKnnNG_ldIo26AvVEO0fkV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
