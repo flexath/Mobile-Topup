@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.topup.navigation)
     alias(libs.plugins.topup.firebase)
     alias(libs.plugins.topup.room)
+    alias(libs.plugins.topup.sqlcipher)
     alias(libs.plugins.topup.koin)
     alias(libs.plugins.topup.coroutines)
 }
