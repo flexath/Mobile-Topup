@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9e57320554d9f5f444da82d00806a0a7",
+    "identityHash": "6f408d1df20a56a422a77824ff31f076",
     "entities": [
       {
         "tableName": "operators",
@@ -180,6 +180,30 @@
         ]
       },
       {
+        "tableName": "operator_prefixes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`prefix` TEXT NOT NULL, `operator_code` TEXT NOT NULL, PRIMARY KEY(`prefix`))",
+        "fields": [
+          {
+            "fieldPath": "prefix",
+            "columnName": "prefix",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "operatorCode",
+            "columnName": "operator_code",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "prefix"
+          ]
+        }
+      },
+      {
         "tableName": "transactions",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `user_id` TEXT NOT NULL, `phone_number` TEXT NOT NULL, `operator_code` TEXT NOT NULL, `operator_name` TEXT NOT NULL, `operator_logo_url` TEXT, `product_id` TEXT, `product_sku` TEXT, `product_type` TEXT NOT NULL, `product_name` TEXT NOT NULL, `data_allowance_mb` INTEGER, `call_minutes` INTEGER, `services` TEXT NOT NULL, `validity_days` INTEGER, `amount_mmk` INTEGER NOT NULL, `currency` TEXT NOT NULL, `status` TEXT NOT NULL, `balance_after_mmk` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
@@ -325,7 +349,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9e57320554d9f5f444da82d00806a0a7')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6f408d1df20a56a422a77824ff31f076')"
     ]
   }
 }

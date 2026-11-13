@@ -15,6 +15,10 @@ import com.aungthiha.topup.shared.transaction.data.local.entity.TransactionEntit
 /**
  * Single app Room database. Catalog tables are shared cache (kept on sign-out);
  * transaction rows are cleared via [com.aungthiha.topup.shared.transaction.domain.repository.TransactionRepository.clearCache].
+ *
+ * Encryption: release builds encrypt the entire database file with SQLCipher via
+ * [net.zetetic.database.sqlcipher.SupportOpenHelperFactory] in app DI (`openHelperFactory`).
+ * Debug builds use a plain Room database. All tables are covered at the file level.
  */
 @Database(
     entities = [
@@ -23,7 +27,7 @@ import com.aungthiha.topup.shared.transaction.data.local.entity.TransactionEntit
         OperatorPrefixEntity::class,
         TransactionEntity::class,
     ],
-    version = 2,
+    version = 1,
     exportSchema = true,
 )
 @TypeConverters(CatalogConverters::class)
