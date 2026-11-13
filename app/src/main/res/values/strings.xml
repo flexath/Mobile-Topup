@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">TopUp</string>
+    <string name="nav_topup">Topup</string>
+    <string name="nav_history">History</string>
 </resources>

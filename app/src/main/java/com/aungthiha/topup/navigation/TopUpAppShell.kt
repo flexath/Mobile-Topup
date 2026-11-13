@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.aungthiha.topup.core.designsystem.components.navigation.AppFloatingNavBar
@@ -96,7 +97,7 @@ private fun AuthenticatedShell(onSessionExpired: () -> Unit) {
     val navItems = TopLevelDestination.entries.map { destination ->
         AppNavItem(
             key = destination.name,
-            label = destination.label,
+            label = stringResource(destination.labelRes),
             icon = destination.icon,
         )
     }

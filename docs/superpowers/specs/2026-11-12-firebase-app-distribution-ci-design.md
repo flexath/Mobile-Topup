@@ -13,7 +13,7 @@ The TopUp Android app has release signing and Supabase BuildConfig secrets wired
 | Decision | Choice |
 |----------|--------|
 | Credential injection | **Approach 1** — CI synthesizes ephemeral `local.properties` + keystore; no build-logic changes |
-| Auto-trigger branches | `master`, `release/**` |
+| Auto-trigger branches | `release/**` |
 | Manual trigger | `workflow_dispatch` with optional `release_notes` |
 | Pre-distribution checks | `validatePlugins` + `testDebugUnitTest` + `:app:lintRelease` + `:app:assembleRelease` |
 | Distribution target | Firebase App Distribution only |
@@ -37,7 +37,7 @@ The TopUp Android app has release signing and Supabase BuildConfig secrets wired
 ## Architecture
 
 ```
-push master | push release/** | workflow_dispatch
+push release/** | workflow_dispatch
   → checkout
   → JDK 18 + Android SDK + Gradle cache
   → decode keystore + write local.properties

@@ -46,6 +46,7 @@ internal fun AuthScaffold(
     @StringRes title: Int,
     @StringRes subtitle: Int,
     modifier: Modifier = Modifier,
+    languagePicker: @Composable () -> Unit = { AuthLanguagePicker() },
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val spacing = MaterialTheme.appSpacing
@@ -64,6 +65,12 @@ internal fun AuthScaffold(
                 .padding(horizontal = spacing.screenHorizontal, vertical = spacing.section),
             verticalArrangement = Arrangement.spacedBy(spacing.medium),
         ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
+            ) {
+                languagePicker()
+            }
             AuthBrandHeader(title = title, subtitle = subtitle)
             content()
         }

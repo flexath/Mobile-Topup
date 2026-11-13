@@ -10,4 +10,11 @@
     <string name="ds_receipt_details">Details</string>
     <string name="ds_receipt_validity">Validity</string>
     <string name="ds_receipt_status">Status</string>
+
+    <string name="ds_language_screen_title">Language</string>
+    <string name="ds_language_english">English</string>
+    <string name="ds_language_english_description">App interface in English</string>
+    <string name="ds_language_myanmar">Myanmar (Burmese)</string>
+    <string name="ds_language_myanmar_description">App interface in Burmese</string>
+    <string name="ds_language_picker_content_description">Change language</string>
 </resources>

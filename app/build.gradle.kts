@@ -4,8 +4,10 @@ plugins {
     alias(libs.plugins.topup.navigation)
     alias(libs.plugins.topup.firebase)
     alias(libs.plugins.topup.room)
+    alias(libs.plugins.topup.sqlcipher)
     alias(libs.plugins.topup.koin)
     alias(libs.plugins.topup.coroutines)
+    alias(libs.plugins.androidx.baselineprofile)
 }
 
 dependencies {
@@ -21,4 +23,7 @@ dependencies {
 
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.profileinstaller)
+
+    baselineProfile(projects.baselineprofile)
 }

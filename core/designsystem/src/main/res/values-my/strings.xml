@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ds_receipt_status_success">အောင်မြင်ပါသည်</string>
+    <string name="ds_receipt_amount">ငွေပမာဏ</string>
+    <string name="ds_receipt_transaction_id">ငွေလွှဲမှတ်တမ်း ID</string>
+    <string name="ds_receipt_date">ရက်စွဲနှင့် အချိန်</string>
+    <string name="ds_receipt_phone">ဖုန်းနံပါတ်</string>
+    <string name="ds_receipt_operator">ဖုန်းအော်ပရေတာ</string>
+    <string name="ds_receipt_package">ပက်ကေ့ချ်</string>
+    <string name="ds_receipt_details">အသေးစိတ်</string>
+    <string name="ds_receipt_validity">သက်တမ်း</string>
+    <string name="ds_receipt_status">အခြေအနေ</string>
+
+    <string name="ds_language_screen_title">ဘာသာစကား</string>
+    <string name="ds_language_english">အင်္ဂလိပ်</string>
+    <string name="ds_language_english_description">အက်ပ်ကို အင်္ဂလိပ်ဘာသာဖြင့် အသုံးပြုမယ်</string>
+    <string name="ds_language_myanmar">မြန်မာ</string>
+    <string name="ds_language_myanmar_description">အက်ပ်ကို မြန်မာဘာသာဖြင့် အသုံးပြုမယ်</string>
+    <string name="ds_language_picker_content_description">ဘာသာစကား ပြောင်းရန်</string>
+</resources>

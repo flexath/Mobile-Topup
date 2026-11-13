@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.aungthiha.topup.core.datastore.model.AppearanceMode
+import com.aungthiha.topup.core.designsystem.locale.ProvideAppLocale
 import com.aungthiha.topup.core.designsystem.theme.AppTheme
 import com.aungthiha.topup.navigation.TopUpAppShell
 import com.aungthiha.topup.presentation.viewmodel.MainViewModel
@@ -24,8 +25,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
-        // Keep the system splash until the stored session and theme are known, so the first
-        // frame is already the right destination (Login or Top-up) in the right theme.
+        // Keep the system splash until the stored session, theme, and language are known, so the
+        // first frame is already the right destination in the right theme and locale.
         splashScreen.setKeepOnScreenCondition { !viewModel.uiState.value.isReady }
         enableEdgeToEdge()
         setContent {
@@ -42,11 +43,14 @@ class MainActivity : ComponentActivity() {
                 )
                 onDispose { }
             }
-            AppTheme(darkTheme = darkTheme) {
-                TopUpAppShell(
-                    authState = state.authState,
-                    onSessionExpired = viewModel::onSessionExpired,
-                )
+            val languageTag = state.appLanguage?.languageTag ?: "en"
+            ProvideAppLocale(languageTag = languageTag) {
+                AppTheme(darkTheme = darkTheme) {
+                    TopUpAppShell(
+                        authState = state.authState,
+                        onSessionExpired = viewModel::onSessionExpired,
+                    )
+                }
             }
         }
     }

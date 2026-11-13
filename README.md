@@ -39,6 +39,7 @@ Successful recharges are stored per user and appear in History with search, oper
 | **History** | User-scoped list with search, operator chips, date filter, sort, pagination (Load More), and transaction detail |
 | **Receipt sharing** | Captures the receipt card to PNG and shares via Android Sharesheet (FileProvider) |
 | **Appearance** | System / Light / Dark modes from Settings |
+| **Localization** | English (default) and Myanmar (`my`); language picker on Login, Register, and Settings; preference persisted in DataStore; UI updates immediately without restart |
 | **Adaptive UI** | Floating bottom bar on phones; navigation rail on medium+ width; portrait and landscape with retained screen state |
 | **Observability** | Firebase Analytics and Crashlytics on `:app` |
 
@@ -98,6 +99,22 @@ The same top-up experience under the dark theme — primary actions, cards, and 
 
 *Left: Top-up home · Center: Denominations · Right: Data packages (dark)*
 
+### Myanmar Language Support
+
+Full in-app localization for **Myanmar (Burmese)** alongside the default English UI. Users can switch languages from Login, Register, or Settings; the choice is saved and applied across auth, top-up, history, and settings without restarting the app. Amounts and dates follow the selected locale (including Myanmar numerals where the locale provides them).
+
+<p align="center">
+  <img src="docs/screenshots/myanmar-support1.jpg" alt="TopUp Myanmar language — top-up home, denominations, and packages" width="900" />
+</p>
+
+*Left: Top-up home · Center: Denominations · Right: Data packages (Myanmar UI)*
+
+<p align="center">
+  <img src="docs/screenshots/myanmar-support2.jpg" alt="TopUp Myanmar language — transaction history and detail" width="720" />
+</p>
+
+*Left: History list · Right: Transaction details (Myanmar UI)*
+
 ---
 
 ## Technology Stack
@@ -109,7 +126,7 @@ The same top-up experience under the dark theme — primary actions, cards, and 
 | **Navigation** | Navigation Compose with `@Serializable` typed routes |
 | **Async** | Kotlin Coroutines & Flow |
 | **DI** | Koin |
-| **Local data** | Room (catalog + transactions), DataStore Preferences (appearance + wallet cache) |
+| **Local data** | Room (catalog + transactions), DataStore Preferences (appearance, language, wallet cache) |
 | **Networking** | Ktor (OkHttp engine), Coil 3 (operator logos) |
 | **Backend** | Supabase (Auth, Postgrest, Functions, Storage) |
 | **Observability** | Firebase Analytics, Firebase Crashlytics |
@@ -192,7 +209,7 @@ Koin modules are declared in each owning module’s `di/` package. `:app` starts
 |---|---|
 | Catalog | Room DB `topup_catalog.db` in `:feature:topup` (shared, kept on logout) |
 | Transactions | Room DB `topup_transactions.db` in `:shared:transaction` (user-scoped, cleared on logout) |
-| Wallet / theme | DataStore in `:core:datastore` |
+| Wallet / theme / language | DataStore in `:core:datastore` |
 | Auth session | supabase-kt session storage |
 | Recharge | Edge Function `process-recharge` → Postgres RPC with wallet row lock + idempotency |
 | History sync | `list_my_transactions` RPC, RLS-scoped to `auth.uid()` |
@@ -208,13 +225,13 @@ TopUp/
 ├── core/
 │   ├── common/                   # DataResult, session contracts, formatters, ImageSharer
 │   ├── designsystem/             # AppTheme, tokens, App* components, nav chrome
-│   ├── datastore/                # Appearance + per-user wallet preference cache
+│   ├── datastore/                # Appearance, language + per-user wallet preference cache
 │   └── network/                  # SupabaseClient, storage URL resolver, error mapping
 ├── feature/
 │   ├── auth/                     # Login / Register
 │   ├── topup/                    # Top-up home, recharge flow, catalog, detection
 │   ├── transactionhistory/       # History list + detail + share
-│   └── settings/                 # Appearance, account, logout
+│   └── settings/                 # Appearance, language, account, logout
 ├── shared/
 │   └── transaction/              # Domain + Room cache + sync (used by top-up & history)
 ├── supabase/                     # Migrations, process-recharge function, config, tests
@@ -244,6 +261,7 @@ Feature and shared modules follow the same internal layout:
 - **Typed multi-module navigation** — `@Serializable` routes, callback intents from features, single router in `AppNavGraph`.
 - **Adaptive navigation** — floating bar vs rail from `MaterialTheme.deviceType` width class.
 - **Design-system consistency** — screens consume `AppTheme` semantic tokens (`appColorScheme`, `appTypography`, `appSpacing`, `appShapes`) rather than ad-hoc colors and type styles.
+- **Runtime localization** — English / Myanmar via DataStore + Compose configuration-context locale (`ProvideAppLocale`); shared language bottom sheet; no Activity recreate.
 - **Configuration-change resilience** — ViewModel / navigation state preserve selections across rotation without unnecessary catalog reloads (wallet refresh is throttled).
 
 ---
@@ -342,7 +360,7 @@ Backend verification (optional, needs Supabase credentials / throwaway accounts)
 GitHub Actions builds a signed **release APK** and uploads it to **Firebase App Distribution** (no Play Store).
 
 - Workflow: [`.github/workflows/firebase-app-distribution.yml`](.github/workflows/firebase-app-distribution.yml)
-- Triggers: push to `master` or `release/**`, or manual **Actions → Firebase App Distribution → Run workflow**
+- Triggers: push to `release/**`, or manual **Actions → Firebase App Distribution → Run workflow**
 - Setup (secrets, keystore Base64, tester groups, troubleshooting): [`docs/ci-cd/firebase-app-distribution.md`](docs/ci-cd/firebase-app-distribution.md)
 
 ---
@@ -358,10 +376,10 @@ GitHub Actions builds a signed **release APK** and uploads it to **Firebase App 
 | **Catalog / wallet / recharge** | `feature/topup/` (`data/`, `domain/usecase/`, recharge presentation) |
 | **Transaction domain + Room** | `shared/transaction/` |
 | **History + receipt share** | `feature/transactionhistory/` |
-| **Appearance & logout** | `feature/settings/` |
-| **Design system** | `core/designsystem/` (`theme/`, `components/`) |
+| **Appearance, language & logout** | `feature/settings/` (+ language picker on auth screens) |
+| **Design system** | `core/designsystem/` (`theme/`, `components/`, `locale/`) |
 | **Supabase client** | `core/network/` |
-| **Wallet / theme prefs** | `core/datastore/` |
+| **Wallet / theme / language prefs** | `core/datastore/` |
 | **SQL migrations & Edge Function** | `supabase/migrations/`, `supabase/functions/process-recharge/` |
 | **Product & current state** | `docs/product/PRD.md`, `docs/CURRENT_STATE.md`, `docs/navigation/architecture.md` |
 
